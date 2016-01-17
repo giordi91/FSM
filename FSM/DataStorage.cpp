@@ -17,6 +17,7 @@ namespace FSM
 	}
 	size_t DataStorage::size(const DataType type) const
 	{
+		//switch case to pick up the correct container 
 		switch (type)
 		{
 		case DataType::BOOL:
