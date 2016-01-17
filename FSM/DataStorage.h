@@ -45,13 +45,31 @@ namespace FSM
 		size_t size(const DataType type) const ;
 		size_t total_size() const;
 	private:
-
+		template<typename T>
+		inline Status __get_value(unordered_map<string, T>& container, 
+								const string& name, 
+								T& value)const;
 	private:
 		unordered_map<string, bool> m_bool_storage;
 		unordered_map<string, int> m_int_storage;
 		unordered_map<string, float> m_float_storage;
 	};
 
+
+	template<typename T>
+	inline Status DataStorage::__get_value(unordered_map<string, T>& container, 
+										 const string & name, 
+										 T& value) const
+	{
+
+		auto it = container.find(name);
+		if (it != container.end())
+		{
+			value = it->second;
+			return Status::Succes;
+		}
+		return Status::Failure;
+	}
 
 }
 

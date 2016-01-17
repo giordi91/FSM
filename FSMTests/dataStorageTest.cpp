@@ -80,3 +80,74 @@ TEST_F(dataStorageFixture, set_all)
 	
 
 }
+
+TEST_F(dataStorageFixture, bool_getter)
+{
+	bool value;
+	FSM::Status s = dt.get_value("notExisting", value);
+	ASSERT_EQ(s , FSM::Status::Failure);
+
+	dt.set_value("exists", true);
+	value = false;
+	s = dt.get_value("exists", value);
+	ASSERT_EQ(s , FSM::Status::Succes);
+	ASSERT_EQ(value , true);
+}
+
+TEST_F(dataStorageFixture, int_getter)
+{
+	int value;
+	FSM::Status s = dt.get_value("notExisting", value);
+	ASSERT_EQ(s , FSM::Status::Failure);
+
+	dt.set_value("exists", 134972);
+	value = 0;
+	s = dt.get_value("exists", value);
+	ASSERT_EQ(s , FSM::Status::Succes);
+	ASSERT_EQ(value, 134972);
+}
+
+TEST_F(dataStorageFixture, float_getter)
+{
+	float value;
+	FSM::Status s = dt.get_value("notExisting", value);
+	ASSERT_EQ(s , FSM::Status::Failure);
+
+	dt.set_value("exists", 3.14f);
+	value = 0;
+	s = dt.get_value("exists", value);
+	ASSERT_EQ(s , FSM::Status::Succes);
+	ASSERT_EQ(value, 3.14f);
+}
+TEST_F(dataStorageFixture, getter_all)
+{
+	bool b_value;
+	FSM::Status s = dt.get_value("notExisting", b_value);
+	ASSERT_EQ(s, FSM::Status::Failure);
+
+	dt.set_value("exists", true);
+	b_value = false;
+	s = dt.get_value("exists", b_value);
+	ASSERT_EQ(s, FSM::Status::Succes);
+	ASSERT_EQ(b_value, true);
+
+	int i_value;
+	s = dt.get_value("notExisting", i_value);
+	ASSERT_EQ(s, FSM::Status::Failure);
+
+	dt.set_value("exists", 134972);
+	i_value = 0;
+	s = dt.get_value("exists", i_value);
+	ASSERT_EQ(s, FSM::Status::Succes);
+	ASSERT_EQ(i_value, 134972);
+
+	float f_value;
+	s = dt.get_value("notExisting", f_value);
+	ASSERT_EQ(s, FSM::Status::Failure);
+
+	dt.set_value("exists", 3.14f);
+	f_value = 0;
+	s = dt.get_value("exists", f_value);
+	ASSERT_EQ(s, FSM::Status::Succes);
+	ASSERT_EQ(f_value, 3.14f);
+}

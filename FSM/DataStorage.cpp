@@ -5,18 +5,15 @@ namespace FSM
 {
 	Status DataStorage::get_value(const string & name, bool & value)
 	{
-#ifdef _DEBUG
-		std::cout << "debug mode" << std::endl;
-#endif 
-		return Status();
+		return __get_value<bool>(m_bool_storage, name, value);
 	}
 	Status DataStorage::get_value(const string & name, int & value)
 	{
-		return Status();
+		return __get_value<int>(m_int_storage, name, value);
 	}
 	Status DataStorage::get_value(const string & name, float & value)
 	{
-		return Status();
+		return __get_value<float>(m_float_storage, name, value);
 	}
 	size_t DataStorage::size(const DataType type) const
 	{
