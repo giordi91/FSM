@@ -25,13 +25,31 @@ namespace FSM
 		DataStorage() = default;
 		~DataStorage() = default;
 
-		Status get_value(string& name, bool& value);
-		Status get_value(string& name, int& value);
-		Status get_value(string& name, float& value);
+		Status get_value(const string& name, bool& value);
+		Status get_value(const string& name, int& value);
+		Status get_value(const string& name, float& value);
+	
+		inline void set_value(const string& name, bool value) 
+		{
+			m_bool_storage.emplace(name, value);
+		}
+		inline void set_value(const string& name, int value)
+		{
+			m_int_storage.emplace(name, value);
+		}
+		inline void set_value(const string& name, float value)
+		{
+			m_float_storage.emplace(name, value);
+		}
+
+		size_t size(const DataType type) const ;
+		size_t total_size() const;
 	private:
-		unordered_map<string, bool> gm_bool_storage;
-		unordered_map<string, int> gm_int_storage;
-		unordered_map<string, float> gm_float_storage;
+
+	private:
+		unordered_map<string, bool> m_bool_storage;
+		unordered_map<string, int> m_int_storage;
+		unordered_map<string, float> m_float_storage;
 	};
 
 
