@@ -24,12 +24,18 @@
     <ClInclude Include="DataStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Condition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FSM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DataStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Condition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

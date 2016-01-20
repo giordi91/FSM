@@ -137,10 +137,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Condition.h" />
     <ClInclude Include="DataStorage.h" />
     <ClInclude Include="FSM.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Condition.cpp" />
     <ClCompile Include="DataStorage.cpp" />
     <ClCompile Include="FSM.cpp" />
   </ItemGroup>
