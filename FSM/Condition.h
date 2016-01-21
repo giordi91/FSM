@@ -29,27 +29,38 @@ protected:
 
 
 template <typename T,typename R>
-class TypedCondition
+class TypedCondition: public Condition
 {
 public :
 
-	TypedCondition(DataStorage * data)
-	{
-		__check_key_type<T>(m_key_type_1);
-		__check_key_type<R>(m_key_type_2);
-	};
+	TypedCondition(DataStorage * data,
+				   string& key_1_name,
+				   string& key_2_name): 
+				   Condition(data),
+				   m_key_1_name(key_1_name),
+				   m_key_2_name(key_2_name)
+	{ };
 	virtual ~TypedCondition()=default;
-	inline DataType get_key_1_type() const
+	
+	bool evaluate() override
 	{
-		return m_key_type_1;
+		return (get_value_1() > get_value_2());
 	}
 
-	inline DataType get_key_2_type() const
+	inline T get_value_1()
 	{
-		return m_key_type_2;
+		m_data->get_value(m_key_1_name, m_key_1_value);
+		return m_key_1_value;
 	}
 
+	inline R get_value_2()
+	{
+		m_data->get_value(m_key_2_name, m_key_2_value);
+		return m_key_2_value;
+	}
 private:
+	
+	/*
 	template<typename X>
 	inline void __check_key_type(DataType& type)
 	{
@@ -70,10 +81,12 @@ private:
 			type = DataType::BOOL;
 		}
 	}
+	*/
 
 private:
+	T m_key_1_value;
+	R m_key_2_value;
+	string m_key_1_name;
+	string m_key_2_name;
 
-	DataType m_key_type_1;
-	DataType m_key_type_2;
 };
-
