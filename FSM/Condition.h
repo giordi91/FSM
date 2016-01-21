@@ -117,4 +117,51 @@ namespace FSM
 		Operation m_op;
 
 	};
+	
+	template <typename T>
+	class TypedCondition: public Condition
+	{
+	public:
+	
+		TypedCondition(DataStorage * data,
+			string& key_name,
+			T compare_to_value,
+			Operation op) :
+			Condition(data),
+			m_key_name(key_name),
+			m_compare_to_value(m_compare_to_value),
+			m_op(op)
+		{ };
+		virtual ~TypedCondition() = default;
+
+		inline T get_value()
+		{
+			m_data->get_value(m_key_name, m_key_value);
+			return m_key_value;
+		}
+		bool evaluate() override
+		{
+			m_data->get_value(m_key_name, m_key_value);
+			switch (m_op)
+			{
+			case Operation::EQUAL:
+			{ return m_key_value == m_compare_to_value; }
+			case Operation::GREATHER:
+			{ return m_key_value > m_compare_to_value; }
+			case Operation::LESS:
+			{ return m_key_value < m_compare_to_value; }
+			case Operation::GREATHEREQUAL:
+			{ return m_key_value >= m_compare_to_value; }
+			case Operation::LESSEQUAL:
+			{ return m_key_value <= m_compare_to_value; }
+			default:
+			{return true; }
+			}
+		}
+	private:
+		T m_key_value;
+		string m_key_name;
+		T m_compare_to_value;
+		Operation m_op;
+	};
 }

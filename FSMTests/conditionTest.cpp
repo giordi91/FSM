@@ -6,10 +6,11 @@
 #include "Condition.h"
 using namespace testing;
 using FSM::DoubleVarCondition;
+using FSM::TypedCondition;
 using FSM::DataType;
 using FSM::Operation;
 
-TEST(condition_test, float_testing)
+TEST(double_var_condition_test, float_testing)
 {
 	DataStorage tmp;
 	string k1 = "x";
@@ -42,7 +43,7 @@ TEST(condition_test, float_testing)
 
 
 
-TEST(condition_test, mixed)
+TEST(double_var_condition_test, mixed)
 {
 	DataStorage tmp;
 	string k1 = "x";
@@ -61,3 +62,18 @@ TEST(condition_test, mixed)
 	ASSERT_EQ(cond3.evaluate(), false);
 }
 
+TEST(typed_condition_test, bool)
+{
+	DataStorage tmp;
+	string k1 = "x";
+	string k2 = "y";
+	tmp.set_value(k1, false);
+	tmp.set_value(k2, true);
+	TypedCondition<bool> cond(&tmp,k1, true, Operation::EQUAL);
+	ASSERT_EQ(cond.evaluate(), false);
+	
+	tmp.set_value(k1, true);
+	tmp.set_value(k2, true);
+	TypedCondition<bool> cond2(&tmp,k1, true, Operation::EQUAL);
+	ASSERT_EQ(cond2.evaluate(), true);
+}
