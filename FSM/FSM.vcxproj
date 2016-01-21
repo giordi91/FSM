@@ -142,7 +142,6 @@
     <ClInclude Include="FSM.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Condition.cpp" />
     <ClCompile Include="DataStorage.cpp" />
     <ClCompile Include="FSM.cpp" />
   </ItemGroup>

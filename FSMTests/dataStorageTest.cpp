@@ -76,8 +76,19 @@ TEST_F(dataStorageFixture, set_all)
 	dt.set_value(key, 41);
 	ASSERT_EQ(dt.size(FSM::DataType::INT), 2);
 	ASSERT_EQ(dt.total_size(), 6);
+}
 
-	
+TEST_F(dataStorageFixture, rewrite_same_key)
+{
+	std::string key  = "testInt";
+	dt.set_value(key, 10);
+	int value;
+	dt.get_value(key, value);
+
+	ASSERT_EQ(value,10);
+	dt.set_value(key, 44);
+	dt.get_value(key, value);
+	ASSERT_EQ(value,44);
 
 }
 

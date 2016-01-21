@@ -78,7 +78,7 @@ namespace FSM
 		*/
 		inline void set_value(const string& name, bool value) 
 		{
-			m_bool_storage.emplace(name, value);
+			m_bool_storage[name]= value;
 		}
 		
 		/**
@@ -88,7 +88,7 @@ namespace FSM
 		*/
 		inline void set_value(const string& name, int value)
 		{
-			m_int_storage.emplace(name, value);
+			m_int_storage[name]= value;
 		}
 
 		/**
@@ -98,7 +98,7 @@ namespace FSM
 		*/
 		inline void set_value(const string& name, float value)
 		{
-			m_float_storage.emplace(name, value);
+			m_float_storage[name]= value;
 		}
 		/**
 		@brief: Gets the size of a specific internal container
