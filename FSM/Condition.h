@@ -86,6 +86,8 @@ namespace FSM
 			m_data->get_value(m_key_1_name, m_key_1_value);
 			m_data->get_value(m_key_2_name, m_key_2_value);
 		}
+		//keeping this around just because I am curious to see 
+		//if the compiler is able to optimize the branches out
 		/*
 		template<typename X>
 		inline void __check_key_type(DataType& type)
@@ -129,7 +131,7 @@ namespace FSM
 			Operation op) :
 			Condition(data),
 			m_key_name(key_name),
-			m_compare_to_value(m_compare_to_value),
+			m_compare_to_value(compare_to_value),
 			m_op(op)
 		{ };
 		virtual ~TypedCondition() = default;

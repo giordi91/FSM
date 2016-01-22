@@ -72,8 +72,7 @@ TEST(typed_condition_test, bool)
 	TypedCondition<bool> cond(&tmp,k1, true, Operation::EQUAL);
 	ASSERT_EQ(cond.evaluate(), false);
 	
-	tmp.set_value(k1, true);
-	tmp.set_value(k2, true);
+	tmp.set_value(k1, (bool)true);
 	TypedCondition<bool> cond2(&tmp,k1, true, Operation::EQUAL);
 	ASSERT_EQ(cond2.evaluate(), true);
 }

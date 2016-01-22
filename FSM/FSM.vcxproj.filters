@@ -27,12 +27,24 @@
     <ClInclude Include="Condition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FSM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DataStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Connection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
