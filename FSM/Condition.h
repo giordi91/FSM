@@ -134,6 +134,7 @@ namespace FSM
 			m_compare_to_value(compare_to_value),
 			m_op(op)
 		{ };
+
 		virtual ~TypedCondition() = default;
 
 		inline T get_value()

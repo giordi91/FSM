@@ -24,5 +24,8 @@
     <ClCompile Include="conditionTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connetionTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
