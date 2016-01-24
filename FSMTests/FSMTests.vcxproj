@@ -153,9 +153,7 @@
     <ClCompile Include="conditionTest.cpp" />
     <ClCompile Include="connectionTest.cpp" />
     <ClCompile Include="dataStorageTest.cpp" />
-    <ClCompile Include="dummy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="fsmTest.cpp" />
     <ClCompile Include="stateTest.cpp" />
   </ItemGroup>
   <ItemGroup>
