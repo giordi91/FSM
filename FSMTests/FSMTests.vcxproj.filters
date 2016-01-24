@@ -15,19 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dataStorageTest.cpp">
+    <ClCompile Include="conditionUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="conditionTest.cpp">
+    <ClCompile Include="connectionUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stateTest.cpp">
+    <ClCompile Include="dataStorageUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connectionTest.cpp">
+    <ClCompile Include="fsmUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fsmTest.cpp">
+    <ClCompile Include="stateUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

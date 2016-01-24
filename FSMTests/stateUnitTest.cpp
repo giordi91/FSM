@@ -13,14 +13,15 @@ using FSM::Operation;
 using FSM::Connection;
 using FSM::Condition;
 using FSM::State;
+using FSM::GenericState;
 using std::unique_ptr;
 
 
 
 TEST_F(connectionCreation, evaluating_state)
 {
-	FSM::State state1 = State("state1");
-	FSM::State state2 = State("state2");
+	GenericState state1("state1");
+	GenericState state2("state2");
 
 	Connection conn(&state1, &state2);
 	conn.add_condition(tp1.get());

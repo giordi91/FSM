@@ -36,6 +36,12 @@ namespace FSM
 
 		inline void update()
 		{
+			if (m_current != nullptr)
+			{
+				std::cout << "getting" << std::endl;
+				std::cout << m_current->get_name();
+				m_current=m_current->transition();
+			}
 
 		}
 

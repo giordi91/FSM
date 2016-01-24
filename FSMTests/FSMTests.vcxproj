@@ -150,11 +150,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="conditionTest.cpp" />
-    <ClCompile Include="connectionTest.cpp" />
-    <ClCompile Include="dataStorageTest.cpp" />
-    <ClCompile Include="fsmTest.cpp" />
-    <ClCompile Include="stateTest.cpp" />
+    <ClCompile Include="conditionUnitTest.cpp" />
+    <ClCompile Include="connectionUnitTest.cpp" />
+    <ClCompile Include="dataStorageUnitTest.cpp" />
+    <ClCompile Include="fsmUnitTest.cpp" />
+    <ClCompile Include="stateUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fixtures.h" />
