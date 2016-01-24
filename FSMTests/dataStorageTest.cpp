@@ -1,15 +1,13 @@
 
 #include <gmock/gmock.h> 
 #include <string>
-#include <fstream>
-#include <iostream>
 #include "DataStorage.h"
 using namespace testing;
 
 struct dataStorageFixture: public Test
 {
 	FSM::DataStorage dt;
-	virtual void SetUp()
+	virtual void SetUp() override
 	{
 		
 	}

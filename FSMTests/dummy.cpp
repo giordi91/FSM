@@ -1,7 +1,5 @@
 #include <gmock/gmock.h> 
-#include <string>
 #include <fstream>
-#include <iostream>
 #include "FSM.h"
 using namespace testing;
 

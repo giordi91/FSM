@@ -27,11 +27,11 @@ namespace FSM
 			State* destination
 			) : m_source(source), m_destination(destination) {};
 		~Connection() = default;
-		
+
 		/**
 		@brief evaluate the condition and wether should transition
-		@returns bool, wether the combined result of the condition is 
-					   true or false, if no condition are present 
+		@returns bool, wether the combined result of the condition is
+					   true or false, if no condition are present
 					   returns true
 		*/
 		inline bool evaluate()
@@ -48,7 +48,9 @@ namespace FSM
 		@param condition: pointer to the condition to add
 		*/
 		inline void add_condition(Condition * condition)
-		{ m_condtitions.push_back(condition); }
+		{
+			m_condtitions.push_back(condition);
+		}
 
 		/**
 		@brief returns number of condition in the connection
@@ -56,8 +58,26 @@ namespace FSM
 		connection, it is mainly for debug purpose
 		*/
 		inline size_t conditions_count()  const
-		{ return m_condtitions.size(); }
+		{
+			return m_condtitions.size();
+		}
+		/**
+		@brief getter function for destination state
+		@returns: the destination state pointer
+		*/
+		inline State * get_destination() const
+		{
+			return m_destination;
+		}
 
+		/**
+		@brief getter function for source state
+		@returns: the source state pointer
+		*/
+		inline State * get_source() const
+		{
+			return m_source;
+		}
 	private:
 		//internal storage for the pointers
 		State* m_source;
