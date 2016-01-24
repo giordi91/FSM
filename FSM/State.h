@@ -48,10 +48,9 @@ namespace FSM
 					return con->get_destination();
 				}
 			}
-
 			return this;
-
 		};
+
 		/**
 		@brief Getter method for the state name
 		@returns a const ref to the name
