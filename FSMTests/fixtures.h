@@ -46,3 +46,5 @@ struct connectionCreation : public Test
 		dv2 = std::make_unique<DoubleVarCondition<int>>(&dt, s5, s6, Operation::EQUAL);
 	}
 };
+
+

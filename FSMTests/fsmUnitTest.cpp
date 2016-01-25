@@ -1,22 +1,12 @@
 #include <gmock/gmock.h> 
 #include <string>
 #include <memory>
-#include "fixtures.h" 
-#include "Condition.h"
-#include "Connection.h"
 #include "State.h"
 #include "FSM.h"
 using namespace testing;
-using FSM::DoubleVarCondition;
-using FSM::TypedCondition;
-using FSM::DataType;
-using FSM::Operation;
-using FSM::Connection;
-using FSM::Condition;
 using FSM::GenericState;
-using FSM::State;
-using std::unique_ptr;
 using FSM::FiniteStateMachine;
+using std::unique_ptr;
 
 
 class MockState: public State 
@@ -25,12 +15,10 @@ class MockState: public State
 public:
 	MockState(string name) :State(name) {}
 	MOCK_METHOD0(transition, State*());
-
-
 };
 
 
-struct fsmCreation: public Test
+struct fsmStateFixture: public Test
 {
 	FSM::DataStorage dt;
 	unique_ptr<FiniteStateMachine> fsm;
@@ -40,13 +28,8 @@ struct fsmCreation: public Test
 	GenericState jumping;
 	GenericState diving;
 
-	//MockConditon * tp1;
-	//MockConditon tp2;
-	//MockConditon dv1;
-	//MockConditon dv2;
-	string s1, s2, s3, s4, s5, s6;
 	
-	fsmCreation(): 
+	fsmStateFixture(): 
 					ducking("ducking"),
 					standing("standing"),
 					jumping("jumping"),
@@ -59,14 +42,14 @@ struct fsmCreation: public Test
 	}
 };
 
-TEST_F(fsmCreation, assert_no_curr_state)
+TEST_F(fsmStateFixture, assert_no_curr_state)
 {
 	ASSERT_EQ(fsm->get_states_count(), 0);
 	ASSERT_EQ(fsm->get_current_state(), nullptr);
 	ASSERT_EQ(fsm->get_current_state_name(), "");
 }
 
-TEST_F(fsmCreation, assert_state_current_after_insertion)
+TEST_F(fsmStateFixture, assert_state_current_after_insertion)
 {
 	fsm->add_state(&ducking);
 	
@@ -88,7 +71,7 @@ TEST_F(fsmCreation, assert_state_current_after_insertion)
 	ASSERT_EQ(fsm->get_current_state_name(), "ducking");
 }
 
-TEST_F(fsmCreation, simple_state_transition)
+TEST_F(fsmStateFixture, simple_state_transition)
 {
 	EXPECT_CALL(standing, transition())
 		.WillOnce(Return(&ducking));

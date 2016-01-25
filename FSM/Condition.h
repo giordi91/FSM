@@ -157,7 +157,7 @@ namespace FSM
 		@param op: the operation we want to perform, greather , equal etc
 		*/
 		TypedCondition(DataStorage * data,
-			string& key_name,
+			string key_name,
 			T compare_to_value,
 			Operation op) :
 			Condition(data),
