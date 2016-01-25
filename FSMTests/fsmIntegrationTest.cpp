@@ -147,13 +147,20 @@ TEST_F(fsmIntegrationFixture, diving_transition)
 
 TEST_F(fsmIntegrationFixture, complex_iterations)
 {
-	"TO FINISH"
-	dt.set_value("jumping", true);
+	dt.set_value("ducking", true);
 	fsm->update();
+	dt.set_value("standing", true);
+	dt.set_value("ducking", true);
+	fsm->update();
+	ASSERT_EQ(fsm->get_current_state(), &standing);
+	dt.set_value("jumping", true);
+	dt.set_value("standing", false);
+	dt.set_value("ducking", false);
+	fsm->update();
+	ASSERT_EQ(fsm->get_current_state(), &jumping);
+	dt.set_value("jumping", true);
 	dt.set_value("diving", true);
 	fsm->update();
-	ASSERT_EQ(fsm->get_current_state(), &diving);
-	dt.set_value("diving", false);
 	ASSERT_EQ(fsm->get_current_state(), &diving);
 }
 

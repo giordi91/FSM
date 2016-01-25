@@ -155,7 +155,6 @@
     <ClCompile Include="connectionUnitTest.cpp" />
     <ClCompile Include="dataStorageUnitTest.cpp" />
     <ClCompile Include="fsmUnitTest.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="stateUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
