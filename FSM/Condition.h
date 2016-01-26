@@ -39,6 +39,7 @@ namespace FSM
 		Pure virtual function returning the result of the condition
 		*/
 		virtual bool evaluate() = 0;
+		virtual std::string serialize() =0;
 		virtual ~Condition() = default;
 
 	protected:
@@ -99,6 +100,11 @@ namespace FSM
 			}
 		}
 		
+		virtual std::string serialize() override
+		{
+			std::cout << "to be implemented" << std::endl;
+			return string();
+		}
 		/**
 		@brief getter function for the first key value
 		@returns T value of the key
@@ -204,6 +210,13 @@ namespace FSM
 			{return true; }
 			}
 		}
+		
+		virtual string serialize() override
+		{
+			std::cout << "to be implemented" << std::endl;
+			return string();
+		}
+	
 	private:
 		//storage for the key value
 		T m_key_value;

@@ -90,7 +90,7 @@ struct fsmIntegrationFixture: public Test
 		ducking_standing->add_condition(is_standing.get());
 		standing_ducking->add_condition(is_ducking.get());
 		standing_jumping->add_condition(is_jumping.get());
-		jumping_diving->add_condition(is_jumping.get());
+		//jumping_diving->add_condition(is_jumping.get());
 		jumping_diving->add_condition(is_diving.get());
 
 
