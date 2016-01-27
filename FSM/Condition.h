@@ -243,11 +243,24 @@ namespace FSM
 		
 		virtual string serialize() override
 		{
-			std::cout << "to be implemented" << std::endl;
-			return string();
+			auto t = typeid(T).name();
+			string s = (FSM::Serialize::OPEN_TAG + m_class_name);
+			s += "<";
+			s += t;
+			s += ">";
+			s += FSM::Serialize::TYPE_SEP ;
+			s += m_key_name;
+			s += Serialize::ARGS_SEP;
+			s += Serialize::number_to_string<T>(m_compare_to_value);
+			s += Serialize::ARGS_SEP;
+			s += OperationMap.find(m_op)->second;
+			s += FSM::Serialize::CLOSE_TAG;
+				
+			return s;
 		}
 	
 	private:
+		static const string m_class_name;
 		//storage for the key value
 		T m_key_value;
 		//storage for the key nane
@@ -257,6 +270,9 @@ namespace FSM
 		//storage for the operation
 		Operation m_op;
 	};
+	
+	template <typename T>
+	const string TypedCondition<T>::m_class_name("TypedCondition");
 }
 //keeping this around just because I am curious to see 
 //if the compiler is able to optimize the branches out

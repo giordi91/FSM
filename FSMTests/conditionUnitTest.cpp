@@ -60,6 +60,32 @@ TEST(double_var_condition_test, mixed)
 	ASSERT_EQ(cond3.evaluate(), false);
 }
 
+TEST(DoubleVarCondition, serialization)
+{
+
+	DataStorage tmp;
+	string k1 = "x";
+	string k2 = "y";
+	DoubleVarCondition<float> cond(&tmp,k1, k2, Operation::GREATHER);
+	string cond_str=  cond.serialize() ;
+	string to_check("<< DoubleVarCondition<float> ### x , y , greather >>");
+	ASSERT_EQ(cond_str, to_check);
+	
+	 k1 = "jump";
+	 k2 = "air_time";
+	DoubleVarCondition<float> cond2(&tmp,k1, k2, Operation::GREATHER);
+	cond_str=  cond2.serialize() ;
+	to_check = ("<< DoubleVarCondition<float> ### jump , air_time , greather >>");
+	ASSERT_EQ(cond_str, to_check);
+	
+	 k1 = "swim";
+	 k2 = "down";
+	DoubleVarCondition<bool> cond3(&tmp,k1, k2, Operation::EQUAL);
+	cond_str=  cond3.serialize() ;
+	to_check = ("<< DoubleVarCondition<bool> ### swim , down , equal >>");
+	ASSERT_EQ(cond_str, to_check);
+}
+
 TEST(typed_condition_test, bool_testing)
 {
 	DataStorage tmp;
@@ -75,14 +101,21 @@ TEST(typed_condition_test, bool_testing)
 	ASSERT_EQ(cond2.evaluate(), true);
 }
 
-TEST(DoubleVarCondition, serialization)
+
+TEST(typed_condition_test, serialization)
 {
 
 	DataStorage tmp;
 	string k1 = "x";
 	string k2 = "y";
-	tmp.set_value(k1, 10.0f);
-	tmp.set_value(k2, 20.0f);
-	DoubleVarCondition<float> cond(&tmp,k1, k2, Operation::GREATHER);
-	std::cout << cond.serialize() << std::endl;
+	TypedCondition<float> cond(&tmp, k1, 1.0f, Operation::GREATHER);
+	string cond_str = cond.serialize();
+	string to_check("<< TypedCondition<float> ### x , 1.00000 , greather >>");
+	ASSERT_EQ(cond_str, to_check);
+	
+	k1 = "jump";
+	TypedCondition<bool> cond2(&tmp, k1, false , Operation::EQUAL);
+	cond_str = cond2.serialize();
+	to_check=("<< TypedCondition<bool> ### jump , 0 , equal >>");
+	ASSERT_EQ(cond_str, to_check);
 }
