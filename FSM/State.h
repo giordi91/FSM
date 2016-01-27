@@ -46,6 +46,9 @@ namespace FSM
 			return m_name;
 		}
 
+		virtual const string serialize() const = 0;
+		
+
 	protected:
 		//storagfe for the connection pointers
 		vector<Connection*> m_connections;
@@ -67,6 +70,7 @@ namespace FSM
 		*/
 		virtual State * transition() override;
 
+		virtual const string serialize() const override;
 
 	};
 }

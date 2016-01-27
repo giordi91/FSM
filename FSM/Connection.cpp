@@ -13,15 +13,13 @@ namespace FSM
 			s += m_destination->get_name();
 			s += FSM::Serialize::CLOSE_TAG;
 			s += "\n";
-			s += Serialize::CONDITION_TAG;
-			s += "\n";
-			
 			for (auto cond : m_condtitions)
 			{
 				s += cond->serialize();
 				s += "\n";
 			}
-			s += Serialize::CONDITION_TAG;
+			s += Serialize::CONNECTIONS_TAG;
+			s += "\n";
 			return s;
 	}
 }

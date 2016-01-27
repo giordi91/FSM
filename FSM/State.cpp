@@ -14,5 +14,12 @@ namespace FSM
 		}
 		return this;
 	};
+	
+	const string GenericState::serialize() const
+	{
+		return string();
+	
+	
+	}
 
 }
