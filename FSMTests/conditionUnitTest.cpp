@@ -60,7 +60,7 @@ TEST(double_var_condition_test, mixed)
 	ASSERT_EQ(cond3.evaluate(), false);
 }
 
-TEST(typed_condition_test, bool)
+TEST(typed_condition_test, bool_testing)
 {
 	DataStorage tmp;
 	string k1 = "x";
@@ -73,4 +73,16 @@ TEST(typed_condition_test, bool)
 	tmp.set_value(k1, true);
 	TypedCondition<bool> cond2(&tmp,k1, true, Operation::EQUAL);
 	ASSERT_EQ(cond2.evaluate(), true);
+}
+
+TEST(DoubleVarCondition, serialization)
+{
+
+	DataStorage tmp;
+	string k1 = "x";
+	string k2 = "y";
+	tmp.set_value(k1, 10.0f);
+	tmp.set_value(k2, 20.0f);
+	DoubleVarCondition<float> cond(&tmp,k1, k2, Operation::GREATHER);
+	std::cout << cond.serialize() << std::endl;
 }

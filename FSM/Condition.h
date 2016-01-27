@@ -1,15 +1,19 @@
 #pragma once
 #include "DataStorage.h"
+#include "Serialize.h"
+#include <unordered_map>
 using std::string;
 using FSM::DataStorage;
 using FSM::DataType;
 
+using std::unordered_map;
 
 namespace FSM
 {
 	/**
 	@brief enum stating the comparison operation to perform
 	*/
+	
 	enum class Operation
 	{
 		EQUAL = 0,
@@ -19,7 +23,16 @@ namespace FSM
 		LESSEQUAL,
 
 	};
+
 	
+	const unordered_map< Operation, string> OperationMap
+	{
+		{ Operation::EQUAL,			"equal"},
+		{ Operation::GREATHER,		"greather"},
+		{ Operation::LESS,			"less"},
+		{ Operation::GREATHEREQUAL, "greaterequal"},
+		{ Operation::EQUAL,			"lessequal"}
+	};
 	/**
 	@brief, base class for all the condition classes
 	A condition class encapsulate a comparison between two values,
@@ -102,8 +115,20 @@ namespace FSM
 		
 		virtual std::string serialize() override
 		{
-			std::cout << "to be implemented" << std::endl;
-			return string();
+			auto t = typeid(T).name();
+			string s = (FSM::Serialize::OPEN_TAG + m_class_name);
+			s += "<";
+			s += t;
+			s += ">";
+			s += FSM::Serialize::TYPE_SEP ;
+			s += m_key_1_name;
+			s += " , ";
+			s += m_key_2_name;
+			s += " , ";
+			s += OperationMap.find(m_op)->second;
+			s += FSM::Serialize::CLOSE_TAG;
+				
+			return s;
 		}
 		/**
 		@brief getter function for the first key value
@@ -135,6 +160,9 @@ namespace FSM
 			m_data->get_value(m_key_1_name, m_key_1_value);
 			m_data->get_value(m_key_2_name, m_key_2_value);
 		}
+
+	public :
+		static const string m_class_name;
 	private:
 		//the two key value storages when evaluated
 		T m_key_1_value;
@@ -146,7 +174,9 @@ namespace FSM
 		Operation m_op;
 
 	};
-	
+	template <typename T>
+	const string DoubleVarCondition<T>::m_class_name("DoubleVarCondition");
+
 	/**
 	@brief implements evaluation between a key and a static value 
 	*/

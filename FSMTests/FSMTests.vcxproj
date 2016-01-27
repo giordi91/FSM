@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\FSM\Serialize.cpp" />
     <ClCompile Include="fsmIntegrationTest.cpp" />
     <ClCompile Include="conditionUnitTest.cpp" />
     <ClCompile Include="connectionUnitTest.cpp" />
