@@ -52,7 +52,7 @@ namespace FSM
 		Pure virtual function returning the result of the condition
 		*/
 		virtual bool evaluate() = 0;
-		virtual std::string serialize() =0;
+		virtual const std::string serialize() const =0;
 		virtual ~Condition() = default;
 
 	protected:
@@ -113,7 +113,7 @@ namespace FSM
 			}
 		}
 		
-		virtual std::string serialize() override
+		virtual const std::string serialize() const override
 		{
 			auto t = typeid(T).name();
 			string s = (FSM::Serialize::OPEN_TAG + m_class_name);
@@ -241,7 +241,7 @@ namespace FSM
 			}
 		}
 		
-		virtual string serialize() override
+		virtual const string serialize() const override 
 		{
 			auto t = typeid(T).name();
 			string s = (FSM::Serialize::OPEN_TAG + m_class_name);

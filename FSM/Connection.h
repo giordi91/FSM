@@ -1,12 +1,11 @@
 #pragma once
 #include <vector>
 #include "Condition.h"
+#include "State.h"
 using std::vector;
 
 namespace FSM
 {
-	class State;
-
 	/**
 	@brief class that represent a connection between two states 
 	This calss will be associated with a state, a source, and 
@@ -43,6 +42,8 @@ namespace FSM
 			}
 			return val;
 		};
+		
+		const string serialize() const;
 		/**
 		@brief add a condition to the connection
 		@param condition: pointer to the condition to add
@@ -79,11 +80,14 @@ namespace FSM
 			return m_source;
 		}
 	private:
+
+		static const string m_class_name;
 		//internal storage for the pointers
 		State* m_source;
 		State* m_destination;
 		//vector of pointers for the conditions
 		vector<Condition*> m_condtitions;
+	
 	};
 }
 

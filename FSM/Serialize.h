@@ -14,6 +14,7 @@ namespace FSM
 		const string OPEN_TAG = "<< ";
 		const string CLOSE_TAG = " >>";
 		const size_t FLOAT_PRECISION = 5;
+		const string CONDITION_TAG = "<<< CONDITIONS >>>";
 
 		template<typename T>
 		inline string number_to_string(T number)

@@ -13,6 +13,7 @@ using FSM::Operation;
 using FSM::Connection;
 using FSM::Condition;
 using std::unique_ptr;
+using FSM::State;
 
 
 
@@ -48,3 +49,11 @@ struct connectionCreation : public Test
 };
 
 
+class MockState: public State 
+{
+	
+public:
+	MockState(string name) :State(name) {}
+	MOCK_METHOD0(transition, State*());
+	MOCK_METHOD0(get_name, string());
+};

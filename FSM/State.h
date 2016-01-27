@@ -1,12 +1,13 @@
 #pragma once
 #include <vector>
-#include "Connection.h"
 using std::vector;
 using std::string;
 
+
+
 namespace FSM
 {
-
+	class Connection;
 	class State
 	{
 	public:
@@ -34,8 +35,7 @@ namespace FSM
 		@returns : returns a pointer to the next state, if none of the
 		connections evaluate to true will return a pointer to itself
 		*/
-		virtual inline State * transition()=0
-		{ };
+		virtual State * transition() = 0;
 
 		/**
 		@brief Getter method for the state name
@@ -65,17 +65,7 @@ namespace FSM
 		@returns : returns a pointer to the next state, if none of the
 		connections evaluate to true will return a pointer to itself
 		*/
-		virtual inline State * transition()
-		{
-			for (auto con : m_connections)
-			{
-				if (con->evaluate())
-				{
-					return con->get_destination();
-				}
-			}
-			return this;
-		};
+		virtual State * transition() override;
 
 
 	};

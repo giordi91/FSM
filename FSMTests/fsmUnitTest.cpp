@@ -3,19 +3,13 @@
 #include <memory>
 #include "State.h"
 #include "FSM.h"
+#include "fixtures.h"
 using namespace testing;
 using FSM::GenericState;
 using FSM::FiniteStateMachine;
 using std::unique_ptr;
 
 
-class MockState: public State 
-{
-	
-public:
-	MockState(string name) :State(name) {}
-	MOCK_METHOD0(transition, State*());
-};
 
 
 struct fsmStateFixture: public Test
