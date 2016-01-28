@@ -1,0 +1,22 @@
+<< FiniteStateMachine ### fsm >>
+<< GenericState ### standing >>
+<< Connection ### standing , ducking >>
+<< TypedCondition<bool> ### ducking , 1 , equal >>
+<<< CONDITIONS >>>
+<< Connection ### standing , jumping >>
+<< TypedCondition<bool> ### jumping , 1 , equal >>
+<<< CONDITIONS >>>
+<<< CONNECTIONS >>>
+<< GenericState ### ducking >>
+<< Connection ### ducking , standing >>
+<< TypedCondition<bool> ### standing , 1 , equal >>
+<<< CONDITIONS >>>
+<<< CONNECTIONS >>>
+<< GenericState ### jumping >>
+<< Connection ### jumping , diving >>
+<< TypedCondition<bool> ### diving , 1 , equal >>
+<<< CONDITIONS >>>
+<<< CONNECTIONS >>>
+<< GenericState ### diving >>
+<<< CONNECTIONS >>>
+<<< STATES >>>

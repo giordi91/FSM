@@ -1,4 +1,5 @@
 #include <gmock/gmock.h> 
+#include <fstream>
 #include <string>
 #include <memory>
 #include "fixtures.h" 
@@ -144,7 +145,7 @@ TEST_F(fsmIntegrationFixture, diving_transition)
 	ASSERT_EQ(fsm->get_current_state(), &diving);
 }
 
-TEST_F(fsmIntegrationFixture, complex_iterations)
+TEST_F(fsmIntegrationFixture, complex_serialization)
 {
 	dt.set_value("ducking", true);
 	fsm->update();
@@ -163,3 +164,17 @@ TEST_F(fsmIntegrationFixture, complex_iterations)
 	ASSERT_EQ(fsm->get_current_state(), &diving);
 }
 
+TEST_F(fsmIntegrationFixture, complex_iterations)
+{
+	string check = fsm->serialize();
+	//std::cout << check << std::endl;
+	
+	//under visual studio path is set relative to the root might
+	//need to find a better way to have relative path to the test file
+	std::ifstream t("../FSMTests/data/serialized1.txt");
+	std::stringstream buffer;
+	buffer << t.rdbuf();
+	string expected = buffer.str();
+	ASSERT_EQ(check, expected);
+
+}

@@ -18,8 +18,7 @@ namespace FSM
 				s += cond->serialize();
 				s += "\n";
 			}
-			s += Serialize::CONNECTIONS_TAG;
-			s += "\n";
+			s += Serialize::CONDITIONS_TAG;
 			return s;
 	}
 }

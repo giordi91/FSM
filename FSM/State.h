@@ -72,6 +72,9 @@ namespace FSM
 
 		virtual const string serialize() const override;
 
+	private:
+		static const string m_class_name;
+
 	};
 }
 

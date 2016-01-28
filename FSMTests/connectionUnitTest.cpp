@@ -70,7 +70,7 @@ TEST_F(connectionCreation, serializing_connection)
 	string expected("<< Connection ### rocking , brick >>\n"
 		"<< TypedCondition<bool> ### x , 0 , equal >>\n"
 		"<< TypedCondition<float> ### y , 10.00000 , less >>\n"
-		"<<< CONNECTIONS >>>\n");
+		"<<< CONDITIONS >>>");
 	ASSERT_EQ(expected, check);
 	
 	Connection conn2(&state1, &state2);
@@ -81,7 +81,7 @@ TEST_F(connectionCreation, serializing_connection)
 	expected =("<< Connection ### rocking , brick >>\n"
 			   "<< DoubleVarCondition<float> ### z , w , greather >>\n"
 			   "<< DoubleVarCondition<int> ### h , i , equal >>\n"
-			   "<<< CONNECTIONS >>>\n");
+			   "<<< CONDITIONS >>>");
 	ASSERT_EQ(expected, check);
 
 }

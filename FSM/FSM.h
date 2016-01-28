@@ -65,7 +65,10 @@ namespace FSM
 			}
 		}
 
+
+		const string serialize() const;
 	private:
+		static const string m_class_name;
 		string m_name;
 		DataStorage* m_data;
 		State * m_current;
