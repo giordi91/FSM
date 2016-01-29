@@ -3,8 +3,9 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
-
+#include <regex>
 using std::string;
+
 namespace FSM
 {
 	namespace Serialize
@@ -18,6 +19,7 @@ namespace FSM
 		const string CONNECTIONS_TAG = "<<< CONNECTIONS >>>";
 		const string STATES_TAG = "<<< STATES >>>";
 
+		
 		template<typename T>
 		inline string number_to_string(T number)
 		{
@@ -25,6 +27,10 @@ namespace FSM
 			stream << std::fixed << std::setprecision(FLOAT_PRECISION) << number;
 			return stream.str();
 		}
+
+
+		void decode_condition();
+			
 	}
 
 }

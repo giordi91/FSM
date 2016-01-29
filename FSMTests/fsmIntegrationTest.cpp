@@ -176,5 +176,4 @@ TEST_F(fsmIntegrationFixture, complex_iterations)
 	buffer << t.rdbuf();
 	string expected = buffer.str();
 	ASSERT_EQ(check, expected);
-
 }

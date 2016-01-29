@@ -2,9 +2,7 @@
 #include "Serialize.h"
 namespace FSM
 {
-
 	const string FiniteStateMachine::m_class_name="FiniteStateMachine";
-
 	const string FiniteStateMachine::serialize() const
 	{
 			string s = (FSM::Serialize::OPEN_TAG + m_class_name );

@@ -2,6 +2,7 @@
 #include <gmock/gmock.h> 
 #include <string>
 #include "Condition.h"
+#include "DeSerialize.h"
 using namespace testing;
 using FSM::DoubleVarCondition;
 using FSM::TypedCondition;
@@ -118,4 +119,25 @@ TEST(typed_condition_test, serialization)
 	cond_str = cond2.serialize();
 	to_check=("<< TypedCondition<bool> ### jump , 0 , equal >>");
 	ASSERT_EQ(cond_str, to_check);
+}
+
+
+TEST(typed_condition_test, type_extraction)
+{
+	string temp = "<< TypedCondition<bool> ### ducking , 1 , equal >>";
+	string t = FSM::Serialize::extract_type(temp);
+	ASSERT_EQ(t , "TypedCondition<bool>");
+
+	string crap = "sjfslfjslj";
+	t = FSM::Serialize::extract_type(crap);
+	ASSERT_EQ(t , "");
+	
+	temp = "<< DoubleVarCondition<int> ### ducking , 1 , equal >>";
+	t = FSM::Serialize::extract_type(temp);
+	ASSERT_EQ(t , "DoubleVarCondition<int>");
+}
+
+TEST(typed_condition_test, decoding_TypedCondition)
+{
+
 }

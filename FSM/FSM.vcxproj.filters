@@ -36,6 +36,9 @@
     <ClInclude Include="Serialize.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeSerialize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FSM.cpp">
@@ -48,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serialize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeSerialize.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

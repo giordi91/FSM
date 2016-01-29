@@ -140,6 +140,7 @@
     <ClInclude Include="Condition.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DataStorage.h" />
+    <ClInclude Include="DeSerialize.h" />
     <ClInclude Include="FSM.h" />
     <ClInclude Include="Serialize.h" />
     <ClInclude Include="State.h" />
@@ -147,7 +148,9 @@
   <ItemGroup>
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DataStorage.cpp" />
+    <ClCompile Include="DeSerialize.cpp" />
     <ClCompile Include="FSM.cpp" />
+    <ClCompile Include="Serialize.cpp" />
     <ClCompile Include="State.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
