@@ -142,6 +142,7 @@
     <ClInclude Include="DataStorage.h" />
     <ClInclude Include="DeSerialize.h" />
     <ClInclude Include="FSM.h" />
+    <ClInclude Include="FSMFactory.h" />
     <ClInclude Include="Serialize.h" />
     <ClInclude Include="State.h" />
   </ItemGroup>
@@ -150,6 +151,7 @@
     <ClCompile Include="DataStorage.cpp" />
     <ClCompile Include="DeSerialize.cpp" />
     <ClCompile Include="FSM.cpp" />
+    <ClCompile Include="FSMFactory.cpp" />
     <ClCompile Include="Serialize.cpp" />
     <ClCompile Include="State.cpp" />
   </ItemGroup>

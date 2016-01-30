@@ -1,12 +1,17 @@
 #pragma once
 #include "DataStorage.h"
 #include "Serialize.h"
+#include <memory>
 #include <unordered_map>
+#include <vector>
 using std::string;
 using FSM::DataStorage;
 using FSM::DataType;
-
+using std::vector;
 using std::unordered_map;
+using std::unique_ptr;
+
+typedef vector<string> ClassArgs;
 
 namespace FSM
 {
@@ -52,7 +57,7 @@ namespace FSM
 		Pure virtual function returning the result of the condition
 		*/
 		virtual bool evaluate() = 0;
-		virtual const std::string serialize() const =0;
+		virtual const string serialize() const =0;
 		virtual ~Condition() = default;
 
 	protected:
@@ -67,12 +72,12 @@ namespace FSM
 	key, both keys resides in the data storage, aka two variables
 	*/
 	template <typename T>
-	class DoubleVarCondition: public Condition
+	class DoubleVarCondition : public Condition
 	{
 	public:
 		/**
 		@brief Constructor
-		@param data: pointer to the data storage	
+		@param data: pointer to the data storage
 		@param key_1_name: the name of the first key of the condition
 		@param key_2_name: the name of the second key of the condition
 		@param op: the operation we want to perform, greather , equal etc
@@ -87,7 +92,7 @@ namespace FSM
 			m_op(op)
 		{ };
 		virtual ~DoubleVarCondition() = default;
-		
+
 		/**
 		@briefThis function evaluates the condition and returns wheter
 		is true or not
@@ -112,23 +117,34 @@ namespace FSM
 			{return true; }
 			}
 		}
-		
-		virtual const std::string serialize() const override
+
+
+		virtual const string serialize() const override
 		{
 			auto t = typeid(T).name();
 			string s = (FSM::Serialize::OPEN_TAG + m_class_name);
 			s += "<";
 			s += t;
 			s += ">";
-			s += FSM::Serialize::TYPE_SEP ;
+			s += FSM::Serialize::TYPE_SEP;
 			s += m_key_1_name;
 			s += " , ";
 			s += m_key_2_name;
 			s += " , ";
 			s += OperationMap.find(m_op)->second;
 			s += FSM::Serialize::CLOSE_TAG;
-				
+
 			return s;
+		}
+
+		static unique_ptr<Condition> de_serialize(DataStorage* dt, 
+												  ClassArgs& args)
+		{
+			unique_ptr<Condition> ptr = std::make_unique<DoubleVarCondition<T>>( dt,
+																args[0],
+																args[1],
+																Operation::EQUAL);
+			return ptr;
 		}
 		/**
 		@brief getter function for the first key value

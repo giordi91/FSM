@@ -4,7 +4,7 @@ namespace FSM
 {
 	namespace Serialize
 	{
-
+		
 		string extract_type(string& data)
 		{
 			std::smatch type_match;
