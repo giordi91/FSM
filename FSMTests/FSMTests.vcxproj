@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="deSerializeTests.cpp" />
     <ClCompile Include="fsmIntegrationTest.cpp" />
     <ClCompile Include="conditionUnitTest.cpp" />
     <ClCompile Include="connectionUnitTest.cpp" />

@@ -137,7 +137,10 @@ TEST(typed_condition_test, type_extraction)
 	ASSERT_EQ(t , "DoubleVarCondition<int>");
 }
 
+
 TEST(typed_condition_test, decoding_TypedCondition)
 {
 
 }
+
+
