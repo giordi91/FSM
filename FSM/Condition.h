@@ -4,6 +4,8 @@
 #include <memory>
 #include <unordered_map>
 #include <vector>
+#include <type_traits>
+
 using std::string;
 using FSM::DataStorage;
 using FSM::DataType;
@@ -71,9 +73,13 @@ namespace FSM
 	The comparison operation will be triggered between the two provided
 	key, both keys resides in the data storage, aka two variables
 	*/
-	template <typename T>
+	//template < typename T ,
+	//	typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
+	//>
+	template<typename T>
 	class DoubleVarCondition : public Condition
 	{
+
 	public:
 		/**
 		@brief Constructor
@@ -141,7 +147,6 @@ namespace FSM
 		{
 			
 			int op_int = std::stoi(args[2]);
-			std::cout << op_int << std::endl;
 			Operation op = static_cast<Operation>(op_int);
 			unique_ptr<Condition> ptr = std::make_unique<DoubleVarCondition<T>>( dt,
 																args[0],
@@ -201,7 +206,11 @@ namespace FSM
 		string m_key_2_name;
 
 	};
-	template <typename T>
+
+	//template < typename T,
+	//	typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
+	//>
+	template<typename T>
 	const string DoubleVarCondition<T>::m_class_name("DoubleVarCondition");
 
 	/**
@@ -240,6 +249,16 @@ namespace FSM
 		{
 			m_data->get_value(m_key_name, m_key_value);
 			return m_key_value;
+		}
+		inline const string& get_key_name() const
+		{
+			return m_key_name;
+		}
+
+		inline const T get_compare_value() const
+		{
+			return m_compare_to_value;
+		
 		}
 
 		/**
@@ -285,6 +304,19 @@ namespace FSM
 			return s;
 		}
 	
+		static unique_ptr<Condition> de_serialize(DataStorage* dt, 
+												  ClassArgs& args)
+		{
+			int op_int = std::stoi(args[2]);
+			Operation op = static_cast<Operation>(op_int);
+
+			T value = Serialize::string_to_number<T>(args[1]);
+			unique_ptr<Condition> ptr = std::make_unique<TypedCondition<T>>( dt,
+																args[0],
+																value,
+																op);
+			return ptr;
+		}
 	private:
 		static const string m_class_name;
 		//storage for the key value

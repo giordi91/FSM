@@ -142,3 +142,32 @@ TEST(typed_condition_test, serialization)
 	to_check=("<< TypedCondition<bool> ### jump , 0 , 0 >>");
 	ASSERT_EQ(cond_str, to_check);
 }
+TEST(typed_condition_test, deserialization)
+{
+	string temp = "<< TypedCondition<bool> ### ducking , 1 , 0 >>";
+	DataStorage* dt = nullptr;
+	auto args = FSM::Serialize::extract_args(temp);
+	auto cond  = TypedCondition<bool>::de_serialize(dt,args);
+	auto cond_pt = static_cast<TypedCondition<bool>*>(cond.get());
+	ASSERT_EQ(cond_pt->get_operation(), Operation::EQUAL);
+	ASSERT_EQ(cond_pt->get_key_name(), string("ducking"));
+	ASSERT_EQ(cond_pt->get_compare_value(), true);
+
+	temp = "<< TypedCondition<int> ### lolling , 12 , 2 >>";
+	args = FSM::Serialize::extract_args(temp);
+	cond  = TypedCondition<int>::de_serialize(dt,args);
+	auto cond_pt2 = static_cast<TypedCondition<int>*>(cond.get());
+
+	ASSERT_EQ(cond_pt2->get_operation(), Operation::LESS);
+	ASSERT_EQ(cond_pt2->get_key_name(), string("lolling"));
+	ASSERT_EQ(cond_pt2->get_compare_value(), 12 );
+	
+	temp = "<< TypedCondition<int> ### testing , 0 , 1 >>";
+	args = FSM::Serialize::extract_args(temp);
+	cond  = TypedCondition<bool>::de_serialize(dt,args);
+	auto cond_pt3 = static_cast<TypedCondition<bool>*>(cond.get());
+
+	ASSERT_EQ(cond_pt3->get_operation(), Operation::GREATHER);
+	ASSERT_EQ(cond_pt3->get_key_name(), string("testing"));
+	ASSERT_EQ(cond_pt3->get_compare_value(), false );
+}

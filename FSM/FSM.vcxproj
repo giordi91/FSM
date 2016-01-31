@@ -152,7 +152,6 @@
     <ClCompile Include="DeSerialize.cpp" />
     <ClCompile Include="FSM.cpp" />
     <ClCompile Include="FSMFactory.cpp" />
-    <ClCompile Include="Serialize.cpp" />
     <ClCompile Include="State.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

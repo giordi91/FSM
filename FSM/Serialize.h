@@ -27,9 +27,44 @@ namespace FSM
 			stream << std::fixed << std::setprecision(FLOAT_PRECISION) << number;
 			return stream.str();
 		}
+		
+		//converting string to number is a messy business, 
+		//when you get also a template in the mix, well stuff
+		//get hairy. What I eneded up doing is the folloing,
+		//I created a generic function that converts to double,
+		//in order to try keep max resolution , then we do a static
+		//cast on the template type, compiler might get a bit upset
+		//based on the type.
+		//Now we specialize tho handle basic specific types like int, bool,
+		//float.
+		template<typename T>
+		inline T string_to_number(string& value)
+		{
+			double double_value= std::stod(args[1]);
+			T value = static_cast<T>(double_value);
+			return value;
+		}
+		
+		template<> 
+		inline bool string_to_number(string& string_value)
+		{
+			bool value = std::stoi(string_value)==1;
+			return value;
+		}
 
-
-			
+		template<> 
+		inline int string_to_number(string& string_value)
+		{
+			int value = std::stoi(string_value);
+			return value;
+		}
+		
+		template<> 
+		inline float string_to_number(string& string_value)
+		{
+			float value = std::stof(string_value)==0;
+			return value;
+		}
 	}
 
 }

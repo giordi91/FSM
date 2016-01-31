@@ -56,9 +56,6 @@
     <ClCompile Include="Connection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Serialize.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DeSerialize.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
