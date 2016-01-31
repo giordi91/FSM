@@ -89,11 +89,24 @@ TEST(DoubleVarCondition, serialization)
 
 TEST(DoubleVarCondition, deserialization)
 {
-	string temp = "<< DoubleVarCondition<bool> ### ducking , 1 , 0 >>";
-	DataStorage dt;
+	string temp = "<< DoubleVarCondition<bool> ### ducking , swim , 0 >>";
+	DataStorage* dt = nullptr;
 	auto args = FSM::Serialize::extract_args(temp);
-	auto cond  = DoubleVarCondition<bool>::de_serialize(&dt,args);
+	auto cond  = DoubleVarCondition<bool>::de_serialize(dt,args);
+	auto cond_pt = static_cast<DoubleVarCondition<bool>*>(cond.get());
+
+	ASSERT_EQ(cond_pt->get_operation(), Operation::EQUAL);
+	ASSERT_EQ(cond_pt->get_key_name_1(), string("ducking"));
+	ASSERT_EQ(cond_pt->get_key_name_2(), string("swim"));
 	
+	temp = "<< DoubleVarCondition<int> ### lolling , crapping , 2 >>";
+	args = FSM::Serialize::extract_args(temp);
+	cond  = DoubleVarCondition<int>::de_serialize(dt,args);
+	auto cond_pt2 = static_cast<DoubleVarCondition<int>*>(cond.get());
+
+	ASSERT_EQ(cond_pt2->get_operation(), Operation::LESS);
+	ASSERT_EQ(cond_pt2->get_key_name_1(), string("lolling"));
+	ASSERT_EQ(cond_pt2->get_key_name_2(), string("crapping"));
 }
 
 TEST(typed_condition_test, bool_testing)
@@ -129,23 +142,3 @@ TEST(typed_condition_test, serialization)
 	to_check=("<< TypedCondition<bool> ### jump , 0 , 0 >>");
 	ASSERT_EQ(cond_str, to_check);
 }
-
-
-TEST(typed_condition_test, type_extraction)
-{
-	string temp = "<< TypedCondition<bool> ### ducking , 1 , 0 >>";
-	string t = FSM::Serialize::extract_type(temp);
-	ASSERT_EQ(t , "TypedCondition<bool>");
-
-	string crap = "sjfslfjslj";
-	t = FSM::Serialize::extract_type(crap);
-	ASSERT_EQ(t , "");
-	
-	temp = "<< DoubleVarCondition<int> ### ducking , 1 , 0 >>";
-	t = FSM::Serialize::extract_type(temp);
-	ASSERT_EQ(t , "DoubleVarCondition<int>");
-}
-
-
-
-

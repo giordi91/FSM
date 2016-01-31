@@ -29,7 +29,6 @@ namespace FSM
 		}
 
 
-		void decode_condition();
 			
 	}
 

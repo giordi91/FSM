@@ -28,16 +28,7 @@ namespace FSM
 		LESSEQUAL,
 
 	};
-
 	
-	const unordered_map< Operation, string> OperationMap
-	{
-		{ Operation::EQUAL,			"equal"},
-		{ Operation::GREATHER,		"greather"},
-		{ Operation::LESS,			"less"},
-		{ Operation::GREATHEREQUAL, "greaterequal"},
-		{ Operation::EQUAL,			"lessequal"}
-	};
 	/**
 	@brief, base class for all the condition classes
 	A condition class encapsulate a comparison between two values,
@@ -52,7 +43,7 @@ namespace FSM
 					 will use it internally to query the value and 
 					 evaluate the condition.
 		*/
-		Condition(DataStorage * data) : m_data(data) {}
+		Condition(DataStorage * data, Operation op) : m_data(data), m_op(op) {}
 		/**
 		Pure virtual function returning the result of the condition
 		*/
@@ -60,9 +51,18 @@ namespace FSM
 		virtual const string serialize() const =0;
 		virtual ~Condition() = default;
 
+		/**
+		@brief getter function for operation, mainly debug purpose 
+		@returns Operation 
+		*/
+		inline Operation get_operation()
+		{
+			return m_op;
+		}
 	protected:
 		//pointer to the data storage
 		DataStorage * m_data;
+		Operation m_op;
 
 	};
 
@@ -86,11 +86,10 @@ namespace FSM
 			string& key_1_name,
 			string& key_2_name,
 			Operation op) :
-			Condition(data),
+			Condition(data, op),
 			m_key_1_name(key_1_name),
-			m_key_2_name(key_2_name),
-			m_op(op)
-		{ };
+			m_key_2_name(key_2_name)
+			{ };
 		virtual ~DoubleVarCondition() = default;
 
 		/**
@@ -131,7 +130,6 @@ namespace FSM
 			s += " , ";
 			s += m_key_2_name;
 			s += " , ";
-			//s += OperationMap.find(m_op)->second;
 			s += Serialize::number_to_string<int>(static_cast<int>(m_op));
 			s += FSM::Serialize::CLOSE_TAG;
 
@@ -141,10 +139,14 @@ namespace FSM
 		static unique_ptr<Condition> de_serialize(DataStorage* dt, 
 												  ClassArgs& args)
 		{
+			
+			int op_int = std::stoi(args[2]);
+			std::cout << op_int << std::endl;
+			Operation op = static_cast<Operation>(op_int);
 			unique_ptr<Condition> ptr = std::make_unique<DoubleVarCondition<T>>( dt,
 																args[0],
 																args[1],
-																Operation::EQUAL);
+																op);
 			return ptr;
 		}
 		/**
@@ -167,6 +169,16 @@ namespace FSM
 			return m_key_2_value;
 		}
 
+		inline const string& get_key_name_1() const
+		{
+			return m_key_1_name;
+		}
+		
+		inline const string& get_key_name_2() const
+		{
+			return m_key_2_name;
+		}
+
 
 	private:
 		/*
@@ -187,8 +199,6 @@ namespace FSM
 		//storage for the two key names
 		string m_key_1_name;
 		string m_key_2_name;
-		//storage for the operation type
-		Operation m_op;
 
 	};
 	template <typename T>
@@ -213,11 +223,10 @@ namespace FSM
 			string key_name,
 			T compare_to_value,
 			Operation op) :
-			Condition(data),
+			Condition(data, op),
 			m_key_name(key_name),
-			m_compare_to_value(compare_to_value),
-			m_op(op)
-		{ };
+			m_compare_to_value(compare_to_value)
+			{ };
 		/**
 		Destructor
 		*/
@@ -270,7 +279,6 @@ namespace FSM
 			s += Serialize::ARGS_SEP;
 			s += Serialize::number_to_string<T>(m_compare_to_value);
 			s += Serialize::ARGS_SEP;
-			//s += OperationMap.find(m_op)->second;
 			s += Serialize::number_to_string<int>(static_cast<int>(m_op));
 			s += FSM::Serialize::CLOSE_TAG;
 				
@@ -285,8 +293,6 @@ namespace FSM
 		string m_key_name;
 		//storage for the comparison value
 		T m_compare_to_value;
-		//storage for the operation
-		Operation m_op;
 	};
 	
 	template <typename T>
