@@ -131,7 +131,8 @@ namespace FSM
 			s += " , ";
 			s += m_key_2_name;
 			s += " , ";
-			s += OperationMap.find(m_op)->second;
+			//s += OperationMap.find(m_op)->second;
+			s += Serialize::number_to_string<int>(static_cast<int>(m_op));
 			s += FSM::Serialize::CLOSE_TAG;
 
 			return s;
@@ -269,7 +270,8 @@ namespace FSM
 			s += Serialize::ARGS_SEP;
 			s += Serialize::number_to_string<T>(m_compare_to_value);
 			s += Serialize::ARGS_SEP;
-			s += OperationMap.find(m_op)->second;
+			//s += OperationMap.find(m_op)->second;
+			s += Serialize::number_to_string<int>(static_cast<int>(m_op));
 			s += FSM::Serialize::CLOSE_TAG;
 				
 			return s;

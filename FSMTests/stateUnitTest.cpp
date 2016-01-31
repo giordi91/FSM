@@ -44,7 +44,7 @@ TEST_F(connectionCreation, serialize_state)
 	string check = state1.serialize();
 	string expected("<< GenericState ### state1 >>\n"
 					"<< Connection ### state1 , state2 >>\n"
-					"<< TypedCondition<bool> ### x , 0 , equal >>\n"
+					"<< TypedCondition<bool> ### x , 0 , 0 >>\n"
 					"<<< CONDITIONS >>>\n"
 					"<<< CONNECTIONS >>>");
 
@@ -60,11 +60,11 @@ TEST_F(connectionCreation, serialize_state)
 	check = state1.serialize();
 	expected = ("<< GenericState ### state1 >>\n"
 				"<< Connection ### state1 , state2 >>\n"
-				"<< TypedCondition<bool> ### x , 0 , equal >>\n"
+				"<< TypedCondition<bool> ### x , 0 , 0 >>\n"
 				"<<< CONDITIONS >>>\n"
 				"<< Connection ### state1 , state2 >>\n"
-				"<< TypedCondition<float> ### y , 10.00000 , less >>\n"
-				"<< DoubleVarCondition<float> ### z , w , greather >>\n"
+				"<< TypedCondition<float> ### y , 10.00000 , 2 >>\n"
+				"<< DoubleVarCondition<float> ### z , w , 1 >>\n"
 				"<<< CONDITIONS >>>\n"
 				"<<< CONNECTIONS >>>" );
 	ASSERT_EQ(check, expected);

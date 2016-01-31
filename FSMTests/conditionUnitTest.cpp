@@ -69,22 +69,31 @@ TEST(DoubleVarCondition, serialization)
 	string k2 = "y";
 	DoubleVarCondition<float> cond(&tmp,k1, k2, Operation::GREATHER);
 	string cond_str=  cond.serialize() ;
-	string to_check("<< DoubleVarCondition<float> ### x , y , greather >>");
+	string to_check("<< DoubleVarCondition<float> ### x , y , 1 >>");
 	ASSERT_EQ(cond_str, to_check);
 	
 	 k1 = "jump";
 	 k2 = "air_time";
 	DoubleVarCondition<float> cond2(&tmp,k1, k2, Operation::GREATHER);
 	cond_str=  cond2.serialize() ;
-	to_check = ("<< DoubleVarCondition<float> ### jump , air_time , greather >>");
+	to_check = ("<< DoubleVarCondition<float> ### jump , air_time , 1 >>");
 	ASSERT_EQ(cond_str, to_check);
 	
 	 k1 = "swim";
 	 k2 = "down";
 	DoubleVarCondition<bool> cond3(&tmp,k1, k2, Operation::EQUAL);
 	cond_str=  cond3.serialize() ;
-	to_check = ("<< DoubleVarCondition<bool> ### swim , down , equal >>");
+	to_check = ("<< DoubleVarCondition<bool> ### swim , down , 0 >>");
 	ASSERT_EQ(cond_str, to_check);
+}
+
+TEST(DoubleVarCondition, deserialization)
+{
+	string temp = "<< DoubleVarCondition<bool> ### ducking , 1 , 0 >>";
+	DataStorage dt;
+	auto args = FSM::Serialize::extract_args(temp);
+	auto cond  = DoubleVarCondition<bool>::de_serialize(&dt,args);
+	
 }
 
 TEST(typed_condition_test, bool_testing)
@@ -111,20 +120,20 @@ TEST(typed_condition_test, serialization)
 	string k2 = "y";
 	TypedCondition<float> cond(&tmp, k1, 1.0f, Operation::GREATHER);
 	string cond_str = cond.serialize();
-	string to_check("<< TypedCondition<float> ### x , 1.00000 , greather >>");
+	string to_check("<< TypedCondition<float> ### x , 1.00000 , 1 >>");
 	ASSERT_EQ(cond_str, to_check);
 	
 	k1 = "jump";
 	TypedCondition<bool> cond2(&tmp, k1, false , Operation::EQUAL);
 	cond_str = cond2.serialize();
-	to_check=("<< TypedCondition<bool> ### jump , 0 , equal >>");
+	to_check=("<< TypedCondition<bool> ### jump , 0 , 0 >>");
 	ASSERT_EQ(cond_str, to_check);
 }
 
 
 TEST(typed_condition_test, type_extraction)
 {
-	string temp = "<< TypedCondition<bool> ### ducking , 1 , equal >>";
+	string temp = "<< TypedCondition<bool> ### ducking , 1 , 0 >>";
 	string t = FSM::Serialize::extract_type(temp);
 	ASSERT_EQ(t , "TypedCondition<bool>");
 
@@ -132,15 +141,11 @@ TEST(typed_condition_test, type_extraction)
 	t = FSM::Serialize::extract_type(crap);
 	ASSERT_EQ(t , "");
 	
-	temp = "<< DoubleVarCondition<int> ### ducking , 1 , equal >>";
+	temp = "<< DoubleVarCondition<int> ### ducking , 1 , 0 >>";
 	t = FSM::Serialize::extract_type(temp);
 	ASSERT_EQ(t , "DoubleVarCondition<int>");
 }
 
 
-TEST(typed_condition_test, decoding_TypedCondition)
-{
-
-}
 
 

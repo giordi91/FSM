@@ -68,8 +68,8 @@ TEST_F(connectionCreation, serializing_connection)
 	conn.add_condition(static_cast<FSM::Condition*>(tp2.get()));
 	string check= conn.serialize();
 	string expected("<< Connection ### rocking , brick >>\n"
-		"<< TypedCondition<bool> ### x , 0 , equal >>\n"
-		"<< TypedCondition<float> ### y , 10.00000 , less >>\n"
+		"<< TypedCondition<bool> ### x , 0 , 0 >>\n"
+		"<< TypedCondition<float> ### y , 10.00000 , 2 >>\n"
 		"<<< CONDITIONS >>>");
 	ASSERT_EQ(expected, check);
 	
@@ -79,8 +79,8 @@ TEST_F(connectionCreation, serializing_connection)
 
 	check= conn2.serialize();
 	expected =("<< Connection ### rocking , brick >>\n"
-			   "<< DoubleVarCondition<float> ### z , w , greather >>\n"
-			   "<< DoubleVarCondition<int> ### h , i , equal >>\n"
+			   "<< DoubleVarCondition<float> ### z , w , 1 >>\n"
+			   "<< DoubleVarCondition<int> ### h , i , 0 >>\n"
 			   "<<< CONDITIONS >>>");
 	ASSERT_EQ(expected, check);
 
