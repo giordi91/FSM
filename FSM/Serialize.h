@@ -62,7 +62,7 @@ namespace FSM
 		template<> 
 		inline float string_to_number(string& string_value)
 		{
-			float value = std::stof(string_value)==0;
+			float value = std::stof(string_value);
 			return value;
 		}
 	}

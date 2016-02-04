@@ -14,13 +14,15 @@ namespace FSM
 	Condition * FSMFactory::generate_condtition(string data)
 	{
 		string type = FSM::Serialize::extract_type(data);
-		//auto fun_obj = FSM::Serialize::ConditionsMap.;
-		auto fun_it = FSM::Serialize::condition_map.find(type);
-		if (fun_it != FSM::Serialize::condition_map.end())
+		ClassArgs args = FSM::Serialize::extract_args(data);
+		
+		auto fun_it = FSM::condition_map.find(type);
+		if (fun_it != FSM::condition_map.end())
 		{
-			//fun_it->second()
-			string args_string;
-
+			auto cond = fun_it->second(&m_dt, args);
+			m_conditions.push(std::move(cond));
+			auto ptr = m_conditions.top().get();
+			return ptr;
 		}
 		else
 		{

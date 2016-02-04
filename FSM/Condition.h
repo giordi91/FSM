@@ -68,15 +68,27 @@ namespace FSM
 
 	};
 
+	//template < typename T ,
+	//	typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
+	//>
+	
+	/*	
+	template< typename T> //real type > 
+	struct S {
+		static_assert(std::is_arithmetic<T>::value, "SHIT");
+		static T value; };
+	
+
+	template< typename T> //real type > 
+	T S<T>::value = true;
+	*/
+
 	/**
 	@brief implements evaluatoin between two different keys	
 	The comparison operation will be triggered between the two provided
 	key, both keys resides in the data storage, aka two variables
 	*/
-	//template < typename T ,
-	//	typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
-	//>
-	template<typename T>
+	template<typename T  >
 	class DoubleVarCondition : public Condition
 	{
 

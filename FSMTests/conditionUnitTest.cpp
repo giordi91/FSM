@@ -170,4 +170,5 @@ TEST(typed_condition_test, deserialization)
 	ASSERT_EQ(cond_pt3->get_operation(), Operation::GREATHER);
 	ASSERT_EQ(cond_pt3->get_key_name(), string("testing"));
 	ASSERT_EQ(cond_pt3->get_compare_value(), false );
+
 }

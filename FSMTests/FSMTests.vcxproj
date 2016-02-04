@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="deSerializeTests.cpp" />
+    <ClCompile Include="FSMFactoryUnitTest.cpp" />
     <ClCompile Include="fsmIntegrationTest.cpp" />
     <ClCompile Include="conditionUnitTest.cpp" />
     <ClCompile Include="connectionUnitTest.cpp" />
