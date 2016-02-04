@@ -54,11 +54,10 @@ TEST(factory, full_typed_var_condition)
 	ASSERT_EQ(cond->evaluate(), true);
 	dt->set_value("hacking", true);
 	ASSERT_EQ(cond->evaluate(), false);
+
 	temp = "<< TypedCondition<float> ### lacking , 1.32345 , 2 >>";
 	cond = fact.generate_condtition(temp);
 	dt->set_value("lacking", 12.2f);
-
-	auto condc = (FSM::DoubleVarCondition<int>*)cond;
 	ASSERT_EQ(cond->evaluate(), false);
 
 	dt->set_value("lacking", 0.12012f);

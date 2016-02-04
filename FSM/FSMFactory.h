@@ -4,6 +4,7 @@
 #include <memory>
 #include <stack>
 #include "Condition.h"
+#include "Connection.h"
 #include "DeSerialize.h"
 #include "DataStorage.h"
 
@@ -40,7 +41,8 @@ namespace FSM
 			return &m_dt;
 		}
 		Condition* generate_condtition(string data);
-
+		//data = fist the connection , all the other rows a conditions
+		Connection* generate_connection(vector<string>& data);
 	private:
 		DataStorage m_dt;
 		stack<unique_ptr<Condition>> m_conditions;
