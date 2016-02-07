@@ -1,5 +1,6 @@
 #include "DeSerialize.h"
-
+#include <sstream>
+#include <fstream>
 namespace FSM
 {
 	namespace Serialize
@@ -40,6 +41,44 @@ namespace FSM
 			}
 
 			return args;
+		}
+
+		void read_conditions_from_file(std::ifstream & file, 
+										std::vector<string>& data)
+		{
+			string line;
+			std::getline(file, line);
+			std::smatch type_match;
+			std::regex_search(line, type_match, REG_END_CONDITIONS);
+
+			while (type_match.size() == 0)
+			{
+				data.push_back(line);
+				std::getline(file, line);
+				std::regex_search(line, type_match, REG_END_CONDITIONS);
+			}
+		}
+		void read_connection_from_file(std::ifstream & file, vector<string>& connection_data,
+											 vector<vector<string>>& condition_data)
+		{
+			string line;
+			std::getline(file, line);
+			std::smatch type_match;
+			std::regex_search(line, type_match, REG_END_CONNECTION);
+			
+			int counter = 1;
+			vector<string> cond_sub_data;
+			condition_data.clear();
+			while (type_match.size() == 0)
+			{
+				//pushing back conneciton line
+				connection_data.push_back(line);
+				read_conditions_from_file(file, cond_sub_data);
+				condition_data.push_back(cond_sub_data);
+				cond_sub_data.clear();
+				std::getline(file, line);
+				std::regex_search(line, type_match, REG_END_CONNECTION);
+			}
 		}
 	}
 }

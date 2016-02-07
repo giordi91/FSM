@@ -7,6 +7,7 @@
 #include "Connection.h"
 #include "DeSerialize.h"
 #include "DataStorage.h"
+#include "FSM.h"
 
 using FSM::Condition;
 using std::unordered_map;
@@ -63,13 +64,15 @@ namespace FSM
 		Connection* generate_connection(vector<string>& data);
 		State *  generate_state(string& state_data, 
 								vector<vector<string>>& conn_data);
+
+		FiniteStateMachine * generate_fsm_from_file(string path);
 	private:
 		DataStorage m_dt;
 		stack<unique_ptr<Condition>> m_conditions;
 		stack<unique_ptr<Connection>> m_connections;
 		unordered_map<string, unique_ptr<State>> m_states;
-
-
+		
+		unordered_map<string, unique_ptr<FiniteStateMachine>> m_machines;
 	};
 
 }

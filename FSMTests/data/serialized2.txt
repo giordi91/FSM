@@ -1,0 +1,31 @@
+<< FiniteStateMachine ### fsm >>
+<< GenericState ### standing >>
+<< Connection ### standing , ducking >>
+<< TypedCondition<bool> ### ducking , 1 , 0 >>
+<< TypedCondition<float> ### cracking , 1 , 0 >>
+<< TypedCondition<int> ### booling , 1 , 0 >>
+<<< CONDITIONS >>>
+<< Connection ### standing , jumping >>
+<< TypedCondition<bool> ### jumping , 1 , 0 >>
+<< TypedCondition<int> ### jumping , 1 , 1 >>
+<< TypedCondition<int> ### jumping , 1 , 2 >>
+<< TypedCondition<int> ### jumping , 1 , 1 >>
+<< TypedCondition<int> ### jumping , 1 , 1 >>
+<< TypedCondition<float> ### jumping , 1 , 0 >>
+<< TypedCondition<bool> ### jumping , 1 , 0 >>
+<< TypedCondition<bool> ### jumping , 1 , 0 >>
+<<< CONDITIONS >>>
+<<< CONNECTIONS >>>
+<< GenericState ### ducking >>
+<< Connection ### ducking , standing >>
+<< TypedCondition<bool> ### standing , 1 , 0 >>
+<<< CONDITIONS >>>
+<<< CONNECTIONS >>>
+<< GenericState ### jumping >>
+<< Connection ### jumping , diving >>
+<< TypedCondition<bool> ### diving , 1 , 0 >>
+<<< CONDITIONS >>>
+<<< CONNECTIONS >>>
+<< GenericState ### diving >>
+<<< CONNECTIONS >>>
+<<< STATES >>>

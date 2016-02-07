@@ -1,5 +1,8 @@
 #include "FSMFactory.h"
 #include <assert.h>
+#include <sstream>
+#include <fstream>
+
 namespace FSM
 {
 	FSMFactory::FSMFactory()
@@ -86,14 +89,49 @@ namespace FSM
 		//for now we extract the args only since there is only one state type
 		ClassArgs args = Serialize::extract_args(state_data);
 		assert(args.size() == 1);
-
+		
+		//grabbing the current state
 		State * st = get_state(args[0]);
 		for (auto conn : conn_data)
 		{
+			//generating all the condition and appending them to the state
 			auto newConn = generate_connection(conn);
 			st->add_connection(newConn);
 		}
 
+		//return pointer to the generate state
 		return st;
+	}
+
+	FiniteStateMachine * FSM::FSMFactory::generate_fsm_from_file(string path)
+	{
+		std::ifstream infile(path);
+		if (!infile.is_open())
+		{
+			std::cout << "error in opening the path" << std::endl;
+			return nullptr;
+		}
+
+		std::string line;
+		string fsm;
+		getline(infile, fsm);
+
+		auto f_type = Serialize::extract_type(fsm);
+		auto f_name = Serialize::extract_args(fsm);
+		assert(f_type.size() == 1);
+		assert(f_name.size() == 1);
+
+		/*
+		while (std::getline(infile, line))
+		{
+			std::istringstream iss(line);
+			int a, b;
+			if (!(iss >> a >> b)) { break; } // error
+
+											 // process pair (a,b)
+		}
+		*/
+		return nullptr;
+		
 	}
 }

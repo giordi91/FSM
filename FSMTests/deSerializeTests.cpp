@@ -1,6 +1,8 @@
 #include <gmock/gmock.h> 
 #include <string>
 #include "DeSerialize.h"
+#include <sstream>
+#include <fstream>
 using namespace testing;
 
 
@@ -52,4 +54,96 @@ TEST(deserialize, conditions_args)
 	string res= type_match[0];
 	expected = {"lacking", "1.32345", "2"};
 	ASSERT_EQ(found , expected);
+}
+
+TEST(deserialize, read_conditions_from_file_single) {
+		string path = "../FSMTests/data/serialized1.txt";
+		std::ifstream infile(path);
+		if (!infile.is_open())
+		{
+			std::cout << "error in opening the path" << std::endl;
+			return ;
+		}
+		//jumping to connection
+		std::string line;
+		getline(infile, line);
+		getline(infile, line);
+		getline(infile, line);
+
+		vector<string> data;
+		FSM::Serialize::read_conditions_from_file(infile, data);
+
+		ASSERT_EQ(data.size(), 1);
+		
+		getline(infile, line);
+		data.clear();
+		FSM::Serialize::read_conditions_from_file(infile, data);
+		ASSERT_EQ(data.size(), 1);
+
+
+}
+
+TEST(deserialize, read_conditions_from_file_multiple) {
+		string path = "../FSMTests/data/serialized2.txt";
+		std::ifstream infile(path);
+		if (!infile.is_open())
+		{
+			std::cout << "error in opening the path" << std::endl;
+			return ;
+		}
+		//jumping to connection
+		std::string line;
+		getline(infile, line);
+		getline(infile, line);
+		getline(infile, line);
+
+		vector<string> data;
+		FSM::Serialize::read_conditions_from_file(infile, data);
+
+		ASSERT_EQ(data.size(), 3);
+		
+		getline(infile, line);
+		data.clear();
+		FSM::Serialize::read_conditions_from_file(infile, data);
+		ASSERT_EQ(data.size(), 8);
+
+
+}
+
+TEST(deserialize, read_connection_from_file_single) 
+{
+		string path = "../FSMTests/data/serialized1.txt";
+		std::ifstream infile(path);
+		if (!infile.is_open())
+		{
+			std::cout << "error in opening the path" << std::endl;
+			return ;
+		}
+		//jumping to connection
+		std::string line;
+		getline(infile, line);
+		getline(infile, line);
+
+		vector<vector<string>> condition_data;
+		vector<string> connection_data;
+		FSM::Serialize::read_connection_from_file(infile, 
+													connection_data,
+													condition_data);
+
+		ASSERT_EQ(connection_data.size(), 2);
+		ASSERT_EQ(condition_data.size(), 2);
+		ASSERT_EQ(condition_data[0].size(), 1);
+		ASSERT_EQ(condition_data[1].size(), 1);
+
+		condition_data.clear();
+		connection_data.clear();
+
+		getline(infile, line);
+		FSM::Serialize::read_connection_from_file(infile, 
+													connection_data,
+													condition_data);
+		ASSERT_EQ(connection_data.size(), 1);
+		ASSERT_EQ(condition_data.size(), 1);
+
+
 }
