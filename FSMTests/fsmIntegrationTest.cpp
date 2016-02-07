@@ -167,7 +167,6 @@ TEST_F(fsmIntegrationFixture, complex_transitons)
 TEST_F(fsmIntegrationFixture, complex_iterations)
 {
 	string check = fsm->serialize();
-	//std::cout << check << std::endl;
 	
 	//under visual studio path is set relative to the root might
 	//need to find a better way to have relative path to the test file
