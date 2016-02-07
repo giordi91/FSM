@@ -71,3 +71,72 @@ TEST(factory, assert_null_typed_condition)
 	auto cond = fact.generate_condtition(t);
 	ASSERT_EQ(cond, nullptr);
 }
+
+TEST(factory, get_not_existing_states)
+{
+	FSM::FSMFactory fact;
+	FSM::State * s = fact.get_state("swimming");
+	FSM::State * s1 = fact.get_state("jumping");
+	FSM::State * s2 = fact.get_state("rotating");
+	FSM::State * s3 = fact.get_state("swimming");
+
+	ASSERT_EQ(s->get_name(), "swimming");
+	ASSERT_EQ(s1->get_name(), "jumping");
+	ASSERT_EQ(s2->get_name(), "rotating");
+	ASSERT_EQ(s3->get_name(), "swimming");
+	ASSERT_EQ(s3, s);
+}
+
+
+TEST(factory, generate_connection)
+{
+	FSM::FSMFactory fact;
+	string conn = "<< Connection ### standing , ducking >>";
+	string cond1 ="<< TypedCondition<bool> ### ducking , 1 , 0 >>";
+	string cond2= "<< DoubleVarCondition<bool> ### ducking , jumping , 0 >>";
+
+	DataStorage *dt = fact.get_data_storage();
+	dt->set_value("ducking", true);
+	dt->set_value("jumping", true);
+
+	std::vector < string > data;
+	data.push_back(conn);
+	data.push_back(cond1);
+	data.push_back(cond2);
+	auto connection = fact.generate_connection(data);
+
+	ASSERT_EQ(connection->evaluate(), true);
+
+}
+	
+TEST(factory, generate_state)
+{
+	FSM::FSMFactory fact;
+	string state = "<< GenericState ### standing >>";
+	string conn = "<< Connection ### standing , ducking >>";
+	string cond1 = "<< TypedCondition<bool> ### ducking , 1 , 0 >>";
+	string cond2 = "<< DoubleVarCondition<bool> ### ducking , jumping , 0 >>";
+	
+
+	std::vector < string > data;
+	data.push_back(conn);
+	data.push_back(cond1);
+	data.push_back(cond2);
+
+	DataStorage *dt = fact.get_data_storage();
+	dt->set_value("ducking", true);
+	dt->set_value("jumping", true);
+	
+	std::vector<vector<string>> compound;
+	compound.push_back(data);
+
+	FSM::State * s = fact.generate_state(state, compound);
+
+	FSM::State * destination = fact.get_state("ducking");
+
+	FSM::State * after_transitoin = s->transition();
+
+	ASSERT_EQ(destination, after_transitoin);
+	
+
+}
