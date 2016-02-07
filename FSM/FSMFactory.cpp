@@ -115,23 +115,58 @@ namespace FSM
 		std::string line;
 		string fsm;
 		getline(infile, fsm);
-
 		auto f_type = Serialize::extract_type(fsm);
 		auto f_name = Serialize::extract_args(fsm);
-		assert(f_type.size() == 1);
+		assert(f_type.size() != 0);
 		assert(f_name.size() == 1);
 
-		/*
-		while (std::getline(infile, line))
-		{
-			std::istringstream iss(line);
-			int a, b;
-			if (!(iss >> a >> b)) { break; } // error
+		//lets build the FSM 
+		auto finite_state = std::make_unique<FiniteStateMachine>(f_name[0], &m_dt);
+		FiniteStateMachine * ptr = finite_state.get();
+		getline(infile, line);
+		std::smatch type_match;
+		std::regex_search(line, type_match, Serialize::REG_END_CONDITIONS);
 
-											 // process pair (a,b)
+		State * st;
+		vector<string> connections;
+		vector<vector<string>>conditions;
+		vector<vector<string>> build_state_data;
+		vector<string> conn_sub_data;
+		conn_sub_data.clear();
+		build_state_data.clear();
+		connections.clear();
+		conditions.clear();
+
+		while (type_match.size() == 0)
+		{
+			Serialize::read_connection_from_file(infile, connections, conditions);
+			int size = connections.size();
+			for (int i = 0; i < size; ++i)
+			{
+				//building the data in the expected format
+				conn_sub_data.push_back(connections[i]);
+				int cond_size = conditions[i].size();
+				for (int c = 0; c < cond_size; ++c)
+				{
+					conn_sub_data.push_back(conditions[i][c]);
+				}
+				build_state_data.push_back(conn_sub_data);
+				conn_sub_data.clear();
+			}
+			
+			st = generate_state(line, build_state_data);
+			finite_state->add_state(st);
+			
+			conn_sub_data.clear();
+			build_state_data.clear();
+			connections.clear();
+			conditions.clear();
+			getline(infile, line);
+			std::regex_search(line, type_match, Serialize::REG_END_STATES);
+
 		}
-		*/
-		return nullptr;
 		
+		m_machines[f_name[0]] = std::move(finite_state);
+		return ptr;
 	}
 }

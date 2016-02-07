@@ -145,7 +145,7 @@ TEST_F(fsmIntegrationFixture, diving_transition)
 	ASSERT_EQ(fsm->get_current_state(), &diving);
 }
 
-TEST_F(fsmIntegrationFixture, complex_serialization)
+TEST_F(fsmIntegrationFixture, complex_transitons)
 {
 	dt.set_value("ducking", true);
 	fsm->update();

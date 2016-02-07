@@ -140,3 +140,31 @@ TEST(factory, generate_state)
 	
 
 }
+
+TEST(factory, generate_fsm_from_file)
+{
+	string path = "../FSMTests/data/serialized1.txt";
+	FSM::FSMFactory fact;
+	auto fsm = fact.generate_fsm_from_file(path);
+	auto& dt = *(fact.get_data_storage());
+	auto standing = fact.get_state("standing");
+	auto jumping = fact.get_state("jumping");
+	auto diving = fact.get_state("diving");
+
+	dt.set_value("ducking", true);
+	fsm->update();
+	dt.set_value("standing", true);
+	dt.set_value("ducking", true);
+	fsm->update();
+	ASSERT_EQ(fsm->get_current_state(), standing);
+	dt.set_value("jumping", true);
+	dt.set_value("standing", false);
+	dt.set_value("ducking", false);
+	fsm->update();
+
+	ASSERT_EQ(fsm->get_current_state(), jumping);
+	dt.set_value("jumping", true);
+	dt.set_value("diving", true);
+	fsm->update();
+	ASSERT_EQ(fsm->get_current_state(), diving);
+}
