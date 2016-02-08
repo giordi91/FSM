@@ -8,19 +8,21 @@ using std::string;
 namespace FSM
 {
 	class Connection;
-	class State
+	class  State
 	{
 	public:
 		/**
 		@bief constructor
 		@param name: string represeting the name
 		*/
+		__declspec(dllexport)
 		State(string name) :m_name(name) {}
 
 		/**
 		@brief adds a connection to the state
 		@param conn: pointer to the connection we wish to add
 		*/
+		__declspec(dllexport)
 		inline void add_connection(Connection * conn)
 		{
 			m_connections.push_back(conn);
@@ -35,12 +37,14 @@ namespace FSM
 		@returns : returns a pointer to the next state, if none of the
 		connections evaluate to true will return a pointer to itself
 		*/
+		__declspec(dllexport)
 		virtual State * transition() = 0;
 
 		/**
 		@brief Getter method for the state name
 		@returns a const ref to the name
 		*/
+		__declspec(dllexport)
 		inline const string& get_name()const
 		{
 			return m_name;
@@ -68,8 +72,10 @@ namespace FSM
 		@returns : returns a pointer to the next state, if none of the
 		connections evaluate to true will return a pointer to itself
 		*/
+		__declspec(dllexport)
 		virtual State * transition() override;
 
+		__declspec(dllexport)
 		virtual const string serialize() const override;
 
 	private:

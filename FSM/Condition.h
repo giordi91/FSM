@@ -36,7 +36,7 @@ namespace FSM
 	A condition class encapsulate a comparison between two values,
 	this class is used as a poliformic base used inside the state machine.
 	*/
-	class Condition
+	class 	Condition
 	{
 	public:
 		/**

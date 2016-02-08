@@ -65,6 +65,9 @@ namespace FSM
 		it will keep advancing the file until wont find a closing
 		connection tag for conditions. Meanwhile it will keep track
 		of the found conditions and connections and store them to return them.
+		At the end the size of the outer lvl of the two datastructure
+		should match, but is not an hard requirement, even if useless,
+		we might have an empty connection with no conditions.
 		@param file: the stram we are working on
 		@param connection_data: the data structure to fill with the
 					connection data, each line is a full and unparsed
