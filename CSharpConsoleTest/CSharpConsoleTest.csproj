@@ -53,8 +53,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConsoleApplication2">
-      <HintPath>..\x64\Debug\ConsoleApplication2.dll</HintPath>
+    <Reference Include="FSMWrap, Version=1.0.5883.39468, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\x64\Debug\FSMWrap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
