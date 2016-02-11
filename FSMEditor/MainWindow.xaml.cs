@@ -32,7 +32,10 @@ namespace FSMEditor
             var view= (Canvas)this.FindName("view");
             Node n = new Node(ref view, 200,100);
             m_node = n;
-            n.register_node(ref m_data);
+            m_node.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+            m_node.Stroke= new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+            view.Children.Add(m_node);
+            //n.register_node(ref m_data);
             Console.WriteLine(m_data.Count);
         }
 
@@ -51,6 +54,10 @@ namespace FSMEditor
             }
             */
             Console.WriteLine(e.OriginalSource.ToString());
+            if (e.OriginalSource is Node)
+            {
+                Console.WriteLine(((Node)e.OriginalSource).get_text());
+            }
                 if (m_data.ContainsKey(e.OriginalSource))
                 {
                     Console.WriteLine("we got a node");

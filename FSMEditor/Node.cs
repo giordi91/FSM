@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Drawing;
+using System.Windows;
 
 namespace FSMEditor
 {
-    public class Node//: Shape
+    public class Node: Shape
     {
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FF1C1C25");
         static Color BORDER_COLOR = (Color)ColorConverter.ConvertFromString("#FF2EE411");
@@ -26,6 +28,7 @@ namespace FSMEditor
         //       <Rectangle Fill="#FF1C1C25" Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>
         public Node(ref Canvas canvas, int x =0, int y = 0)
         {
+            /*
             System.Console.WriteLine("Constructor called");
             m_body = new Rectangle();
             m_body.Fill = new SolidColorBrush(BACKGROUND_COLOR);
@@ -53,6 +56,7 @@ namespace FSMEditor
 
             add_to_canvas(ref canvas);
             move(ref canvas, x, y);
+            */
         }
 
         public void add_to_canvas(ref Canvas canvas)
@@ -107,17 +111,29 @@ namespace FSMEditor
             data[m_out] = this;
         }
 
-        public String get_text()
+        public string get_text()
         {
             return "fuffa";
         }
-        /*
         protected override Geometry DefiningGeometry
         {
             get
             {
+
+                Console.WriteLine("GETTING");
                 // Create a StreamGeometry for describing the shape
                 StreamGeometry geometry = new StreamGeometry();
+                geometry.FillRule = FillRule.EvenOdd;
+
+                using (StreamGeometryContext context = geometry.Open())
+                {
+                    InternalDrawArrowGeometry(context);
+                }
+
+                // Freeze the geometry for performance benefits
+                geometry.Freeze();
+
+
                 return geometry;
             }
         }
@@ -126,14 +142,17 @@ namespace FSMEditor
 
             Point pt1 = new Point(0, 0);
             Point pt2 = new Point(100, 100);
-            context.LineTo(pt1, true, true);
+            context.BeginFigure(pt1, true, true);
             context.LineTo(pt2, true, true);
         }
-        */
 
         private Rectangle m_body;
         private Ellipse m_in;
         private Ellipse m_out;
         private bool m_selected;
     }
+
+
+
+
 } 
