@@ -38,6 +38,11 @@ namespace FSMEditor
             m_body.Height = NODE_HEIGHT;
             m_body.StrokeThickness = BORDER_THICKNESS;
 
+            this.Fill = new SolidColorBrush(BACKGROUND_COLOR);
+            this.Stroke = new SolidColorBrush(BORDER_COLOR);
+            this.Width = NODE_WIDTH;
+            this.Height = NODE_HEIGHT;
+            this.StrokeThickness = BORDER_THICKNESS;
             //create input output connection
             m_in = new Ellipse();
             m_in.Fill = new SolidColorBrush(PLUG_COLOR);

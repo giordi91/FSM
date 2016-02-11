@@ -32,8 +32,8 @@ namespace FSMEditor
             var view= (Canvas)this.FindName("view");
             Node n = new Node(ref view, 200,100);
             m_node = n;
-            m_node.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
-            m_node.Stroke= new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+            //m_node.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+            //m_node.Stroke= new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             view.Children.Add(m_node);
             //n.register_node(ref m_data);
             Console.WriteLine(m_data.Count);
