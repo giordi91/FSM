@@ -7,12 +7,20 @@
         mc:Ignorable="d"
         Background="Black"
         Title="FSM Editor V 1.0.0" Height="350" Width="525">
-    <StackPanel>
-        <Button x:Name="addbutton" Content="ADD STATE" Click="Button_Click"></Button>
-        <Canvas x:Name="view" Background="Transparent" MouseLeftButtonDown="view_MouseLeftButtonDown" Height="290">
-            <Rectangle Fill="#FF1C1C25" Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>
-        </Canvas>
-    </StackPanel>
-
-
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+    
+    <Button x:Name="addbutton" Content="ADD STATE" Click="Button_Click" Grid.Row="0" Grid.Column="0"></Button>
+    <Canvas x:Name="view" Grid.Row="1" Grid.Column="0" Background="Transparent" MouseLeftButtonDown="view_MouseLeftButtonDown" >
+        <!--<Rectangle Fill="Gray"  Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>-->
+    </Canvas>
+    <Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>
+    </Grid>
 </Window>
