@@ -28,7 +28,6 @@ namespace FSMEditor
         //       <Rectangle Fill="#FF1C1C25" Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>
         public Node(ref Canvas canvas, int x =0, int y = 0)
         {
-            /*
             System.Console.WriteLine("Constructor called");
             m_body = new Rectangle();
             m_body.Fill = new SolidColorBrush(BACKGROUND_COLOR);
@@ -54,9 +53,12 @@ namespace FSMEditor
             m_out.Width = PLUG_DIAMETER;
             m_out.Height = PLUG_DIAMETER;
 
-            add_to_canvas(ref canvas);
+            //add_to_canvas(ref canvas);
             move(ref canvas, x, y);
-            */
+
+            m_body.Measure(new Size(NODE_WIDTH, NODE_HEIGHT));
+            var r = new Rect();
+            m_body.Arrange(r);
         }
 
         public void add_to_canvas(ref Canvas canvas)
@@ -134,7 +136,8 @@ namespace FSMEditor
                 geometry.Freeze();
 
 
-                return geometry;
+                //return geometry;
+                return m_body.RenderedGeometry;
             }
         }
         private void InternalDrawArrowGeometry(StreamGeometryContext context)
