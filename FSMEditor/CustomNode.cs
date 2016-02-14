@@ -86,6 +86,25 @@ namespace FSMEditor
             
         }
 
+
+
+
+        public string NodeName
+        {
+            get { return (string)GetValue(NodeNameProperty); }
+            set { SetValue(NodeNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for NodeName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NodeNameProperty =
+            DependencyProperty.Register("NodeName", typeof(string), typeof(CustomNode), 
+                                new PropertyMetadata(String.Empty, OnNodeNameChanged));
+
+        private static void OnNodeNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Console.WriteLine("callback");            
+        }
+
         static CustomNode()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomNode), new FrameworkPropertyMetadata(typeof(CustomNode)));
@@ -96,7 +115,6 @@ namespace FSMEditor
             Console.WriteLine("hello .... it s meeeeee");
         }
 
-        public string NodeName{ get; set ; }
 
         public Plug m_in;
         public Plug m_out;

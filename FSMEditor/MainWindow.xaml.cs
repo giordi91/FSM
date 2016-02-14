@@ -33,7 +33,7 @@ namespace FSMEditor
             var n = new CustomNode( ref view );
             m_node = n;
             m_node.move( 100, 100);
-            m_node.NodeName= "FUFFAAAAAAA";
+            m_node.NodeName= "Jumping";
             view.Children.Add(m_node);
         }
 
