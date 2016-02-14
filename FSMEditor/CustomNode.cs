@@ -15,94 +15,55 @@ using System.Windows.Shapes;
 
 namespace FSMEditor
 {
-    /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:FSMEditor"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:FSMEditor;assembly=FSMEditor"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:CustomNode/>
-    ///
-    /// </summary>
-    [System.ComponentModel.DefaultBindingProperty("NodeName")]
     public class CustomNode : Control
     {
+        static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FF1C1C25");
+        static Color SELECTED_COLOR   = (Color)ColorConverter.ConvertFromString("#FF093800");
+        
 
-        public CustomNode(ref Canvas canvas)
+        public CustomNode()
         {
-            /*
-            m_in = new Plug(this);
-            m_out = new Plug(this);
-            canvas.Children.Add(this);
-            canvas.Children.Add(m_in);
-            Panel.SetZIndex(this, 2);
-            Panel.SetZIndex(m_in, 3);
-            x = 0;
-            y = 0;
-            */
-            
-            Loaded += CustomNode_Loaded;
-        }
 
-        private void CustomNode_Loaded(object sender, RoutedEventArgs e)
-        {
-            var obj= this.GetTemplateChild("body");
-            if (obj != null)
-            {
-                m_body_canvas = obj as Canvas;
-            }
-
-            obj= this.GetTemplateChild("NodeNameText");
-            if (obj != null)
-            {
-                Console.WriteLine("found text block");
-            }
         }
 
         public void move( int x, int y)
         {
             Canvas.SetLeft(this, x);
             Canvas.SetTop(this, y);
-            
         }
 
+        public string NodeName { get; set; }
 
-
-
-        public string NodeName
+        public bool IsSelected
         {
-            get { return (string)GetValue(NodeNameProperty); }
-            set { SetValue(NodeNameProperty, value); }
+            get { return m_is_selected; }
+            set
+            {
+                m_is_selected = value;
+                var obj = this.GetTemplateChild("body");
+                if (obj != null)
+                {
+                    Rectangle rect = obj as Rectangle;
+                    if (value)
+                    {
+                        rect.Fill = new SolidColorBrush(SELECTED_COLOR);
+                    }
+                    else
+                    {
+                        rect.Fill = new SolidColorBrush(BACKGROUND_COLOR);
+                    }
+                }
+            }
         }
 
-        // Using a DependencyProperty as the backing store for NodeName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NodeNameProperty =
-            DependencyProperty.Register("NodeName", typeof(string), typeof(CustomNode), 
-                                new PropertyMetadata(String.Empty, OnNodeNameChanged));
-
-        private static void OnNodeNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        internal void moveRelative(int deltaX, int deltaY)
         {
-            Console.WriteLine("callback");            
+            int currX = (int)Canvas.GetLeft(this);
+            int currY = (int)Canvas.GetTop(this);
+            Console.WriteLine("current X");
+            Console.WriteLine(currX);
+            Canvas.SetLeft(this, currX + deltaX);
+            Canvas.SetTop(this, currY + deltaY);
         }
 
         static CustomNode()
@@ -114,13 +75,6 @@ namespace FSMEditor
         {
             Console.WriteLine("hello .... it s meeeeee");
         }
-
-
-        public Plug m_in;
-        public Plug m_out;
-        public int x;
-        public int y;
-        Canvas m_body_canvas;
-        String m_name;
+        bool m_is_selected;
     }
 }

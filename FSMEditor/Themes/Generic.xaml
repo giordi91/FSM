@@ -10,8 +10,9 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Canvas x:Name="body">                        
-                            <Rectangle Fill="#FF1C1C25"  
+                        <Canvas x:Name="body_canvas">                        
+                            <Rectangle  x:Name="body"
+                                Fill="#FF1C1C25"  
                                    Stroke="#FF2EE411" 
                                    Width="135" Height="100" 
                                    RadiusX="10" RadiusY="10" 
