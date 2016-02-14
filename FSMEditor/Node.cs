@@ -82,7 +82,6 @@ namespace FSMEditor
             Canvas.SetTop(m_out, PLUG_Y_OFFSET);
         }
 
-
         public void move(ref Canvas canvas, int x, int y)
         {
             x -= NODE_WIDTH / 2;

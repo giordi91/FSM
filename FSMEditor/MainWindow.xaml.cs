@@ -30,19 +30,42 @@ namespace FSMEditor
         {
             System.Console.WriteLine("Pressing");
             var view= (Canvas)this.FindName("view");
-            Node n = new Node(ref view, 200,100);
+            var n = new CustomNode( ref view );
             m_node = n;
-            //m_node.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
-            //m_node.Stroke= new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+            m_node.move( 100, 100);
+            m_node.NodeName= "FUFFAAAAAAA";
             view.Children.Add(m_node);
-            //n.register_node(ref m_data);
-            Console.WriteLine(m_data.Count);
         }
+
+        private T find_visual_parent<T>(DependencyObject obj)
+            where T : DependencyObject
+        {
+            Console.WriteLine("walk");
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            if (parent is T)
+                return (T)parent;
+            else
+                return find_visual_parent<T>(parent);
+        }
+
 
         private void view_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            System.Console.WriteLine(e.OriginalSource.ToString()); 
-            System.Console.WriteLine("Pressing");
+            // System.Console.WriteLine(e.OriginalSource.ToString()); 
+            //System.Console.WriteLine("Pressing");
+
+
+            if (e.OriginalSource is Rectangle)
+            {
+                CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
+                node.print();
+            }
+            else if (e.OriginalSource is Ellipse)
+            {
+                Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
+                p.print();
+            }
+
             /*
             if (m_node != null)
             {
@@ -53,21 +76,11 @@ namespace FSMEditor
 
             }
             */
-            Console.WriteLine(e.OriginalSource.ToString());
-            if (e.OriginalSource is Node)
-            {
-                Console.WriteLine(((Node)e.OriginalSource).get_text());
-            }
-                if (m_data.ContainsKey(e.OriginalSource))
-                {
-                    Console.WriteLine("we got a node");
-                    Console.WriteLine(m_data[e.OriginalSource].get_text());
-                }
 
         }
 
 
-        public Node m_node;
+        public CustomNode m_node;
         private Dictionary<Object, Node> m_data; 
     }
 }
