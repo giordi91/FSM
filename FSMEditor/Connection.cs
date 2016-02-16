@@ -21,7 +21,8 @@ namespace FSMEditor
         public Connection()
         {
             Stroke= new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5A00C"));
-            Console.WriteLine("Creating");
+            StartPlug = null;
+            EndPlug = null;
         }
 
         protected override Geometry DefiningGeometry
@@ -76,6 +77,10 @@ namespace FSMEditor
             get { return (Point)GetValue(EndPointProperty); }
             set { SetValue(EndPointProperty, value); }
         }
+
+        public Plug StartPlug { get; set; }
+        public Plug EndPlug { get; set; }
+
 
         // Using a DependencyProperty as the backing store for EndPoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EndPointProperty =

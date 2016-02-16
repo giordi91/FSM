@@ -60,10 +60,27 @@ namespace FSMEditor
         {
             int currX = (int)Canvas.GetLeft(this);
             int currY = (int)Canvas.GetTop(this);
-            Console.WriteLine("current X");
-            Console.WriteLine(deltaX);
             Canvas.SetLeft(this, currX + deltaX);
             Canvas.SetTop(this, currY + deltaY);
+
+            //need to update plugs if there 
+            Plug inp = this.GetTemplateChild("m_in") as Plug;
+            Plug outp = this.GetTemplateChild("m_out") as Plug;
+
+            if (inp.ConnectionObject != null)
+            {
+
+                Point pnt = new Point(inp.X + currX +10,
+                                      inp.Y + currY +10);
+                inp.ConnectionObject.EndPoint = pnt;
+            }
+
+            if (outp.ConnectionObject != null)
+            {
+                Point pnt = new Point(outp.X + currX + 10,
+                                      outp.Y + currY + 10);
+                outp.ConnectionObject.StartPoint= pnt;
+            }
         }
 
         static CustomNode()

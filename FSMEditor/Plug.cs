@@ -23,24 +23,10 @@ namespace FSMEditor
 
 
         public Plug()
-        { }
-        public Plug(CustomNode node)
         {
-            m_node = node;
-            m_radius = 0;
+            ConnectionObject = null;            
         }
 
-        public void print()
-        {
-            Console.WriteLine("hei its mee plug");
-            Console.WriteLine(this.Width);
-        }
-
-        public int get_radius()
-        {
-            return m_radius;
-        }
-        
         private CustomNode m_node;
         private int m_radius;
 
@@ -81,8 +67,12 @@ namespace FSMEditor
             get {
                 return (int)Canvas.GetTop(this); }
         }
+
+        public Connection ConnectionObject { get; set; }
+
         private bool m_is_selected;
         private int m_x;
+
     }
 
 }

@@ -42,6 +42,8 @@ namespace FSMEditor
                     int deltaX = (int)pos.X - (int)m_mouse_pos.X;
                     int deltaY = (int)pos.Y - (int)m_mouse_pos.Y;
                     m_selected_node.moveRelative(deltaX, deltaY);
+
+
                 }
                 else if (m_conn!= null)
                 {
@@ -60,7 +62,6 @@ namespace FSMEditor
             m_dragging = false;
             if (e.OriginalSource is Ellipse)
             {
-                Console.WriteLine("FULL CONNECTION");
                 Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
                 if (m_selected_node != null)
                 {
@@ -79,12 +80,18 @@ namespace FSMEditor
                 var radius = ell.Width / 2;
 
                 m_conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
+                m_conn.EndPlug = p;
+                p.ConnectionObject = m_conn;
                 return;
             }
             else
             {
                 if (m_conn != null)
                 {
+                    if (m_conn.StartPlug != null)
+                    {
+                        m_conn.StartPlug.IsSelected = false;
+                    }
                     var view= (Canvas)this.FindName("view");
                     view.Children.Remove(m_conn);
                     m_conn = null;
@@ -137,6 +144,11 @@ namespace FSMEditor
                 CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
                 var x = Canvas.GetLeft(node );
                 var y = Canvas.GetTop(node);
+
+                //adding cross referencing
+                p.ConnectionObject = m_conn;
+                m_conn.StartPlug = p;
+
 
                 Ellipse ell = e.OriginalSource as Ellipse;
                 var radius = ell.Width / 2;
