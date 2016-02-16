@@ -61,7 +61,7 @@ namespace FSMEditor
             int currX = (int)Canvas.GetLeft(this);
             int currY = (int)Canvas.GetTop(this);
             Console.WriteLine("current X");
-            Console.WriteLine(currX);
+            Console.WriteLine(deltaX);
             Canvas.SetLeft(this, currX + deltaX);
             Canvas.SetTop(this, currY + deltaY);
         }

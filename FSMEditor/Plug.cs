@@ -15,37 +15,13 @@ using System.Windows.Shapes;
 
 namespace FSMEditor
 {
-    /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:FSMEditor"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:FSMEditor;assembly=FSMEditor"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:Plug/>
-    ///
-    /// </summary>
+ 
     public class Plug : Control
     {
+        static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
+        static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("Gray");
+
+
         public Plug()
         { }
         public Plug(CustomNode node)
@@ -73,6 +49,40 @@ namespace FSMEditor
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Plug), new FrameworkPropertyMetadata(typeof(Plug)));
         }
 
+        public bool IsSelected
+        {
+            get { return m_is_selected; }
+            set
+            {
+                m_is_selected = value;
+                var obj = this.GetTemplateChild("PlugVisual");
+                if (obj != null)
+                {
+                    var ell= obj as Ellipse;
+                    if (value)
+                    {
+                        ell.Fill = new SolidColorBrush(SELECTED_COLOR);
+                    }
+                    else
+                    {
+                        ell.Fill = new SolidColorBrush(BACKGROUND_COLOR);
+                    }
+                }
+            }
+        }
+
+        public int X
+        {
+            get {
+                return (int)Canvas.GetLeft(this); }
+        }
+        public int Y 
+        {
+            get {
+                return (int)Canvas.GetTop(this); }
+        }
+        private bool m_is_selected;
+        private int m_x;
     }
 
 }
