@@ -20,7 +20,6 @@
     <Button x:Name="addbutton" Content="ADD STATE" Click="Button_Click" Grid.Row="0" Grid.Column="0"></Button>
     <Canvas x:Name="view" Grid.Row="1" Grid.Column="0" Background="Transparent"  >
         <!--<Rectangle Fill="Gray"  Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>-->
-            <local:Connection x:Name="TestConn" Stroke="#FFF5A00C" StrokeThickness="2"></local:Connection>
     </Canvas>
     <Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>
     </Grid>

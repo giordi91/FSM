@@ -25,6 +25,7 @@ namespace FSMEditor
             InitializeComponent();
             m_data = new Dictionary<object, Node>();
             m_nodes= new List<CustomNode>();
+            m_conns = new List<Connection>();
 
             MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
             MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
@@ -68,7 +69,15 @@ namespace FSMEditor
                     m_selected_node.IsSelected = false;
                     m_selected_node = null;
                 }
-                p.IsSelected = true;
+                if (m_conn.IsSelected == true)
+                {
+                    p.IsConnectionSelected = true;
+                }
+                else
+                {
+                    p.IsSelected = true;
+                }
+
                 m_selected_plug = null;
 
                 //create the connection
@@ -82,17 +91,21 @@ namespace FSMEditor
                 m_conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
                 m_conn.EndPlug = p;
                 p.ConnectionObject = m_conn;
+                m_conns.Add(m_conn);
+                m_conn = null;
                 return;
             }
             else
             {
-                if (m_conn != null)
+                if (m_conn != null && !(e.OriginalSource is Connection))
                 {
                     if (m_conn.StartPlug != null)
                     {
                         m_conn.StartPlug.IsSelected = false;
                     }
                     var view= (Canvas)this.FindName("view");
+                    m_conn.StartPlug.IsSelected = false;
+                    m_conn.EndPlug.IsSelected = false;
                     view.Children.Remove(m_conn);
                     m_conn = null;
                 }
@@ -112,11 +125,18 @@ namespace FSMEditor
                 if (m_selected_node != null)
                 {
                     m_selected_node.IsSelected = false;
+                    m_selected_node = null;
                 }
                 if (m_selected_plug != null)
                 {
                     m_selected_plug.IsSelected = false;
                     m_selected_plug = null;
+                }
+
+                if (m_conn != null)
+                {
+                    m_conn.IsSelected = false;
+                    m_conn = null;
                 }
 
                 node.IsSelected = true;
@@ -160,6 +180,26 @@ namespace FSMEditor
             else if (e.OriginalSource is Connection)
             {
                 Connection conn = e.OriginalSource as Connection;
+
+                if (m_conn != null)
+                {
+                    m_conn.IsSelected = false;
+                }
+
+                m_conn = conn;
+                m_conn.IsSelected = true;
+
+                if (m_selected_node != null)
+                {
+                    m_selected_node.IsSelected = false;
+                    m_selected_node = null;
+                }
+                if (m_selected_plug != null)
+                {
+                    m_selected_plug.IsSelected = false;
+                    m_selected_plug = null;
+                }
+                return;
             }
 
             if (m_selected_node != null)
@@ -167,11 +207,16 @@ namespace FSMEditor
                 m_selected_node.IsSelected = false;
                 m_selected_node = null;
             }
-                if (m_selected_plug != null)
-                {
-                    m_selected_plug.IsSelected = false;
-                    m_selected_plug = null;
-                }
+            if (m_selected_plug != null)
+            {
+                m_selected_plug.IsSelected = false;
+                m_selected_plug = null;
+            }
+            if (m_conn != null)
+            {
+                m_conn.IsSelected = false;
+                m_conn = null;
+            }
 
         }
 
@@ -201,6 +246,7 @@ namespace FSMEditor
         public CustomNode m_selected_node;
         public Plug m_selected_plug;
         public List<CustomNode> m_nodes;
+        public List<Connection> m_conns;
         private Dictionary<Object, Node> m_data; 
         private bool m_dragging;
         Point m_mouse_pos;

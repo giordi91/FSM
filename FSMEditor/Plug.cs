@@ -19,6 +19,7 @@ namespace FSMEditor
     public class Plug : Control
     {
         static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
+        static Color SELECTED_CONN_COLOR = (Color)ColorConverter.ConvertFromString("Yellow");
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("Gray");
 
 
@@ -57,6 +58,28 @@ namespace FSMEditor
             }
         }
 
+        public bool IsConnectionSelected
+        {
+            get { return m_connection_is_selected; }
+            set
+            {
+                m_connection_is_selected= value;
+                var obj = this.GetTemplateChild("PlugVisual");
+                if (obj != null)
+                {
+                    var ell = obj as Ellipse;
+                    if (value)
+                    {
+                        ell.Fill = new SolidColorBrush(SELECTED_CONN_COLOR);
+                    }
+                    else
+                    {
+                        ell.Fill = new SolidColorBrush(SELECTED_COLOR);
+                    }
+                }
+            }
+        }
+
         public int X
         {
             get {
@@ -71,7 +94,7 @@ namespace FSMEditor
         public Connection ConnectionObject { get; set; }
 
         private bool m_is_selected;
-        private int m_x;
+        private bool m_connection_is_selected;
 
     }
 

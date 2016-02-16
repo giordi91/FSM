@@ -18,9 +18,14 @@ namespace FSMEditor
 {
     public class Connection : Shape 
     {
+
+        static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
+        static Color SELECTED_COLOR   = (Color)ColorConverter.ConvertFromString("Yellow");
+
         public Connection()
         {
-            Stroke= new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5A00C"));
+            Stroke= new SolidColorBrush(BACKGROUND_COLOR);
+            StrokeThickness = 5;
             StartPlug = null;
             EndPlug = null;
         }
@@ -31,7 +36,7 @@ namespace FSMEditor
             {
                 // Create a StreamGeometry for describing the shape
                 var path = new PathGeometry();
-
+                var pa = new GeometryGroup(); 
                 // Freeze the geometry for performance benefits
                 PointCollection pts = new PointCollection();
                 Point s = StartPoint;
@@ -44,10 +49,6 @@ namespace FSMEditor
                 Point p4 = new Point( (s.X + e.X) /2, e.Y);
                 Point p5 = new Point (e.X, e.Y);
 
-                pts.Add(p1);
-                pts.Add(p2);
-                pts.Add(p3);
-                //return geometry;
                 var fig = new PathFigure();
                 fig.StartPoint = p1;
                 fig.Segments.Add(new BezierSegment(p1, p2, p3, true));
@@ -80,16 +81,43 @@ namespace FSMEditor
 
         public Plug StartPlug { get; set; }
         public Plug EndPlug { get; set; }
-
+        private bool m_is_selected;
+        public bool IsSelected
+        {
+            get { return m_is_selected; }
+            set
+            {
+                m_is_selected = value;
+                if (m_is_selected == true)
+                {
+                    Stroke = new SolidColorBrush(SELECTED_COLOR);
+                    if (StartPlug != null)
+                    {
+                        StartPlug.IsConnectionSelected = true;
+                    }
+                    if (EndPlug != null)
+                    {
+                        EndPlug.IsConnectionSelected = true;
+                    }
+                }
+                else
+                {
+                    Stroke = new SolidColorBrush(BACKGROUND_COLOR);
+                    if (StartPlug != null)
+                    {
+                        StartPlug.IsConnectionSelected = false;
+                    }
+                    if (EndPlug != null)
+                    {
+                        EndPlug.IsConnectionSelected = false;
+                    }
+                }
+            }
+        }
 
         // Using a DependencyProperty as the backing store for EndPoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EndPointProperty =
             DependencyProperty.Register("EndPoint", typeof(Point), typeof(Connection), 
                 new FrameworkPropertyMetadata(new Point(0,0), FrameworkPropertyMetadataOptions.AffectsRender));
-
-
-
-
-
     }
 }
