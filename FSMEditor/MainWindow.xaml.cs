@@ -23,7 +23,6 @@ namespace FSMEditor
         public MainWindow()
         {
             InitializeComponent();
-            m_data = new Dictionary<object, Node>();
             m_nodes = new List<CustomNode>();
             m_conns = new List<Connection>();
 
@@ -230,13 +229,10 @@ namespace FSMEditor
             }
         }
 
-        public CustomNode m_selected_node;
         public List<CustomNode> m_nodes;
         public List<Connection> m_conns;
-        private Dictionary<Object, Node> m_data;
         private bool m_dragging;
         Point m_mouse_pos;
-        //  private Connection m_conn;
         private object m_selected;
     }
 }
