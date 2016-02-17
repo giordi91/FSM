@@ -72,14 +72,28 @@ namespace FSMEditor
 
                 Point pnt = new Point(inp.X + currX +10,
                                       inp.Y + currY +10);
-                inp.ConnectionObject.EndPoint = pnt;
+                if (inp.ConnectionObject.StartPlug == inp)
+                {
+                    inp.ConnectionObject.StartPoint= pnt;
+                }
+                else
+                {
+                    inp.ConnectionObject.EndPoint = pnt;
+                }
             }
 
             if (outp.ConnectionObject != null)
             {
                 Point pnt = new Point(outp.X + currX + 10,
                                       outp.Y + currY + 10);
-                outp.ConnectionObject.StartPoint= pnt;
+                if (outp.ConnectionObject.StartPlug == outp)
+                {
+                    outp.ConnectionObject.StartPoint= pnt;
+                }
+                else
+                {
+                    outp.ConnectionObject.EndPoint = pnt;
+                }
             }
         }
 

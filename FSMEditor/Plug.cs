@@ -28,9 +28,6 @@ namespace FSMEditor
             ConnectionObject = null;            
         }
 
-        private CustomNode m_node;
-        private int m_radius;
-
         static Plug()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Plug), new FrameworkPropertyMetadata(typeof(Plug)));

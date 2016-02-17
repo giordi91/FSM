@@ -37,23 +37,27 @@ namespace FSMEditor
             if (m_dragging )
             {
                 var pos = e.GetPosition(view);
-                if (m_selected_node != null)
+                if (m_selected!= null)
                 {
-                    var view = (Canvas)this.FindName("view");
-                    int deltaX = (int)pos.X - (int)m_mouse_pos.X;
-                    int deltaY = (int)pos.Y - (int)m_mouse_pos.Y;
-                    m_selected_node.moveRelative(deltaX, deltaY);
+                    if (m_selected is CustomNode)
+                    {
+                        var view = (Canvas)this.FindName("view");
+                        int deltaX = (int)pos.X - (int)m_mouse_pos.X;
+                        int deltaY = (int)pos.Y - (int)m_mouse_pos.Y;
+                        ((CustomNode)m_selected).moveRelative(deltaX, deltaY);
+                    }
 
 
                 }
                 else if (m_conn!= null)
                 {
                     var copy = pos;
-                    copy.X -= 2;
-                    copy.Y -= 2;
-                    m_conn.EndPoint = copy;
+                    double multX = ((pos.X - m_conn.StartPoint.X) * 0.95);
+                    double multY = ((pos.Y - m_conn.StartPoint.Y) * 0.95);
+                    double x =  m_conn.StartPoint.X +  multX;
+                    double y =  m_conn.StartPoint.Y  + multY;
+                    m_conn.EndPoint = new Point(x, y);
                 }
-
                 m_mouse_pos = pos;
             }
         }
@@ -61,14 +65,11 @@ namespace FSMEditor
         private void MainWindow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             m_dragging = false;
+
             if (e.OriginalSource is Ellipse)
             {
                 Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
-                if (m_selected_node != null)
-                {
-                    m_selected_node.IsSelected = false;
-                    m_selected_node = null;
-                }
+
                 if (m_conn.IsSelected == true)
                 {
                     p.IsConnectionSelected = true;
@@ -77,8 +78,6 @@ namespace FSMEditor
                 {
                     p.IsSelected = true;
                 }
-
-                m_selected_plug = null;
 
                 //create the connection
                 CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
@@ -97,15 +96,17 @@ namespace FSMEditor
             }
             else
             {
+                var view= (Canvas)this.FindName("view");
                 if (m_conn != null && !(e.OriginalSource is Connection))
                 {
                     if (m_conn.StartPlug != null)
                     {
                         m_conn.StartPlug.IsSelected = false;
                     }
-                    var view= (Canvas)this.FindName("view");
-                    m_conn.StartPlug.IsSelected = false;
-                    m_conn.EndPlug.IsSelected = false;
+                    if (m_conn.EndPlug!= null)
+                    {
+                        m_conn.EndPlug.IsSelected = false;
+                    }
                     view.Children.Remove(m_conn);
                     m_conn = null;
                 }
@@ -122,42 +123,15 @@ namespace FSMEditor
             if (e.OriginalSource is Rectangle)
             {
                 CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
-                if (m_selected_node != null)
-                {
-                    m_selected_node.IsSelected = false;
-                    m_selected_node = null;
-                }
-                if (m_selected_plug != null)
-                {
-                    m_selected_plug.IsSelected = false;
-                    m_selected_plug = null;
-                }
-
-                if (m_conn != null)
-                {
-                    m_conn.IsSelected = false;
-                    m_conn = null;
-                }
-
+                clear_selection();
                 node.IsSelected = true;
-                m_selected_node = node;
+                m_selected = node;
                 return;
             }
             else if (e.OriginalSource is Ellipse)
             {
                 Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
-                if (m_selected_node != null)
-                {
-                    m_selected_node.IsSelected = false;
-                    m_selected_node = null;
-                }
-                if (m_selected_plug != null)
-                {
-                    m_selected_plug.IsSelected = false;
-                    m_selected_plug = null;
-                }
-                p.IsSelected = true;
-                m_selected_plug = p;
+                clear_selection();
 
                 //create the connection
                 m_conn = new Connection();
@@ -167,11 +141,13 @@ namespace FSMEditor
 
                 //adding cross referencing
                 p.ConnectionObject = m_conn;
+                p.IsSelected = true;
                 m_conn.StartPlug = p;
 
 
                 Ellipse ell = e.OriginalSource as Ellipse;
                 var radius = ell.Width / 2;
+
                 m_conn.StartPoint = new Point(x +p.X + radius ,y +p.Y + radius);
                 m_conn.EndPoint= new Point(x + p.X + radius, y+p.Y + radius);
                 view.Children.Add(m_conn);
@@ -179,44 +155,16 @@ namespace FSMEditor
             }
             else if (e.OriginalSource is Connection)
             {
+                clear_selection();
                 Connection conn = e.OriginalSource as Connection;
 
-                if (m_conn != null)
-                {
-                    m_conn.IsSelected = false;
-                }
+                conn.IsSelected = true;
+                m_selected= conn;
 
-                m_conn = conn;
-                m_conn.IsSelected = true;
-
-                if (m_selected_node != null)
-                {
-                    m_selected_node.IsSelected = false;
-                    m_selected_node = null;
-                }
-                if (m_selected_plug != null)
-                {
-                    m_selected_plug.IsSelected = false;
-                    m_selected_plug = null;
-                }
                 return;
             }
 
-            if (m_selected_node != null)
-            {
-                m_selected_node.IsSelected = false;
-                m_selected_node = null;
-            }
-            if (m_selected_plug != null)
-            {
-                m_selected_plug.IsSelected = false;
-                m_selected_plug = null;
-            }
-            if (m_conn != null)
-            {
-                m_conn.IsSelected = false;
-                m_conn = null;
-            }
+            clear_selection(); 
 
         }
 
@@ -241,15 +189,31 @@ namespace FSMEditor
             else
                 return find_visual_parent<T>(parent);
         }
-
+        private void clear_selection()
+        {
+            if (m_selected != null)
+            {
+                if (m_selected is CustomNode)
+                {
+                    var obj = m_selected as CustomNode;
+                    obj.IsSelected = false;
+                }
+                else if (m_selected is Connection)
+                {
+                    var obj = m_selected as Connection;
+                    obj.IsSelected = false;
+                }
+                m_selected = null;
+            }
+        }
 
         public CustomNode m_selected_node;
-        public Plug m_selected_plug;
         public List<CustomNode> m_nodes;
         public List<Connection> m_conns;
         private Dictionary<Object, Node> m_data; 
         private bool m_dragging;
         Point m_mouse_pos;
         private Connection m_conn;
+        private object m_selected;
     }
 }
