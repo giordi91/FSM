@@ -67,32 +67,41 @@ namespace FSMEditor
             Plug inp = this.GetTemplateChild("m_in") as Plug;
             Plug outp = this.GetTemplateChild("m_out") as Plug;
 
-            if (inp.ConnectionObject != null)
+            var conns = inp.GetConnections();
+            if (conns.Count() != 0 )
             {
 
                 Point pnt = new Point(inp.X + currX +10,
                                       inp.Y + currY +10);
-                if (inp.ConnectionObject.StartPlug == inp)
+                foreach (var conn in conns)
                 {
-                    inp.ConnectionObject.StartPoint= pnt;
-                }
-                else
-                {
-                    inp.ConnectionObject.EndPoint = pnt;
+                    if (conn.StartPlug == inp)
+                    {
+                        conn.StartPoint = pnt;
+                    }
+                    else
+                    {
+                        conn.EndPoint = pnt;
+                    }
                 }
             }
 
-            if (outp.ConnectionObject != null)
+            conns = outp.GetConnections();
+            if (conns.Count() != 0 )
             {
+
                 Point pnt = new Point(outp.X + currX + 10,
                                       outp.Y + currY + 10);
-                if (outp.ConnectionObject.StartPlug == outp)
+                foreach (var conn in conns)
                 {
-                    outp.ConnectionObject.StartPoint= pnt;
-                }
-                else
-                {
-                    outp.ConnectionObject.EndPoint = pnt;
+                    if (conn.StartPlug == outp)
+                    {
+                        conn.StartPoint = pnt;
+                    }
+                    else
+                    {
+                        conn.EndPoint = pnt;
+                    }
                 }
             }
         }
@@ -102,10 +111,6 @@ namespace FSMEditor
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomNode), new FrameworkPropertyMetadata(typeof(CustomNode)));
         }
 
-        public void print()
-        {
-            Console.WriteLine("hello .... it s meeeeee");
-        }
         bool m_is_selected;
     }
 }

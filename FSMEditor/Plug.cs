@@ -25,7 +25,7 @@ namespace FSMEditor
 
         public Plug()
         {
-            ConnectionObject = null;            
+            m_connections = new List<Connection>();            
         }
 
         static Plug()
@@ -79,19 +79,35 @@ namespace FSMEditor
 
         public int X
         {
-            get {
-                return (int)Canvas.GetLeft(this); }
+            get { return (int)Canvas.GetLeft(this); }
         }
         public int Y 
         {
-            get {
-                return (int)Canvas.GetTop(this); }
+            get { return (int)Canvas.GetTop(this); }
         }
 
-        public Connection ConnectionObject { get; set; }
+        public void AddConnection(Connection conn)
+        {
+            if (!m_connections.Contains(conn))
+            {
+                m_connections.Add(conn);
+            }
+        }
+        public void RemoveConnection(Connection conn)
+        {
+            foreach (var m_conn in m_connections)
+            {
+                m_connections.Remove(conn);
+            }
+        }
 
+        public List<Connection> GetConnections()
+        {
+            return m_connections;
+        }
         private bool m_is_selected;
         private bool m_connection_is_selected;
+        private List<Connection> m_connections;
 
     }
 

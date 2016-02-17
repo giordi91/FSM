@@ -24,7 +24,7 @@ namespace FSMEditor
         {
             InitializeComponent();
             m_data = new Dictionary<object, Node>();
-            m_nodes= new List<CustomNode>();
+            m_nodes = new List<CustomNode>();
             m_conns = new List<Connection>();
 
             MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
@@ -34,10 +34,10 @@ namespace FSMEditor
 
         private void MainWindow_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (m_dragging )
+            if (m_dragging)
             {
                 var pos = e.GetPosition(view);
-                if (m_selected!= null)
+                if (m_selected != null)
                 {
                     if (m_selected is CustomNode)
                     {
@@ -46,17 +46,22 @@ namespace FSMEditor
                         int deltaY = (int)pos.Y - (int)m_mouse_pos.Y;
                         ((CustomNode)m_selected).moveRelative(deltaX, deltaY);
                     }
+                    if (m_selected is Connection)
+                    {
+
+                        var conn = (m_selected as Connection);
+                        double multX = ((pos.X - conn.StartPoint.X) * 0.95);
+                        double multY = ((pos.Y - conn.StartPoint.Y) * 0.95);
+                        double x = conn.StartPoint.X + multX;
+                        double y = conn.StartPoint.Y + multY;
+                        conn.EndPoint = new Point(x, y);
+                        if (conn.EndPlug != null)
+                        {
+                            conn.EndPlug.IsSelected = false;
+                        }
+                    }
 
 
-                }
-                else if (m_conn!= null)
-                {
-                    var copy = pos;
-                    double multX = ((pos.X - m_conn.StartPoint.X) * 0.95);
-                    double multY = ((pos.Y - m_conn.StartPoint.Y) * 0.95);
-                    double x =  m_conn.StartPoint.X +  multX;
-                    double y =  m_conn.StartPoint.Y  + multY;
-                    m_conn.EndPoint = new Point(x, y);
                 }
                 m_mouse_pos = pos;
             }
@@ -70,45 +75,62 @@ namespace FSMEditor
             {
                 Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
 
-                if (m_conn.IsSelected == true)
+                if (m_selected != null)
                 {
-                    p.IsConnectionSelected = true;
+                    if (m_selected is Connection)
+                    {
+                        var conn = m_selected as Connection;
+                        if (conn.IsSelected == true)
+                        {
+                            p.IsConnectionSelected = true;
+                        }
+                        else
+                        {
+                            p.IsSelected = true;
+                        }
+
+                        //create the connection
+                        CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
+                        var x = Canvas.GetLeft(node);
+                        var y = Canvas.GetTop(node);
+
+                        Ellipse ell = e.OriginalSource as Ellipse;
+                        var radius = ell.Width / 2;
+
+                        conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
+                        conn.EndPlug = p;
+                        p.AddConnection( conn);
+                        m_conns.Add(conn);
+                        conn = null;
+                        clear_selection();
+                        return;
+                    }
                 }
-                else
-                {
-                    p.IsSelected = true;
-                }
-
-                //create the connection
-                CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
-                var x = Canvas.GetLeft(node);
-                var y = Canvas.GetTop(node);
-
-                Ellipse ell = e.OriginalSource as Ellipse;
-                var radius = ell.Width / 2;
-
-                m_conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
-                m_conn.EndPlug = p;
-                p.ConnectionObject = m_conn;
-                m_conns.Add(m_conn);
-                m_conn = null;
-                return;
             }
             else
             {
-                var view= (Canvas)this.FindName("view");
-                if (m_conn != null && !(e.OriginalSource is Connection))
+                var view = (Canvas)this.FindName("view");
+                //check if anything is selected
+                if (m_selected != null
+                        //that what is selected is a connection
+                        && m_selected is Connection
+                        //also that the original source is not a connecton otherwise
+                        //if we lift the mouse when a connection is selected we delete it
+                        && !(e.OriginalSource is Connection))
                 {
-                    if (m_conn.StartPlug != null)
+                    var conn = m_selected as Connection;
+                    if (conn.StartPlug != null)
                     {
-                        m_conn.StartPlug.IsSelected = false;
+                        conn.StartPlug.IsSelected = false;
                     }
-                    if (m_conn.EndPlug!= null)
+                    if (conn.EndPlug != null)
                     {
-                        m_conn.EndPlug.IsSelected = false;
+                        conn.EndPlug.IsSelected = false;
                     }
-                    view.Children.Remove(m_conn);
-                    m_conn = null;
+                    view.Children.Remove(conn);
+                    conn = null;
+                    m_selected = null;
+                    clear_selection();
                 }
             }
             Console.WriteLine(e.OriginalSource);
@@ -117,7 +139,7 @@ namespace FSMEditor
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             m_dragging = true;
-            var view= (Canvas)this.FindName("view");
+            var view = (Canvas)this.FindName("view");
             m_mouse_pos = e.GetPosition(view);
 
             if (e.OriginalSource is Rectangle)
@@ -134,23 +156,24 @@ namespace FSMEditor
                 clear_selection();
 
                 //create the connection
-                m_conn = new Connection();
+                var conn = new Connection();
                 CustomNode node = find_visual_parent<CustomNode>(e.OriginalSource as DependencyObject);
-                var x = Canvas.GetLeft(node );
+                var x = Canvas.GetLeft(node);
                 var y = Canvas.GetTop(node);
 
                 //adding cross referencing
-                p.ConnectionObject = m_conn;
+                p.AddConnection( conn);
                 p.IsSelected = true;
-                m_conn.StartPlug = p;
+                conn.StartPlug = p;
 
 
                 Ellipse ell = e.OriginalSource as Ellipse;
                 var radius = ell.Width / 2;
 
-                m_conn.StartPoint = new Point(x +p.X + radius ,y +p.Y + radius);
-                m_conn.EndPoint= new Point(x + p.X + radius, y+p.Y + radius);
-                view.Children.Add(m_conn);
+                conn.StartPoint = new Point(x + p.X + radius, y + p.Y + radius);
+                conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
+                view.Children.Add(conn);
+                m_selected = conn;
                 return;
             }
             else if (e.OriginalSource is Connection)
@@ -159,22 +182,22 @@ namespace FSMEditor
                 Connection conn = e.OriginalSource as Connection;
 
                 conn.IsSelected = true;
-                m_selected= conn;
+                m_selected = conn;
 
                 return;
             }
 
-            clear_selection(); 
+            clear_selection();
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             System.Console.WriteLine("Pressing");
-            var view= (Canvas)this.FindName("view");
+            var view = (Canvas)this.FindName("view");
             var n = new CustomNode();
-            n.move( 100, 100);
-            n.NodeName= "Jumping";
+            n.move(100, 100);
+            n.NodeName = "Jumping";
             view.Children.Add(n);
             m_nodes.Add(n);
         }
@@ -210,10 +233,10 @@ namespace FSMEditor
         public CustomNode m_selected_node;
         public List<CustomNode> m_nodes;
         public List<Connection> m_conns;
-        private Dictionary<Object, Node> m_data; 
+        private Dictionary<Object, Node> m_data;
         private bool m_dragging;
         Point m_mouse_pos;
-        private Connection m_conn;
+        //  private Connection m_conn;
         private object m_selected;
     }
 }
