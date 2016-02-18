@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:local="clr-namespace:FSMEditor"
         mc:Ignorable="d"
         Background="Black"
         Title="FSM Editor V 1.0.0" Height="350" Width="525">
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -18,10 +22,33 @@
         </Grid.ColumnDefinitions>
     
     <Button x:Name="addbutton" Content="ADD STATE" Click="Button_Click" Grid.Row="0" Grid.Column="0"></Button>
-    
-    <Canvas x:Name="view" Grid.Row="1" Grid.Column="0" Background="Transparent"  >
+        <ItemsControl
+            ItemsSource="{Binding Rectangles}"
+            >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas  />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style   >
+                    <Setter
+                        
+                        Property="Canvas.Left"
+                        Value="{Binding X}" 
+                                                />
+                    <Setter
+                        Property="Canvas.Top"
+                        Value="{Binding Y}"
+                        />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <!--<Canvas x:Name="view" Grid.Row="1" Grid.Column="0" Background="Transparent"  >
+        -->
         <!--<Rectangle Fill="Gray"  Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>-->
-    </Canvas>
-    <Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>
+        <!--
+    </Canvas>-->
+    <!--<Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>-->
     </Grid>
 </Window>

@@ -30,17 +30,17 @@ namespace FSMEditor
             MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
             MouseMove += MainWindow_MouseMove;
         }
-
+        
         private void MainWindow_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (m_dragging)
             {
+                var view = (Canvas)this.FindName("view");
                 var pos = e.GetPosition(view);
                 if (m_selected != null)
                 {
                     if (m_selected is CustomNode)
                     {
-                        var view = (Canvas)this.FindName("view");
                         int deltaX = (int)pos.X - (int)m_mouse_pos.X;
                         int deltaY = (int)pos.Y - (int)m_mouse_pos.Y;
                         ((CustomNode)m_selected).moveRelative(deltaX, deltaY);
@@ -228,7 +228,6 @@ namespace FSMEditor
                 m_selected = null;
             }
         }
-
         public List<CustomNode> m_nodes;
         public List<Connection> m_conns;
         private bool m_dragging;

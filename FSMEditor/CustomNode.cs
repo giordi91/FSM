@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.ComponentModel;
 namespace FSMEditor
 {
     public class CustomNode : Control
@@ -23,7 +23,7 @@ namespace FSMEditor
 
         public CustomNode()
         {
-
+            this.DataContext = this;
         }
 
         public void move( int x, int y)
@@ -106,10 +106,40 @@ namespace FSMEditor
             }
         }
 
+
+
+        public double X
+        {
+            get {
+                Console.WriteLine("GETTING!");
+                return (double)GetValue(XProperty); }
+            set {
+                Console.WriteLine("property changed");
+                SetValue(XProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty XProperty =
+            DependencyProperty.Register("X", typeof(double), typeof(CustomNode), new PropertyMetadata(0.0));
+
+        public double Y
+        {
+            get { return (double)GetValue(YProperty); }
+            set { SetValue(YProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty YProperty =
+            DependencyProperty.Register("Y", typeof(double), typeof(CustomNode), new PropertyMetadata(0.0) );
+
+
         static CustomNode()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomNode), new FrameworkPropertyMetadata(typeof(CustomNode)));
         }
+
+        
 
         bool m_is_selected;
     }
