@@ -23,11 +23,11 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     
     <Button x:Name="addbutton" Content="ADD STATE" Click="Button_Click" Grid.Row="0" Grid.Column="0"></Button>
         <ItemsControl
-            ItemsSource="{Binding Rectangles}"
-            >
+            ItemsSource="{Binding Rectangles}" Grid.Row="1"
+            x:Name="view">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas x:Name="view" />
+                    <Canvas  />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -43,6 +43,15 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                         />
                 </Style>
             </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <ItemsControl
+            ItemsSource="{Binding Connections}" Grid.Row="1"
+            x:Name="view2">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                <Canvas />
+            </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
         </ItemsControl>
         <!--<Canvas x:Name="view" Grid.Row="1" Grid.Column="0" Background="Transparent"  >
         -->

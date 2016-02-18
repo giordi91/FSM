@@ -12,9 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Forms;
+
+
 namespace FSMEditor
 {
+
+
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -23,19 +28,18 @@ namespace FSMEditor
         public MainWindow()
         {
             InitializeComponent();
-            m_nodes = new List<CustomNode>();
-            m_conns = new List<Connection>();
 
             MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
             MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
             MouseMove += MainWindow_MouseMove;
+            view_model = (this.DataContext as ViewModel);
         }
         
         private void MainWindow_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (m_dragging)
             {
-                var view = (Canvas)this.FindName("view");
+                var view = (ItemsControl)this.FindName("view");
                 var pos = e.GetPosition(view);
                 if (m_selected != null)
                 {
@@ -59,8 +63,6 @@ namespace FSMEditor
                             conn.EndPlug.IsSelected = false;
                         }
                     }
-
-
                 }
                 m_mouse_pos = pos;
             }
@@ -99,7 +101,6 @@ namespace FSMEditor
                         conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
                         conn.EndPlug = p;
                         p.AddConnection( conn);
-                        m_conns.Add(conn);
                         conn = null;
                         clear_selection();
                         return;
@@ -108,7 +109,7 @@ namespace FSMEditor
             }
             else
             {
-                var view = (Canvas)this.FindName("view");
+                var view = (ItemsControl)this.FindName("view");
                 //check if anything is selected
                 if (m_selected != null
                         //that what is selected is a connection
@@ -126,7 +127,8 @@ namespace FSMEditor
                     {
                         conn.EndPlug.IsSelected = false;
                     }
-                    view.Children.Remove(conn);
+                    // view.Children.Remove(conn);
+                    view_model.Connections.Remove(conn);
                     conn = null;
                     m_selected = null;
                     clear_selection();
@@ -138,9 +140,10 @@ namespace FSMEditor
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             m_dragging = true;
-            var view = (Canvas)this.FindName("view");
-
+            var view = (ItemsControl)this.FindName("view");
+            Console.WriteLine(view ==null );
             m_mouse_pos = e.GetPosition(view);
+            // Canvas foundCanvas = UIHelper.FindChild<Canvas>(Application.Current.MainWindow, "MarkerCanvas");
 
             if (e.OriginalSource is Rectangle)
             {
@@ -172,7 +175,7 @@ namespace FSMEditor
 
                 conn.StartPoint = new Point(x + p.X + radius, y + p.Y + radius);
                 conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
-                view.Children.Add(conn);
+                view_model.Connections.Add(conn);
                 m_selected = conn;
                 return;
             }
@@ -194,12 +197,13 @@ namespace FSMEditor
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             System.Console.WriteLine("Pressing");
-            var view = (Canvas)this.FindName("view");
+            // var view = (Canvas)this.FindName("view");
             var n = new CustomNode();
             n.move(100, 100);
             n.NodeName = "Jumping";
-            view.Children.Add(n);
-            m_nodes.Add(n);
+            //view.Children.Add(n);
+            //m_nodes.Add(n);
+            view_model.Rectangles.Add(n);
         }
 
         private T find_visual_parent<T>(DependencyObject obj)
@@ -229,10 +233,10 @@ namespace FSMEditor
                 m_selected = null;
             }
         }
-        public List<CustomNode> m_nodes;
-        public List<Connection> m_conns;
+
         private bool m_dragging;
         Point m_mouse_pos;
         private object m_selected;
+        private ViewModel view_model;
     }
 }
