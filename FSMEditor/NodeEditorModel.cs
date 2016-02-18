@@ -46,13 +46,6 @@ namespace FSMEditor
             m_rectangles.Add(r1);
             m_rectangles.Add(r2);
 
-
-            Connection con = new Connection();
-            con.StartPoint = new Point(100, 200);
-            con.EndPoint= new Point(200, 100);
-
-            m_connections.Add(con);
-
             }
 
         /// <summary>

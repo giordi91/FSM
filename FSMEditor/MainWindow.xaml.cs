@@ -40,7 +40,6 @@ namespace FSMEditor
         {
             if (e.Key == Key.Back || e.Key == Key.Delete)
             {
-                Console.WriteLine("delete shit");
                 if (m_selected != null)
                 {
                     if (m_selected is CustomNode)
@@ -97,7 +96,6 @@ namespace FSMEditor
         private void MainWindow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             m_dragging = false;
-
             if (e.OriginalSource is Ellipse)
             {
                 Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
@@ -165,14 +163,12 @@ namespace FSMEditor
                     clear_selection();
                 }
             }
-            Console.WriteLine(e.OriginalSource);
         }
 
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             m_dragging = true;
             var view = (ItemsControl)this.FindName("view");
-            Console.WriteLine(view ==null );
             m_mouse_pos = e.GetPosition(view);
             // Canvas foundCanvas = UIHelper.FindChild<Canvas>(Application.Current.MainWindow, "MarkerCanvas");
 
@@ -269,5 +265,10 @@ namespace FSMEditor
         Point m_mouse_pos;
         private object m_selected;
         private ViewModel view_model;
+
+        private void addbutton2_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Saving");
+        }
     }
 }

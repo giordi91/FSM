@@ -7,23 +7,50 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:local="clr-namespace:FSMEditor"
         mc:Ignorable="d"
         Background="Black"
-        Title="FSM Editor V 1.0.0" Height="350" Width="525">
+        Title="FSM Editor V 1.0.0" Height="600" Width="800">
     <Window.DataContext>
         <local:ViewModel />
     </Window.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-    
-    <Button x:Name="addbutton" Content="ADD STATE" Click="Button_Click" Grid.Row="0" Grid.Column="0"></Button>
+
+        <StackPanel VerticalAlignment="Top">
+            <Menu Width="Auto" Height="20" Background="Black" Foreground="Beige">
+                <MenuItem Header="_File"  Background="Black" Foreground="Beige">
+                    <MenuItem x:Name="AppExit" Header="E_xit" 
+                              HorizontalAlignment="Left" Width="140"
+                              Background="Black" Foreground="Beige"/>
+                </MenuItem>
+                <MenuItem Header="_Tools" Background="Black" Foreground="Beige">
+                    <MenuItem x:Name="Options" Header="_Options" 
+                              HorizontalAlignment="Left" Width="140"
+                              Background="Black" Foreground="Beige"/>
+                </MenuItem>
+                <MenuItem Header="_Help"  Background="Black" Foreground="Beige">
+                    <MenuItem x:Name="About" Header="&amp;About" 
+                              HorizontalAlignment="Left" Width="140"
+                              Background="Black" Foreground="Beige"/>
+                </MenuItem>
+            </Menu>
+            <Label Content="Label"/>
+        </StackPanel>
+        <Button x:Name="addbutton" Content="ADD STATE" 
+            Click="Button_Click" 
+            Grid.Row="1" 
+            Grid.Column="0"
+            ></Button>
         <ItemsControl
-            ItemsSource="{Binding Rectangles}" Grid.Row="1"
+            ItemsSource="{Binding Rectangles}" Grid.Row="2"
             x:Name="view">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -45,7 +72,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
         <ItemsControl
-            ItemsSource="{Binding Connections}" Grid.Row="1"
+            ItemsSource="{Binding Connections}" Grid.Row="2"
             x:Name="view2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -53,11 +80,13 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <!--<Canvas x:Name="view" Grid.Row="1" Grid.Column="0" Background="Transparent"  >
-        -->
-        <!--<Rectangle Fill="Gray"  Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>-->
-        <!--
-    </Canvas>-->
-    <Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>
+        <ListBox Grid.Column="1"
+                 Grid.Row="2">
+            <TextBlock Text="Cacca" ></TextBlock>
+            <TextBlock Text="Cacca" ></TextBlock>
+            <TextBlock Text="Cacca" ></TextBlock>
+            <TextBlock Text="Cacca" ></TextBlock>
+        </ListBox>
+    <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     </Grid>
 </Window>

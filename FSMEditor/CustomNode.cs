@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using FSMWrapper;
 namespace FSMEditor
 {
     public class CustomNode : Control
@@ -24,6 +25,8 @@ namespace FSMEditor
         public CustomNode()
         {
             this.DataContext = this;
+            //create instance of the state
+            m_state = new StateWrapper();
         }
 
         public void move( int x, int y)
@@ -32,8 +35,18 @@ namespace FSMEditor
             Canvas.SetTop(this, y);
         }
 
-        public string NodeName { get; set; }
+        public string NodeName
+        {
+            get { return m_state.get_name(); }
+            set
+            {
+                Console.WriteLine("Writing name");
+                //m_state.set_name(value); }
+            }
+        }
 
+
+        #region Graphic related
         public bool IsSelected
         {
             get { return m_is_selected; }
@@ -158,8 +171,12 @@ namespace FSMEditor
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomNode), new FrameworkPropertyMetadata(typeof(CustomNode)));
         }
 
-        
+        #endregion
 
-        bool m_is_selected;
+
+        //private delcarations
+        private bool m_is_selected;
+        private string m_name;
+        private StateWrapper m_state;
     }
 }

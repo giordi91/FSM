@@ -26,17 +26,20 @@
                                         Canvas.Left="120"
                                         Canvas.Top="40" 
                                         ></local:Plug>
-                            <Grid >
+                            <Grid Canvas.Top="10">
                                 <Grid.ColumnDefinitions>
                                    <ColumnDefinition Width="135"/> 
                                 </Grid.ColumnDefinitions>
-                            <Label
-                                Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Control}}, Path=NodeName}"
+                            <TextBox
+                                Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Control}}, Path=NodeName}"
                                 Foreground="White" 
                                 FontFamily="Calibri"
-                                Canvas.Top="10"
-                                HorizontalContentAlignment="Center"
-                                > </Label>
+                                HorizontalAlignment="Center"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                > </TextBox>
+                                <!--Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Control}}, Path=NodeName}"-->
+                                <!--HorizontalContentAlignment="Center"-->
                             </Grid>
                         </Canvas> 
                     </Border>
