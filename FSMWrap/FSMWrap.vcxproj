@@ -110,6 +110,9 @@
       <AdditionalDependencies>FSMdll.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>E:\WORK_IN_PROGRESS\C\FSM\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)\FSMEditor\bin\$(Configuration)\$(ProjectName).dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

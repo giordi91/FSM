@@ -52,6 +52,11 @@ namespace FSM
 
 		virtual const string serialize() const = 0;
 		
+		__declspec(dllexport)
+		inline const void  set_name(string& name)
+		{
+			m_name = name;
+		}
 
 	protected:
 		//storagfe for the connection pointers

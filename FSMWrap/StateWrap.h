@@ -33,7 +33,9 @@ namespace FSMWrapper
 		}
 
 		void set_name(String^ name)
-		{}
+		{
+			//_state->set_name(msclr::interop::marshal_as<std::string>(name));
+		}
 		int getInt()
 		{
 			return 10;
