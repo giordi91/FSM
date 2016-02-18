@@ -32,9 +32,35 @@ namespace FSMEditor
             MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
             MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
             MouseMove += MainWindow_MouseMove;
+            KeyDown += MainWindow_KeyDown;
             view_model = (this.DataContext as ViewModel);
         }
-        
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back || e.Key == Key.Delete)
+            {
+                Console.WriteLine("delete shit");
+                if (m_selected != null)
+                {
+                    if (m_selected is CustomNode)
+                    {
+                        var node = m_selected as CustomNode;
+                        node.CleanUpBeforeDelete(view_model);
+                        view_model.Rectangles.Remove(node);
+                    }
+                    else if (m_selected is Connection)
+                    {
+                        var conn = m_selected as Connection;
+                        conn.CleanUpBeforeDelete(view_model);
+                        view_model.Connections.Remove(conn);
+                    }
+                }
+                m_selected = null;
+            }
+
+        }
+
         private void MainWindow_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (m_dragging)
@@ -76,11 +102,16 @@ namespace FSMEditor
             {
                 Plug p = find_visual_parent<Plug>(e.OriginalSource as DependencyObject);
 
+                //first let check we have something selected
                 if (m_selected != null)
                 {
+                    //is it a connection?
                     if (m_selected is Connection)
                     {
+                        //if so cast it to connection
                         var conn = m_selected as Connection;
+                        //if we  ha have the connection selected we make sure to
+                        //set the right color
                         if (conn.IsSelected == true)
                         {
                             p.IsConnectionSelected = true;

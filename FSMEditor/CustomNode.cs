@@ -106,7 +106,26 @@ namespace FSMEditor
             }
         }
 
+        public void CleanUpBeforeDelete(ViewModel view_model)
+        {
+            Plug inp = this.GetTemplateChild("m_in") as Plug;
+            Plug outp = this.GetTemplateChild("m_out") as Plug;
+            var conns = inp.GetConnections();
+            foreach (var conn in inp.GetConnections())
+            {
+                conn.StartPlug.IsSelected = false;
+                conn.EndPlug.IsSelected = false;
+                view_model.Connections.Remove(conn);
+            }
 
+            conns = outp.GetConnections();
+            foreach (var conn in conns)
+            {
+                conn.StartPlug.IsSelected = false;
+                conn.EndPlug.IsSelected = false;
+                view_model.Connections.Remove(conn);
+            }
+        }
 
         public double X
         {

@@ -115,6 +115,22 @@ namespace FSMEditor
             }
         }
 
+
+        public void CleanUpBeforeDelete(ViewModel view_model)
+        {
+            if (StartPlug != null)
+            {
+                StartPlug.IsSelected = false;
+                StartPlug.GetConnections().Remove(this);
+            }
+
+            if (EndPlug!= null)
+            {
+                EndPlug.IsSelected = false;
+                EndPlug.GetConnections().Remove(this);
+            } 
+        }
+
         // Using a DependencyProperty as the backing store for EndPoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EndPointProperty =
             DependencyProperty.Register("EndPoint", typeof(Point), typeof(Connection), 
