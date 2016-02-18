@@ -139,6 +139,7 @@ namespace FSMEditor
         {
             m_dragging = true;
             var view = (Canvas)this.FindName("view");
+
             m_mouse_pos = e.GetPosition(view);
 
             if (e.OriginalSource is Rectangle)

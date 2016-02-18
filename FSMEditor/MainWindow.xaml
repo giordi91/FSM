@@ -27,7 +27,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas  />
+                    <Canvas x:Name="view" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -49,6 +49,6 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         <!--<Rectangle Fill="Gray"  Height="100" Stroke="#FF2EE411" Width="135" Canvas.Left="149" Canvas.Top="95" RadiusX="10" RadiusY="10" StrokeThickness="5"/>-->
         <!--
     </Canvas>-->
-    <!--<Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>-->
+    <Button x:Name="addbutton2" Grid.Row="2" Grid.Column="0" Content="ADD STATE" Click="Button_Click"></Button>
     </Grid>
 </Window>
