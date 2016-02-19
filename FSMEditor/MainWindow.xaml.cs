@@ -216,8 +216,8 @@ namespace FSMEditor
                 m_selected = conn;
 
                 //connection is selected we need to update the connction window
-                view_model.m_conditions.Add("cazzoooo");
-                view_model.m_conditions.Add("panico");
+                //view_model.m_conditions.Add("cazzoooo");
+                //view_model.m_conditions.Add("panico");
                 Console.WriteLine("connetionnn");
                 return;
             }

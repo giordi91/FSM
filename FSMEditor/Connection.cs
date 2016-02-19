@@ -17,19 +17,30 @@ using System.Drawing;
 
 namespace FSMEditor
 {
-    public class Connection : Shape 
+    public class Connection : Shape
     {
 
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
-        static Color SELECTED_COLOR   = (Color)ColorConverter.ConvertFromString("Yellow");
+        static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("Yellow");
+        public FSMWrapper.ConnectionWrap conn;
         public Connection()
         {
-            Stroke= new SolidColorBrush(BACKGROUND_COLOR);
+            Stroke = new SolidColorBrush(BACKGROUND_COLOR);
             StrokeThickness = 5;
             StartPlug = null;
             EndPlug = null;
         }
 
+        public void FinalizeConnection(FSMWrapper.StateWrapper source,
+                                   FSMWrapper.StateWrapper destination)
+        {
+            conn = new FSMWrapper.ConnectionWrap(source,
+                                             destination);
+
+        }
+
+
+        #region graphics
         protected override Geometry DefiningGeometry
         {
             get
@@ -114,7 +125,7 @@ namespace FSMEditor
                 }
             }
         }
-
+        #endregion
 
         public void CleanUpBeforeDelete(ViewModel view_model)
         {

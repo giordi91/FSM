@@ -148,6 +148,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConnectionWrap.h" />
     <ClInclude Include="FiniteStateMachineWrap.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StateWrap.h" />
