@@ -17,6 +17,7 @@ namespace FSM
 	class FiniteStateMachine
 	{
 	public:
+		__declspec(dllexport)
 		FiniteStateMachine(string name,
 			DataStorage* dt) :
 			m_name(name),
@@ -65,7 +66,7 @@ namespace FSM
 			}
 		}
 
-
+		__declspec(dllexport)
 		const string serialize() const;
 	private:
 		static const string m_class_name;

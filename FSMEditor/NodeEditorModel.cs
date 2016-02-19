@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.ComponentModel;
 using System.Drawing;
+using FSMWrapper;
 
 namespace FSMEditor 
 {
@@ -16,20 +17,14 @@ namespace FSMEditor
     public class ViewModel : INotifyPropertyChanged
     {
 
-        /// <summary>
-        /// The list of rectangles that is displayed in the ListBox.
-        /// </summary>
         ObservableCollection<CustomNode> m_rectangles = new ObservableCollection<CustomNode>();
         ObservableCollection<Connection> m_connections= new ObservableCollection<Connection>();
 
-        /// <summary>
-        /// List of connections between rectangles.
-        /// </summary>
-        //private ObservableCollection<ConnectionViewModel> connections = new ObservableCollection<ConnectionViewModel>();
-
+        public FiniteStateMachineWrap m_fsm; 
 
         public ViewModel()
         {
+            m_fsm = new FiniteStateMachineWrap();
             //
             // Populate the view model with some example data.
             //
@@ -45,6 +40,9 @@ namespace FSMEditor
 
             m_rectangles.Add(r1);
             m_rectangles.Add(r2);
+
+            m_fsm.add_state(r1.m_state);
+            m_fsm.add_state(r2.m_state);
 
             }
 

@@ -37,11 +37,14 @@ namespace FSMEditor
 
         public string NodeName
         {
-            get { return m_state.get_name(); }
+            get {
+                Console.WriteLine("Getting name " );
+                Console.WriteLine(m_state.get_name());
+                return m_state.get_name(); }
             set
             {
                 Console.WriteLine("Writing name");
-                //m_state.set_name(value); }
+                m_state.set_name(value); 
             }
         }
 
@@ -176,7 +179,6 @@ namespace FSMEditor
 
         //private delcarations
         private bool m_is_selected;
-        private string m_name;
-        private StateWrapper m_state;
+        public StateWrapper m_state;
     }
 }

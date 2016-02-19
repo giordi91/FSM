@@ -269,6 +269,11 @@ namespace FSMEditor
         private void addbutton2_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Saving");
+            string data = view_model.m_fsm.serialize();
+            Console.WriteLine(data);
+            string path = @"E:\WORK_IN_PROGRESS\C\FSM\FSMEditor\bin\textOut.fsm";
+            System.IO.File.WriteAllText(path, data);
+
         }
     }
 }

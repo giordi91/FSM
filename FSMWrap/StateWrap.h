@@ -1,6 +1,4 @@
-
-// ConsoleApplication2.cpp : main project file.
-
+#pragma once
 #include "stdafx.h"
 #include "State.h"
 #include <string>
@@ -13,7 +11,7 @@ namespace FSMWrapper
 {
 	public ref class StateWrapper
 	{
-	private:
+	public:
 		FSM::State * _state;
 	public:
 		StateWrapper()
@@ -34,11 +32,7 @@ namespace FSMWrapper
 
 		void set_name(String^ name)
 		{
-			//_state->set_name(msclr::interop::marshal_as<std::string>(name));
-		}
-		int getInt()
-		{
-			return 10;
+			_state->set_name(msclr::interop::marshal_as<std::string>(name));
 		}
 
 	};

@@ -33,9 +33,8 @@ namespace FSM
 	class DataStorage
 	{
 	public:
-		/** constructor */
+		__declspec(dllexport)
 		DataStorage() = default;
-		/** destructor */
 		~DataStorage() = default;
 		
 		/**

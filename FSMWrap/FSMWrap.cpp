@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "StateWrap.h"
+#include "FiniteStateMachineWrap.h"
 using namespace System;
 
 int main(array<System::String ^> ^args)
