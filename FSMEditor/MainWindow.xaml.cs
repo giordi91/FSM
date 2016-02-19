@@ -34,6 +34,7 @@ namespace FSMEditor
             MouseMove += MainWindow_MouseMove;
             KeyDown += MainWindow_KeyDown;
             view_model = (this.DataContext as ViewModel);
+            // conn_model = this.ConnectionViewer as ListBox;
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
@@ -214,6 +215,10 @@ namespace FSMEditor
                 conn.IsSelected = true;
                 m_selected = conn;
 
+                //connection is selected we need to update the connction window
+                view_model.m_conditions.Add("cazzoooo");
+                view_model.m_conditions.Add("panico");
+                Console.WriteLine("connetionnn");
                 return;
             }
 
@@ -265,6 +270,7 @@ namespace FSMEditor
         Point m_mouse_pos;
         private object m_selected;
         private ViewModel view_model;
+        private ListBox conn_model;
 
         private void addbutton2_Click(object sender, RoutedEventArgs e)
         {

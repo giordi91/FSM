@@ -19,11 +19,15 @@ namespace FSMEditor
 
         ObservableCollection<CustomNode> m_rectangles = new ObservableCollection<CustomNode>();
         ObservableCollection<Connection> m_connections= new ObservableCollection<Connection>();
+        public ObservableCollection<string> m_conditions = new ObservableCollection<string>(); 
 
         public FiniteStateMachineWrap m_fsm; 
 
         public ViewModel()
         {
+            m_conditions.Add("puppaa");
+            m_conditions.Add("daje");
+            m_conditions.Add("cazzo");
             m_fsm = new FiniteStateMachineWrap();
             //
             // Populate the view model with some example data.
@@ -57,6 +61,13 @@ namespace FSMEditor
             }
         }
 
+        public ObservableCollection<string> Conditions 
+        {
+            get
+            {
+                return m_conditions;
+            }
+        }
         public ObservableCollection<Connection> Connections 
         {
             get

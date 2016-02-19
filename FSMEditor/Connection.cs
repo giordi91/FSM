@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace FSMEditor
 
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
         static Color SELECTED_COLOR   = (Color)ColorConverter.ConvertFromString("Yellow");
-
         public Connection()
         {
             Stroke= new SolidColorBrush(BACKGROUND_COLOR);

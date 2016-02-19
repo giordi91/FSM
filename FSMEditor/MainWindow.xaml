@@ -73,6 +73,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         </ItemsControl>
         <ItemsControl
             ItemsSource="{Binding Connections}" Grid.Row="2"
+
             x:Name="view2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -81,11 +82,10 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         <ListBox Grid.Column="1"
-                 Grid.Row="2">
-            <TextBlock Text="Cacca" ></TextBlock>
-            <TextBlock Text="Cacca" ></TextBlock>
-            <TextBlock Text="Cacca" ></TextBlock>
-            <TextBlock Text="Cacca" ></TextBlock>
+                 Grid.Row="2"
+                 x:Name="ConnectionViewer"
+                 ItemsSource="{Binding Conditions}">
+
         </ListBox>
     <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     </Grid>
