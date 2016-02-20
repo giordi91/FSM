@@ -68,6 +68,11 @@ namespace FSMEditor
                 Console.WriteLine("getting condiitions");
                 return m_conditions;
             }
+            set
+            {
+                m_conditions = value;
+                OnPropertyChanged("Conditions");
+            }
         }
         public ObservableCollection<Connection> Connections 
         {
@@ -75,6 +80,7 @@ namespace FSMEditor
             {
                 return m_connections;
             }
+
         }
         
         /// <summary>

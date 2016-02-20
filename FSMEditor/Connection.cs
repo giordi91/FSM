@@ -32,6 +32,7 @@ namespace FSMEditor
             StrokeThickness = 5;
             StartPlug = null;
             EndPlug = null;
+            Conditions = new ObservableCollection<ConditionBinding>();
         }
 
         public void FinalizeConnection(FSMWrapper.FiniteStateMachineWrap fsm,
@@ -131,6 +132,21 @@ namespace FSMEditor
             }
         }
         #endregion
+
+
+
+
+        public ObservableCollection<ConditionBinding> Conditions
+        {
+            get { return (ObservableCollection<ConditionBinding>)GetValue(ConditionsProperty); }
+            set { SetValue(ConditionsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Conditions.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ConditionsProperty =
+            DependencyProperty.Register("Conditions", typeof(ObservableCollection<ConditionBinding>), typeof(Connection), new PropertyMetadata(null));
+
+
 
         public void CleanUpBeforeDelete(ViewModel view_model)
         {

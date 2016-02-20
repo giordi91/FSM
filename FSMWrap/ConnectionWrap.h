@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>
+#include "ConditionWrap.h"
 using namespace System;
 
 
@@ -27,9 +28,10 @@ namespace FSMWrapper
 			_conn= nullptr;
 		}
 
-		void add_conditions(FSM::Condition* cond)
+		void add_conditions(TypedConditionFloatWrap^ cond)
 		{
-			_conn->add_condition(cond);
+			
+			_conn->add_condition(cond->_cond);
 		}
 
 	};
