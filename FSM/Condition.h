@@ -61,6 +61,11 @@ namespace FSM
 		{
 			return m_op;
 		}
+
+		inline void set_operation( Operation op)
+		{
+			m_op = op;
+		}
 	protected:
 		//pointer to the data storage
 		DataStorage * m_data;
@@ -260,16 +265,19 @@ namespace FSM
 		Getter function for the key value
 		@returns: the T value for the key 
 		*/
+		__declspec(dllexport)
 		inline T get_value()
 		{
 			m_data->get_value(m_key_name, m_key_value);
 			return m_key_value;
 		}
+		__declspec(dllexport)
 		inline const string& get_key_name() const
 		{
 			return m_key_name;
 		}
 
+		__declspec(dllexport)
 		inline const T get_compare_value() const
 		{
 			return m_compare_to_value;

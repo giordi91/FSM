@@ -14,6 +14,9 @@ namespace FSMEditor
 {
     public class ConditionBinding: INotifyPropertyChanged
     {
+        public enum OperationEnum { EQUAL, GREATHER, LESS,GREATHEREQUAL,LESSEQUAL};
+        static public List<string> OperationNames = 
+            new List<string>(){ "EQUAL", "GREATHER", "LESS","GREATHEREQUAL","LESSEQUAL"};
         public TypedConditionFloatWrap m_wrapCond;
         public ConditionBinding( TypedConditionFloatWrap wrap_cond)
         {
@@ -23,8 +26,16 @@ namespace FSMEditor
         public string Operation
         {
 
-            get { return "puppa"; }
-            set { OnPropertyChanged("Operation"); }
+            get {
+                int value = m_wrapCond.get_operation();
+                string name = OperationNames[value];
+                return name;                
+            }
+            set {
+                    int v = OperationNames.IndexOf(value);
+                    m_wrapCond.set_operation(v);
+                    OnPropertyChanged("Operation");
+                 }
         }
 
         private void OnPropertyChanged(string name)
