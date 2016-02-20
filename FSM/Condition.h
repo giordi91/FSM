@@ -100,6 +100,7 @@ namespace FSM
 		@param key_2_name: the name of the second key of the condition
 		@param op: the operation we want to perform, greather , equal etc
 		*/
+		__declspec(dllexport)
 		DoubleVarCondition(DataStorage * data,
 			string& key_1_name,
 			string& key_2_name,
@@ -115,6 +116,7 @@ namespace FSM
 		is true or not
 		@returns bool, the result of the condition
 		*/
+		__declspec(dllexport)
 		bool evaluate() override
 		{
 			__update_values();
@@ -240,6 +242,7 @@ namespace FSM
 		@param compare_to_value: the value we want to compair against
 		@param op: the operation we want to perform, greather , equal etc
 		*/
+		__declspec(dllexport)
 		TypedCondition(DataStorage * data,
 			string key_name,
 			T compare_to_value,
@@ -278,6 +281,7 @@ namespace FSM
 		is true or not
 		@returns bool, the result of the condition
 		*/
+		__declspec(dllexport)
 		bool evaluate() override
 		{
 			m_data->get_value(m_key_name, m_key_value);

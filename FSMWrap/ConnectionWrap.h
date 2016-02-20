@@ -26,17 +26,11 @@ namespace FSMWrapper
 			delete _conn;
 			_conn= nullptr;
 		}
-		/*
-		String^ get_name()
-		{
-			return msclr::interop::marshal_as<String^>(_state->get_name());
-		}
 
-		void set_name(String^ name)
+		void add_conditions(FSM::Condition* cond)
 		{
-			_state->set_name(msclr::interop::marshal_as<std::string>(name));
+			_conn->add_condition(cond);
 		}
-		*/
 
 	};
 

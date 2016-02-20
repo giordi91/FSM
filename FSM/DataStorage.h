@@ -46,6 +46,7 @@ namespace FSM
 					  with the correct value if found, otherwise untouched
 		@returns: Status, wheter the key was found in the container or not
 		*/
+		__declspec(dllexport)
 		Status get_value(const string& name, bool& value);
 
 		/**
@@ -57,6 +58,7 @@ namespace FSM
 					  with the correct value if found, otherwise untouched
 		@returns: Status, wheter the key was found in the container or not
 		*/
+		__declspec(dllexport)
 		Status get_value(const string& name, int& value);
 		
 		/**
@@ -68,6 +70,7 @@ namespace FSM
 					  with the correct value if found, otherwise untouched
 		@returns: Status, wheter the key was found in the container or not
 		*/
+		__declspec(dllexport)
 		Status get_value(const string& name, float& value);
 
 		/**

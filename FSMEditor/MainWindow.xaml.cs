@@ -130,6 +130,13 @@ namespace FSMEditor
 
                         conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
                         conn.EndPlug = p;
+                        var srcNode = find_visual_parent<CustomNode>(conn.StartPlug); 
+                        var destNode = find_visual_parent<CustomNode>(p);
+
+                        conn.FinalizeConnection(view_model.m_fsm, srcNode.m_state,
+                                                destNode.m_state);
+                        ConditionBinding cb = new ConditionBinding(conn.cond);
+                        view_model.m_conditions.Add(cb);
                         p.AddConnection( conn);
                         conn = null;
                         clear_selection();
@@ -270,7 +277,6 @@ namespace FSMEditor
         Point m_mouse_pos;
         private object m_selected;
         private ViewModel view_model;
-        private ListBox conn_model;
 
         private void addbutton2_Click(object sender, RoutedEventArgs e)
         {

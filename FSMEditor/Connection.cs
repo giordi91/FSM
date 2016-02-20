@@ -23,6 +23,9 @@ namespace FSMEditor
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
         static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("Yellow");
         public FSMWrapper.ConnectionWrap conn;
+        public FSMWrapper.TypedConditionFloatWrap cond; 
+
+        //public FSMWrapper.TypedConditionWrapF cond3;
         public Connection()
         {
             Stroke = new SolidColorBrush(BACKGROUND_COLOR);
@@ -31,12 +34,14 @@ namespace FSMEditor
             EndPlug = null;
         }
 
-        public void FinalizeConnection(FSMWrapper.StateWrapper source,
+        public void FinalizeConnection(FSMWrapper.FiniteStateMachineWrap fsm,
+                                    FSMWrapper.StateWrapper source,
                                    FSMWrapper.StateWrapper destination)
         {
             conn = new FSMWrapper.ConnectionWrap(source,
                                              destination);
 
+            cond = new FSMWrapper.TypedConditionFloatWrap(fsm, "jumping",1.0f,0);
         }
 
 

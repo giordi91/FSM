@@ -21,6 +21,7 @@ namespace FSM
 		@param source: pointer to the source state
 		@param destination: pointer to the destination state
 		*/
+		__declspec(dllexport)
 		Connection(
 			State* source,
 			State* destination
@@ -48,6 +49,7 @@ namespace FSM
 		@brief add a condition to the connection
 		@param condition: pointer to the condition to add
 		*/
+		__declspec(dllexport)
 		inline void add_condition(Condition * condition)
 		{
 			m_condtitions.push_back(condition);

@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "FSM.h"
+#include "StateWrap.h"
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>
@@ -13,6 +14,7 @@ namespace FSMWrapper
 	{
 	private:
 		FSM::FiniteStateMachine* _fsm;
+	public:
 		FSM::DataStorage* _data;
 	public:
 		FiniteStateMachineWrap()

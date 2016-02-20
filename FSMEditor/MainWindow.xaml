@@ -85,7 +85,18 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                  Grid.Row="2"
                  x:Name="ConnectionViewer"
                  ItemsSource="{Binding Conditions}">
-
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Operation}"></TextBlock>
+                    </Grid>
+                    </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     </Grid>
