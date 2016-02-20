@@ -81,6 +81,16 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="+"></Button> 
+            <Button Grid.Column="1" Content="-"></Button> 
+            
+        </Grid>
         <ListBox Grid.Column="1"
                  Grid.Row="2"
                  x:Name="ConnectionViewer"
@@ -103,5 +113,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             </ListBox.ItemTemplate>
         </ListBox>
     <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
+    <Popup Margin="10,10,0,13" Name="Popup1" HorizontalAlignment="Left"   
+VerticalAlignment="Top" Width="194" Height="200" IsOpen="True"/>
     </Grid>
 </Window>

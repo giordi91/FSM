@@ -25,13 +25,9 @@ namespace FSMEditor
 
         public ViewModel()
         {
-            //m_conditions.Add("puppaa");
-            //m_conditions.Add("daje");
-            //m_conditions.Add("cazzo");
             m_fsm = new FiniteStateMachineWrap();
-            //
+
             // Populate the view model with some example data.
-            //
             var r1 = new CustomNode();
             r1.X = 200;
             r1.Y = 101;
