@@ -283,6 +283,18 @@ namespace FSM
 			return m_compare_to_value;
 		
 		}
+		
+		__declspec(dllexport)
+		inline void set_compare_value( T  value) 
+		{
+			m_compare_to_value = value;
+		}
+
+		__declspec(dllexport)
+		inline void set_key_name( string  value) 
+		{
+			m_key_name= value;
+		}
 
 		/**
 		@briefThis function evaluates the condition and returns wheter

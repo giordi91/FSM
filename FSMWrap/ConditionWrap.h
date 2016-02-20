@@ -45,6 +45,13 @@ namespace FSMWrapper
 			String^ name = msclr::interop::marshal_as<String^>(_cond->get_key_name());
 			return name;
 		}
+
+		void  set_key_name(String^ key)
+		{
+			std::string name = msclr::interop::marshal_as<std::string>(key);
+			_cond->set_key_name(name);
+
+		}
 	public:
 		int get_operation()
 		{
@@ -57,6 +64,16 @@ namespace FSMWrapper
 			_cond->set_operation(convert_op);
 		}
 
+		float get_compare_value()
+		{
+			return _cond->get_compare_value();
+		}
+			
+		void set_compare_value(float value)
+		{
+			_cond->set_compare_value(value);
+		}
+	
 		~TypedConditionFloatWrap()
 		{
 			delete _cond;

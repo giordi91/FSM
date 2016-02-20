@@ -287,5 +287,28 @@ namespace FSMEditor
             System.IO.File.WriteAllText(path, data);
 
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(((TextBox)sender).Text))
+                maintainsession = "";
+            else
+            {
+                double num = 0;
+                bool success = double.TryParse(((TextBox)sender).Text, out num);
+                if (success & num >= 0)
+                {
+                    ((TextBox)sender).Text.Trim();
+                    maintainsession = ((TextBox)sender).Text;
+                }
+                else
+                {
+                    ((TextBox)sender).Text = maintainsession;
+                    ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
+                }
+            }
+        }
+        private string maintainsession;
+
     }
 }

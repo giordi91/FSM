@@ -21,7 +21,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="auto" MinWidth="200"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel VerticalAlignment="Top">
@@ -93,7 +93,11 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Operation}"></TextBlock>
+                        <TextBox Grid.Column="0" Text="{Binding KeyName }"></TextBox>
+                        <ComboBox Grid.Column="1" ItemsSource ="{Binding OperationNames}" SelectedItem="{Binding Operation}" ></ComboBox>
+                        <TextBox Grid.Column="2" 
+                                 Text="{Binding CompareValue}"
+                                 TextChanged="TextBox_TextChanged"></TextBox>
                     </Grid>
                     </DataTemplate>
             </ListBox.ItemTemplate>
