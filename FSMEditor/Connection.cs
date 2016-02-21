@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using FSMWrapper;
 
 namespace FSMEditor
 {
@@ -22,8 +23,8 @@ namespace FSMEditor
 
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
         static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("Yellow");
-        public FSMWrapper.ConnectionWrap conn;
-        public FSMWrapper.TypedConditionFloatWrap cond; 
+        public ConnectionWrap conn;
+        public TypedConditionFloatWrap cond;
 
         //public FSMWrapper.TypedConditionWrapF cond3;
         public Connection()
@@ -53,28 +54,28 @@ namespace FSMEditor
             {
                 // Create a StreamGeometry for describing the shape
                 var path = new PathGeometry();
-                var pa = new GeometryGroup(); 
+                var pa = new GeometryGroup();
                 // Freeze the geometry for performance benefits
                 PointCollection pts = new PointCollection();
                 Point s = StartPoint;
                 Point e = EndPoint;
 
 
-                Point p1 = new Point (s.X, s.Y);
-                Point p2 = new Point( (s.X + e.X) /2, s.Y);
-                Point p3 = new Point( (s.X + e.X) /2, (s.Y + e.Y) /2);
-                Point p4 = new Point( (s.X + e.X) /2, e.Y);
-                Point p5 = new Point (e.X, e.Y);
+                Point p1 = new Point(s.X, s.Y);
+                Point p2 = new Point((s.X + e.X) / 2, s.Y);
+                Point p3 = new Point((s.X + e.X) / 2, (s.Y + e.Y) / 2);
+                Point p4 = new Point((s.X + e.X) / 2, e.Y);
+                Point p5 = new Point(e.X, e.Y);
 
                 var fig = new PathFigure();
                 fig.StartPoint = p1;
                 fig.Segments.Add(new BezierSegment(p1, p2, p3, true));
                 fig.Segments.Add(new BezierSegment(p3, p4, p5, true));
                 fig.IsClosed = false;
-                fig.IsFilled= false;
+                fig.IsFilled = false;
                 path.Figures.Add(fig);
-                 
-                return path ;
+
+                return path;
             }
         }
 
@@ -86,8 +87,8 @@ namespace FSMEditor
 
         // Using a DependencyProperty as the backing store for StartPoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StartPointProperty =
-            DependencyProperty.Register("StartPoint", typeof(Point), 
-                typeof(Connection), new FrameworkPropertyMetadata(new Point(0,0), FrameworkPropertyMetadataOptions.AffectsRender));
+            DependencyProperty.Register("StartPoint", typeof(Point),
+                typeof(Connection), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
 
 
         public Point EndPoint
@@ -134,7 +135,23 @@ namespace FSMEditor
         #endregion
 
 
+        public CustomNode StartNode
+        {
+            get
+            {
+                var srcNode = find_visual_parent<CustomNode>(StartPlug);
+                return srcNode;
+            }
+        }
 
+        public CustomNode EndNode
+        {
+            get
+            {
+                var endNode = find_visual_parent<CustomNode>(EndPlug);
+                return endNode;
+            }
+        }
 
         public ObservableCollection<ConditionBinding> Conditions
         {
@@ -156,16 +173,29 @@ namespace FSMEditor
                 StartPlug.GetConnections().Remove(this);
             }
 
-            if (EndPlug!= null)
+            if (EndPlug != null)
             {
                 EndPlug.IsSelected = false;
                 EndPlug.GetConnections().Remove(this);
-            } 
+            }
         }
 
         // Using a DependencyProperty as the backing store for EndPoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EndPointProperty =
-            DependencyProperty.Register("EndPoint", typeof(Point), typeof(Connection), 
-                new FrameworkPropertyMetadata(new Point(0,0), FrameworkPropertyMetadataOptions.AffectsRender));
+            DependencyProperty.Register("EndPoint", typeof(Point), typeof(Connection),
+                new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+
+        private T find_visual_parent<T>(DependencyObject obj)
+           where T : DependencyObject
+        {
+            Console.WriteLine("walk");
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            if (parent is T)
+                return (T)parent;
+            else
+                return find_visual_parent<T>(parent);
+
+
+        }
     }
 }

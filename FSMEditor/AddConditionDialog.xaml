@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FSMEditor"
         mc:Ignorable="d"
-        Title="AddConditionDialog" Height="300" Width="300">
-    <Grid>
-        
+        Title="AddConditionDialog" Height="150" Width="300">
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5" >            
+            <RadioButton  GroupName="CondType" Content="DoubleVar" Click="RadioButton_Click_1"/>
+            <RadioButton  Margin="8,0,0,0" GroupName="CondType" Content="Typed" IsChecked="True"  Click="RadioButton_Click_1"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" >
+            <RadioButton  GroupName="VarType" Content="int" Click="RadioButton_Click" />
+            <RadioButton  Margin="8,0,0,0" GroupName="VarType" Content="float" IsChecked="True" Click="RadioButton_Click"/>
+            <RadioButton  Margin="8,0,0,0" GroupName="VarType" Content="bool" IsChecked="True" Click="RadioButton_Click"/>
+        </StackPanel>
+        <Button Content="Create" Grid.Row="2" Click="add_connection_create_click"></Button>
     </Grid>
 </Window>

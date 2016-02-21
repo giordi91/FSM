@@ -39,6 +39,7 @@ namespace FSMEditor
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            Console.WriteLine("delete");
             if (e.Key == Key.Back || e.Key == Key.Delete)
             {
                 if (m_selected != null)
@@ -148,6 +149,7 @@ namespace FSMEditor
             else
             {
                 var view = (ItemsControl)this.FindName("view");
+
                 //check if anything is selected
                 if (m_selected != null
                         //that what is selected is a connection
@@ -166,6 +168,7 @@ namespace FSMEditor
                         conn.EndPlug.IsSelected = false;
                     }
                     // view.Children.Remove(conn);
+                    
                     view_model.Connections.Remove(conn);
                     conn = null;
                     m_selected = null;
@@ -317,5 +320,14 @@ namespace FSMEditor
         }
         private string maintainsession;
 
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_selected != null && m_selected is Connection)
+            {
+                var conn = m_selected as Connection;
+                var dialog = new AddConditionDialog(conn, view_model);
+                dialog.Show();
+            }
+        }
     }
 }
