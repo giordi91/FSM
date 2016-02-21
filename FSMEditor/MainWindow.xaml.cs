@@ -29,10 +29,10 @@ namespace FSMEditor
         {
             InitializeComponent();
 
-            MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
-            MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
-            MouseMove += MainWindow_MouseMove;
-            KeyDown += MainWindow_KeyDown;
+            //MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
+            //MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
+            //MouseMove += MainWindow_MouseMove;
+            //KeyDown += MainWindow_KeyDown;
             view_model = (this.DataContext as ViewModel);
             // conn_model = this.ConnectionViewer as ListBox;
         }
@@ -150,6 +150,9 @@ namespace FSMEditor
             {
                 var view = (ItemsControl)this.FindName("view");
 
+                var isNull = m_selected != null;
+                var isConnection = m_selected is Connection;
+                var sourceisnotconn = !(e.OriginalSource is Connection);
                 //check if anything is selected
                 if (m_selected != null
                         //that what is selected is a connection
@@ -329,5 +332,6 @@ namespace FSMEditor
                 dialog.Show();
             }
         }
+
     }
 }

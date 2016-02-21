@@ -51,10 +51,16 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             ></Button>
         <ItemsControl
             ItemsSource="{Binding Rectangles}" Grid.Row="2"
-            x:Name="view">
+            x:Name="view" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas  />
+                    <Canvas  Background="Transparent"
+                             
+            MouseLeftButtonDown="MainWindow_MouseLeftButtonDown"
+            MouseLeftButtonUp="MainWindow_MouseLeftButtonUp"
+            MouseMove="MainWindow_MouseMove"
+            KeyDown="MainWindow_KeyDown"
+                             />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -77,7 +83,14 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             x:Name="view2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                <Canvas />
+                <Canvas 
+                    
+            MouseLeftButtonDown="MainWindow_MouseLeftButtonDown"
+            MouseLeftButtonUp="MainWindow_MouseLeftButtonUp"
+            MouseMove="MainWindow_MouseMove"
+            KeyDown="MainWindow_KeyDown"
+                    
+                    />
             </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
