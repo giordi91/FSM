@@ -52,6 +52,9 @@
     <ClCompile Include="FSMWrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StateWrap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">

@@ -1,7 +1,6 @@
 #pragma once
 #include "stdafx.h"
 #include "Connection.h"
-#include "State.h"
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>

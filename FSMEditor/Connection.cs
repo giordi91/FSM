@@ -43,7 +43,8 @@ namespace FSMEditor
             conn = new FSMWrapper.ConnectionWrap(source,
                                              destination);
 
-            cond = new FSMWrapper.TypedConditionFloatWrap(fsm, "jumping",1.0f,0);
+            cond = new FSMWrapper.TypedConditionFloatWrap(fsm, "caz",1.0f,0);
+            source.add_connection(conn);
         }
 
 

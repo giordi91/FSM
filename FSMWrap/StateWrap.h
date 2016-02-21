@@ -4,11 +4,13 @@
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>
+//#include "ConnectionWrap.h"
 using namespace System;
 
 
 namespace FSMWrapper
 {
+	ref class ConnectionWrap;
 	public ref class StateWrapper
 	{
 	public:
@@ -34,6 +36,8 @@ namespace FSMWrapper
 		{
 			_state->set_name(msclr::interop::marshal_as<std::string>(name));
 		}
+
+		void add_connection(ConnectionWrap^ conn);
 
 	};
 
