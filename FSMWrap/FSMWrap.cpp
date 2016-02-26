@@ -7,10 +7,18 @@
 #include "ConditionWrap.h"
 using namespace System;
 
+namespace FSMWrapper
+{
+
+	//template ref class 		TestTemp<float>;
+	}
+
+	//template ref class FSMWrapper::TestTemp<float>;
+
 int main(array<System::String ^> ^args)
 {
     Console::WriteLine(L"Hello World");
-	//FSMWrapper::TypedConditionWrap<float> t;
+	//FSMWrapper::TestTemp<float> t(10.0f);
 
     return 0;
 }

@@ -44,6 +44,8 @@ namespace FSMEditor
                                              destination);
 
             cond = new FSMWrapper.TypedConditionFloatWrap(fsm, "caz",1.0f,0);
+            var obj = FSMWrapper.ConditionFactory<float>.Create<float>(fsm,"foo",12.2f,0);
+            Console.WriteLine(obj.get_compare_value());
             source.add_connection(conn);
         }
 
