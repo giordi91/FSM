@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Diagnostics;
+using System.IO;
 
 namespace FSMEditor
 {
@@ -300,7 +301,10 @@ namespace FSMEditor
             string data = view_model.m_fsm.serialize();
             Console.WriteLine(data);
             string path = @"E:\WORK_IN_PROGRESS\C\FSM\FSMEditor\bin\textOut.fsm";
-            System.IO.File.WriteAllText(path, data);
+            string folder = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\textOut.fsm";
+            Console.WriteLine(folder);
+
+            System.IO.File.WriteAllText(folder, data);
 
         }
 
