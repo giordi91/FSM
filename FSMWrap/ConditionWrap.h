@@ -107,12 +107,12 @@ namespace FSMWrapper
 		
 		TypedConditionWrap(FiniteStateMachineWrap^ finiteM,
 			String^ key_name,
-			float compare_value,
+			T compare_value,
 			int op)
 		{
 			
 			std::string key_n = msclr::interop::marshal_as<std::string>(key_name);
-			_cond = new FSM::TypedCondition<float>(finiteM->_data,
+			_cond = new FSM::TypedCondition<T>(finiteM->_data,
 				key_n,
 				compare_value,
 				FSM::Operation::LESSEQUAL
@@ -129,7 +129,7 @@ namespace FSMWrapper
 			return _cond->evaluate();
 		}
 
-		virtual float get_value()
+		virtual T get_value()
 		{
 			return _cond->get_value();
 		}
@@ -178,10 +178,20 @@ namespace FSMWrapper
 			if (T::typeid == float::typeid)
 			{
 				return (ITypedCondition<T>^)
-					gcnew TypedConditionWrap<float>(finiteM, key_name, compare_value, op);
+					gcnew TypedConditionWrap<float>(finiteM, key_name, (float)compare_value, op);
+			}
+			else if (T::typeid == int::typeid)
+			{
+				return (ITypedCondition<T>^)
+					gcnew TypedConditionWrap<int>(finiteM, key_name, (int)compare_value, op);
+			}
+			else if (T::typeid == bool::typeid)
+			{
+				return (ITypedCondition<T>^)
+					gcnew TypedConditionWrap<bool>(finiteM, key_name, compare_value != 0, op);
 			}
 			else
-			{
+			{ 
 				return nullptr;
 			}
 		}

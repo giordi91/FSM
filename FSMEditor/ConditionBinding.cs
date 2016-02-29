@@ -47,6 +47,21 @@ namespace FSMEditor
             get { return m_wrap_cond.get_compare_value(); }
             set
             {
+                Console.WriteLine("in setter");
+                var obj = m_wrap_cond as object;
+                if (obj is ITypedCondition<float>)
+                {
+                    m_wrap_cond.set_compare_value(value);
+                }
+                else if (obj is ITypedCondition<int>)
+                {
+                    m_wrap_cond.set_compare_value((int)value);
+                }
+
+                else if (obj is ITypedCondition<bool>)
+                {
+                    m_wrap_cond.set_compare_value(value != 0);
+                }
                 m_wrap_cond.set_compare_value(value);
                 OnPropertyChanged("CompareValue");
 
