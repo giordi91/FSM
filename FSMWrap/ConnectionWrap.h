@@ -40,6 +40,11 @@ namespace FSMWrapper
 				auto cond_cast = (TypedConditionWrap<int>^)cond;
 				_conn->add_condition(cond_cast->_cond);
 			}
+			else if (T::typeid == bool::typeid)
+			{
+				auto cond_cast = (TypedConditionWrap<bool>^)cond;
+				_conn->add_condition(cond_cast->_cond);
+			}
 		}
 
 	};
