@@ -41,9 +41,10 @@ namespace FSMEditor
                 Console.WriteLine(m_data_type);
                 if (m_data_type == 1)
                 {
-                    var cond = new FSMWrapper.TypedConditionFloatWrap(
-                        m_model.m_fsm, "dummy", 1.0f, 0 );
+                    var cond =  FSMWrapper.ConditionFactory<float>.Create<float>(m_model.m_fsm, "foo", 12.2f, 0);
 
+                    //var cond = new FSMWrapper.TypedConditionFloatWrap(
+                    //    m_model.m_fsm, "dummy", 1.0f, 0 );
                     var bind = new ConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
                     m_model.Conditions.Add(bind);

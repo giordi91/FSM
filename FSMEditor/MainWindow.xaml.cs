@@ -136,10 +136,10 @@ namespace FSMEditor
 
                         conn.FinalizeConnection(view_model.m_fsm, srcNode.m_state,
                                                 destNode.m_state);
-                        ConditionBinding cb = new ConditionBinding(conn.cond);
+                        //ConditionBinding cb = new ConditionBinding(conn.cond);
                         p.AddConnection( conn);
-                        conn.Conditions.Add(cb);
-                        conn.conn.add_conditions(cb.m_wrapCond);
+                        //conn.Conditions.Add(cb);
+                        //conn.conn.add_conditions(cb.m_wrapCond);
                         conn = null;
                         clear_selection();
                         return;
@@ -234,8 +234,11 @@ namespace FSMEditor
                 //view_model.m_conditions.Add("panico");
                 //view_model.m_conditions= conn.Conditions;
                 view_model.m_conditions.Clear();
+                Console.WriteLine(conn.Conditions.Count);
                 foreach (var cond in conn.Conditions)
-                { view_model.m_conditions.Add(cond); }
+                {
+                    
+                    view_model.m_conditions.Add(cond); }
                 Console.WriteLine("connetionnn");
                 return;
             }

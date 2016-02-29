@@ -27,10 +27,14 @@ namespace FSMWrapper
 			_conn= nullptr;
 		}
 
-		void add_conditions(TypedConditionFloatWrap^ cond)
+		generic<typename T>
+		void add_conditions(ITypedCondition<T>^ cond)
 		{
-			
-			_conn->add_condition(cond->_cond);
+			if (T::typeid == float::typeid)
+			{
+				auto cond_cast = (TypedConditionWrap<float>^)cond;
+				_conn->add_condition(cond_cast->_cond);
+			}
 		}
 
 	};

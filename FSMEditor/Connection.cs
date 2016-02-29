@@ -24,7 +24,7 @@ namespace FSMEditor
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FFF5A00C");
         static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("Yellow");
         public ConnectionWrap conn;
-        public TypedConditionFloatWrap cond;
+        //public ITypedCondition<float> cond;
 
         //public FSMWrapper.TypedConditionWrapF cond3;
         public Connection()
@@ -43,7 +43,7 @@ namespace FSMEditor
             conn = new FSMWrapper.ConnectionWrap(source,
                                              destination);
 
-            cond = new FSMWrapper.TypedConditionFloatWrap(fsm, "caz",1.0f,0);
+            //cond = new FSMWrapper.TypedConditionFloatWrap(fsm, "caz",1.0f,0);
             var obj = FSMWrapper.ConditionFactory<float>.Create<float>(fsm,"foo",12.2f,0);
             Console.WriteLine(obj.get_compare_value());
             source.add_connection(conn);

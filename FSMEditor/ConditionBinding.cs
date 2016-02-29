@@ -17,23 +17,26 @@ namespace FSMEditor
         public enum OperationEnum { EQUAL, GREATHER, LESS,GREATHEREQUAL,LESSEQUAL};
         static public List<string> OperationNamesList = 
         new List<string>(){ "EQUAL", "GREATHER", "LESS","GREATHEREQUAL","LESSEQUAL"};
-        public TypedConditionFloatWrap m_wrapCond;
-        public ConditionBinding( TypedConditionFloatWrap wrap_cond)
+        public dynamic m_wrap_cond;
+
+        public ConditionBinding( object wrap_cond)
         {
-            m_wrapCond = wrap_cond; 
+            m_wrap_cond= wrap_cond;
+
         }
 
         public string Operation
         {
 
             get {
-                int value = m_wrapCond.get_operation();
+                int value = 0;
+                value = m_wrap_cond.get_operation();
                 string name = OperationNamesList[value];
-                return name;                
+                return name;
             }
             set {
                     int v = OperationNamesList.IndexOf(value);
-                    m_wrapCond.set_operation(v);
+                    m_wrap_cond.set_operation(v);
                     OnPropertyChanged("Operation");
                  }
         }
@@ -41,10 +44,10 @@ namespace FSMEditor
 
         public float CompareValue
         {
-            get { return m_wrapCond.get_compare_value(); }
+            get { return m_wrap_cond.get_compare_value(); }
             set
             {
-                m_wrapCond.set_compare_value(value);
+                m_wrap_cond.set_compare_value(value);
                 OnPropertyChanged("CompareValue");
 
             }
@@ -52,10 +55,10 @@ namespace FSMEditor
 
         public string KeyName 
         {
-            get { return m_wrapCond.get_key_name(); }
+            get { return m_wrap_cond.get_key_name(); }
             set
             {
-                m_wrapCond.set_key_name(value);
+                m_wrap_cond.set_key_name(value);
                 OnPropertyChanged("KeyName");
 
             }

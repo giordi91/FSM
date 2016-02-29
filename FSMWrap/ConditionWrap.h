@@ -12,6 +12,7 @@ using namespace System;
 namespace FSMWrapper
 {
 	//template<typename T>
+	/*
 	public ref class TypedConditionFloatWrap
 	{
 	public:
@@ -80,20 +81,27 @@ namespace FSMWrapper
 			_cond = nullptr;
 		}
 	};
-
+	*/
 	//Generic interface
 	generic<typename T> 
 	public interface class ITypedCondition
 	{
 	public:
 		T   get_compare_value();
+		void set_compare_value(T value);
+		bool evaluate();
+		T get_value();
+		String^ get_key_name();
+		void  set_key_name(String^ key);
+		int get_operation();
+		void set_operation(int op);
 	};
 
 	//specific type
 	template<typename T> 
 	public ref class TypedConditionWrap: ITypedCondition<T>
 	{
-	private:
+	public:
 		FSM::TypedCondition<T>* _cond;
 	public:
 		
@@ -115,6 +123,46 @@ namespace FSMWrapper
 		{
 			return _cond->get_compare_value();
 		}
+
+		virtual bool evaluate()
+		{
+			return _cond->evaluate();
+		}
+
+		virtual float get_value()
+		{
+			return _cond->get_value();
+		}
+
+		virtual String^ get_key_name()
+		{
+			String^ name = msclr::interop::marshal_as<String^>(_cond->get_key_name());
+			return name;
+		}
+
+		virtual void  set_key_name(String^ key)
+		{
+			std::string name = msclr::interop::marshal_as<std::string>(key);
+			_cond->set_key_name(name);
+
+		}
+		virtual int get_operation() 
+		{
+			return (int)_cond->get_operation();
+		}
+		
+		virtual void set_operation(int op)
+		{
+			FSM::Operation convert_op = (FSM::Operation)op;
+			_cond->set_operation(convert_op);
+		}
+
+			
+		virtual void set_compare_value(T value)
+		{
+			_cond->set_compare_value(value);
+		}
+	
 	};
 
 	//factory class
