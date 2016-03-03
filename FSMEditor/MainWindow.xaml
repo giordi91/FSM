@@ -11,7 +11,45 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     <Window.DataContext>
         <local:ViewModel />
     </Window.DataContext>
+    <Window.Resources>
+    
+        <DataTemplate x:Key="TypedConditionTemplateX">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Foreground="Blue" Text="{Binding KeyName }"></TextBox>
+                <ComboBox Grid.Column="1" ItemsSource ="{Binding OperationNames}" SelectedItem="{Binding Operation}" ></ComboBox>
+                <TextBox Grid.Column="2" 
+                         Text="{Binding CompareValue}"
+                         TextChanged="TextBox_TextChanged"></TextBox>
+            </Grid>
+            </DataTemplate>
+        
+        <DataTemplate x:Key="DoubleConditionTemplateX">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Foreground="Red" Text="{Binding KeyName }"></TextBox>
+                <ComboBox Grid.Column="1" ItemsSource ="{Binding OperationNames}" SelectedItem="{Binding Operation}" ></ComboBox>
+                <TextBox Grid.Column="2" 
+                         Text="{Binding CompareValue}"
+                         TextChanged="TextBox_TextChanged"></TextBox>
+            </Grid>
+            </DataTemplate>
 
+        <local:ConditionTemplateSelector x:Key="ConditionTemplateSelectorKey"
+            TypedConditionTemplate="{StaticResource TypedConditionTemplateX}" 
+            DoubleConditionTemplate="{StaticResource DoubleConditionTemplateX}" 
+                                         />
+            
+            
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -107,23 +145,9 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         <ListBox Grid.Column="1"
                  Grid.Row="2"
                  x:Name="ConnectionViewer"
+                 ItemTemplateSelector="{StaticResource ConditionTemplateSelectorKey}"
                  ItemsSource="{Binding Conditions}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding KeyName }"></TextBox>
-                        <ComboBox Grid.Column="1" ItemsSource ="{Binding OperationNames}" SelectedItem="{Binding Operation}" ></ComboBox>
-                        <TextBox Grid.Column="2" 
-                                 Text="{Binding CompareValue}"
-                                 TextChanged="TextBox_TextChanged"></TextBox>
-                    </Grid>
-                    </DataTemplate>
-            </ListBox.ItemTemplate>
+                 
         </ListBox>
     <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     </Grid>
