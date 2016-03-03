@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
-
+using System.ComponentModel;
 namespace FSMEditor
 {
 
@@ -229,17 +229,15 @@ namespace FSMEditor
 
                 conn.IsSelected = true;
                 m_selected = conn;
-
-                //connection is selected we need to update the connction window
-                //view_model.m_conditions.Add("cazzoooo");
-                //view_model.m_conditions.Add("panico");
-                //view_model.m_conditions= conn.Conditions;
+                /*
                 view_model.m_conditions.Clear();
-                Console.WriteLine(conn.Conditions.Count);
                 foreach (var cond in conn.Conditions)
                 {
                     
                     view_model.m_conditions.Add(cond); }
+                
+                */
+                view_model.Conditions= conn.Conditions;
                 Console.WriteLine("connetionnn");
                 return;
             }
@@ -287,7 +285,8 @@ namespace FSMEditor
                 m_selected = null;
             }
 
-            view_model.m_conditions.Clear();
+            view_model.Conditions = new System.Collections.ObjectModel.ObservableCollection<ConditionBinding>();
+            //view_model.Conditions = null;
         }
 
         private bool m_dragging;

@@ -43,11 +43,8 @@ namespace FSMEditor
                 {
                     var cond =  FSMWrapper.ConditionFactory<float>.Create<float>(m_model.m_fsm, "foo", 12.2f, 0);
 
-                    //var cond = new FSMWrapper.TypedConditionFloatWrap(
-                    //    m_model.m_fsm, "dummy", 1.0f, 0 );
                     var bind = new ConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
-                    m_model.Conditions.Add(bind);
 
                     m_conn.conn.add_conditions(cond);
                     Console.WriteLine("creating typed float");
@@ -58,7 +55,6 @@ namespace FSMEditor
 
                     var bind = new ConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
-                    m_model.Conditions.Add(bind);
 
                     m_conn.conn.add_conditions(cond);
                     Console.WriteLine("creating typed int");
@@ -69,7 +65,6 @@ namespace FSMEditor
 
                     var bind = new ConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
-                    m_model.Conditions.Add(bind);
 
                     m_conn.conn.add_conditions(cond);
                     Console.WriteLine("creating typed bool");
