@@ -238,12 +238,7 @@ namespace FSMEditor
                 
                 */
 
-                    var box = this.FindName("ConnectionViewer") ;
-                    if (box != null)
-                    {
-                    ((ListBox)box).DataContext = conn;
-                    }
-                    Console.WriteLine(box);
+                    ConnectionViewer.DataContext = conn;
                 // view_model.Conditions= conn.Conditions;
                 Console.WriteLine("connetionnn");
                 return;
@@ -292,11 +287,7 @@ namespace FSMEditor
                 m_selected = null;
             }
 
-            var box = this.FindName("ConnectionViewer") ;
-            if (box != null)
-            {
-            ((ListBox)box).DataContext = null;
-            }
+            this.ConnectionViewer.DataContext = null;
             //view_model.Conditions = new System.Collections.ObjectModel.ObservableCollection<ConditionBinding>();
             //view_model.Conditions = null;
         }
