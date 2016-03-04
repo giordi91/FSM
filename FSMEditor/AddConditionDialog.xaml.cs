@@ -36,6 +36,42 @@ namespace FSMEditor
         private void add_connection_create_click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("creating");
+            //create double var conditions 
+            if (m_cond_type == 0)
+            {
+                Console.WriteLine(m_data_type);
+                if (m_data_type == 1)
+                {
+                    var cond =  FSMWrapper.DoubleConditionFactory<float>.Create<float>(m_model.m_fsm, "foo", "bar", 0);
+
+                    var bind = new DoubleConditionBinding(cond);
+                    m_conn.Conditions.Add(bind);
+
+                    m_conn.conn.add_conditions(cond);
+                    Console.WriteLine("creating typed float");
+                }
+                else if (m_data_type == 0)
+                {
+                    var cond =  FSMWrapper.DoubleConditionFactory<int>.Create<int>(m_model.m_fsm, "foo", "bar", 0);
+
+                    var bind = new DoubleConditionBinding(cond);
+                    m_conn.Conditions.Add(bind);
+
+                    m_conn.conn.add_conditions(cond);
+                    Console.WriteLine("creating typed int");
+                }
+                else if (m_data_type == 2)
+                {
+                    var cond =  FSMWrapper.DoubleConditionFactory<bool>.Create<bool>(m_model.m_fsm, "foo", "bar", 0);
+
+                    var bind = new DoubleConditionBinding(cond);
+                    m_conn.Conditions.Add(bind);
+                    m_conn.conn.add_conditions(cond);
+                    Console.WriteLine("creating typed bool");
+                }
+
+            }
+            //create typed conditions
             if (m_cond_type == 1)
             {
                 Console.WriteLine(m_data_type);
@@ -43,7 +79,7 @@ namespace FSMEditor
                 {
                     var cond =  FSMWrapper.ConditionFactory<float>.Create<float>(m_model.m_fsm, "foo", 12.2f, 0);
 
-                    var bind = new ConditionBinding(cond);
+                    var bind = new TypedConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
 
                     m_conn.conn.add_conditions(cond);
@@ -53,7 +89,7 @@ namespace FSMEditor
                 {
                     var cond =  FSMWrapper.ConditionFactory<int>.Create<int>(m_model.m_fsm, "foo", 2, 0);
 
-                    var bind = new ConditionBinding(cond);
+                    var bind = new TypedConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
 
                     m_conn.conn.add_conditions(cond);
@@ -63,13 +99,14 @@ namespace FSMEditor
                 {
                     var cond =  FSMWrapper.ConditionFactory<bool>.Create<bool>(m_model.m_fsm, "foo", 0, 0);
 
-                    var bind = new ConditionBinding(cond);
+                    var bind = new TypedConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
                     m_conn.conn.add_conditions(cond);
                     Console.WriteLine("creating typed bool");
                 }
 
             }
+            
             this.Close();
         }
 

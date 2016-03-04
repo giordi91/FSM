@@ -46,6 +46,25 @@ namespace FSMWrapper
 				_conn->add_condition(cond_cast->_cond);
 			}
 		}
+		generic<typename T>
+		void add_conditions(IDoubleCondition<T>^ cond)
+		{
+			if (T::typeid == float::typeid)
+			{
+				auto cond_cast = (DoubleConditionWrap<float>^)cond;
+				_conn->add_condition(cond_cast->_cond);
+			}
+			else if (T::typeid == int::typeid)
+			{
+				auto cond_cast = (DoubleConditionWrap<int>^)cond;
+				_conn->add_condition(cond_cast->_cond);
+			}
+			else if (T::typeid == bool::typeid)
+			{
+				auto cond_cast = (DoubleConditionWrap<bool>^)cond;
+				_conn->add_condition(cond_cast->_cond);
+			}
+		}
 
 	};
 

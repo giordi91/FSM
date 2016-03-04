@@ -35,11 +35,9 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Foreground="Red" Text="{Binding KeyName }"></TextBox>
+                <TextBox Grid.Column="0" Foreground="Red" Text="{Binding KeyName1 }"></TextBox>
                 <ComboBox Grid.Column="1" ItemsSource ="{Binding OperationNames}" SelectedItem="{Binding Operation}" ></ComboBox>
-                <TextBox Grid.Column="2" 
-                         Text="{Binding CompareValue}"
-                         TextChanged="TextBox_TextChanged"></TextBox>
+                <TextBox Grid.Column="2" Foreground="Red" Text="{Binding KeyName2 }"></TextBox>
             </Grid>
             </DataTemplate>
 

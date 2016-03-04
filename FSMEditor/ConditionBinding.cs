@@ -12,14 +12,14 @@ using System.ComponentModel;
 
 namespace FSMEditor
 {
-    public class ConditionBinding: INotifyPropertyChanged
+    public class TypedConditionBinding: INotifyPropertyChanged
     {
         public enum OperationEnum { EQUAL, GREATHER, LESS,GREATHEREQUAL,LESSEQUAL};
         static public List<string> OperationNamesList = 
         new List<string>(){ "EQUAL", "GREATHER", "LESS","GREATHEREQUAL","LESSEQUAL"};
         public dynamic m_wrap_cond;
 
-        public ConditionBinding( object wrap_cond)
+        public TypedConditionBinding( object wrap_cond)
         {
             m_wrap_cond= wrap_cond;
 
@@ -93,6 +93,73 @@ namespace FSMEditor
             {
                 m_wrap_cond.set_key_name(value);
                 OnPropertyChanged("KeyName");
+
+            }
+        }
+        private void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+
+        /// <summary>
+        /// 'PropertyChanged' event that is raised when the value of a property of the view model has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+    }
+
+    public class DoubleConditionBinding: INotifyPropertyChanged
+    {
+        public enum OperationEnum { EQUAL, GREATHER, LESS,GREATHEREQUAL,LESSEQUAL};
+        static public List<string> OperationNamesList = 
+        new List<string>(){ "EQUAL", "GREATHER", "LESS","GREATHEREQUAL","LESSEQUAL"};
+        public dynamic m_wrap_cond;
+
+        public DoubleConditionBinding( object wrap_cond)
+        {
+            m_wrap_cond= wrap_cond;
+
+        }
+
+        public string Operation
+        {
+
+            get {
+                int value = 0;
+                value = m_wrap_cond.get_operation();
+                string name = OperationNamesList[value];
+                return name;
+            }
+            set {
+                    int v = OperationNamesList.IndexOf(value);
+                    m_wrap_cond.set_operation(v);
+                    OnPropertyChanged("Operation");
+                 }
+        }
+        public List<string> OperationNames { get {return OperationNamesList; } }
+
+        public string KeyName1 
+        {
+            get { return m_wrap_cond.get_key_name_1(); }
+            set
+            {
+                m_wrap_cond.set_key_name_1(value);
+                OnPropertyChanged("KeyName1");
+
+            }
+        }
+        public string KeyName2 
+        {
+            get { return m_wrap_cond.get_key_name_2(); }
+            set
+            {
+                m_wrap_cond.set_key_name_2(value);
+                OnPropertyChanged("KeyName2");
 
             }
         }

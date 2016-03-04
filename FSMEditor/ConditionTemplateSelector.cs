@@ -16,15 +16,15 @@ namespace FSMEditor
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            var cond = item as ConditionBinding;
-            if ( cond.m_wrap_cond is ITypedCondition<int> ||
-                cond.m_wrap_cond is ITypedCondition<bool> ||
-                cond.m_wrap_cond is ITypedCondition<float> )
+            if (item is TypedConditionBinding)
             {
                 return TypedConditionTemplate;
             }
+            else if(item is DoubleConditionBinding)
+            {
+                return DoubleConditionTemplate;
+            }
              return base.SelectTemplate(item, container);
         }
-
     }
 }
