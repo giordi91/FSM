@@ -73,21 +73,6 @@ namespace FSM
 
 	};
 
-	//template < typename T ,
-	//	typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
-	//>
-	
-	/*	
-	template< typename T> //real type > 
-	struct S {
-		static_assert(std::is_arithmetic<T>::value, "SHIT");
-		static T value; };
-	
-
-	template< typename T> //real type > 
-	T S<T>::value = true;
-	*/
-
 	/**
 	@brief implements evaluatoin between two different keys	
 	The comparison operation will be triggered between the two provided
@@ -177,6 +162,7 @@ namespace FSM
 		@brief getter function for the first key value
 		@returns T value of the key
 		*/
+		__declspec(dllexport)
 		inline T get_value_1()
 		{
 			m_data->get_value(m_key_1_name, m_key_1_value);
@@ -187,22 +173,35 @@ namespace FSM
 		@brief getter function for the second key value
 		@returns T value of the key
 		*/
+		__declspec(dllexport)
 		inline T get_value_2()
 		{
 			m_data->get_value(m_key_2_name, m_key_2_value);
 			return m_key_2_value;
 		}
 
+		__declspec(dllexport)
 		inline const string& get_key_name_1() const
 		{
 			return m_key_1_name;
 		}
 		
+		__declspec(dllexport)
 		inline const string& get_key_name_2() const
 		{
 			return m_key_2_name;
 		}
+		__declspec(dllexport)
+		inline void set_key_name_1( string& name)
+		{
+			m_key_1_name = name;
+		}
 
+		__declspec(dllexport)
+		inline void set_key_name_2( string& name)
+		{
+			m_key_2_name = name;
+		}
 
 	private:
 		/*

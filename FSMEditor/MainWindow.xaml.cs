@@ -29,18 +29,11 @@ namespace FSMEditor
         public MainWindow()
         {
             InitializeComponent();
-
-            //MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
-            //MouseLeftButtonUp += MainWindow_MouseLeftButtonUp;
-            //MouseMove += MainWindow_MouseMove;
-            //KeyDown += MainWindow_KeyDown;
             view_model = (this.DataContext as ViewModel);
-            // conn_model = this.ConnectionViewer as ListBox;
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("delete");
             if (e.Key == Key.Back || e.Key == Key.Delete)
             {
                 if (m_selected != null)
@@ -60,7 +53,6 @@ namespace FSMEditor
                 }
                 m_selected = null;
             }
-
         }
 
         private void MainWindow_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -302,7 +294,6 @@ namespace FSMEditor
             Console.WriteLine("Saving");
             string data = view_model.m_fsm.serialize();
             Console.WriteLine(data);
-            string path = @"E:\WORK_IN_PROGRESS\C\FSM\FSMEditor\bin\textOut.fsm";
             string folder = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\textOut.fsm";
             Console.WriteLine(folder);
 

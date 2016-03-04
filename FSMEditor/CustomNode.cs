@@ -38,12 +38,10 @@ namespace FSMEditor
         public string NodeName
         {
             get {
-                Console.WriteLine("Getting name " );
                 Console.WriteLine(m_state.get_name());
                 return m_state.get_name(); }
             set
             {
-                Console.WriteLine("Writing name");
                 m_state.set_name(value); 
             }
         }
