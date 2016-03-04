@@ -237,7 +237,14 @@ namespace FSMEditor
                     view_model.m_conditions.Add(cond); }
                 
                 */
-                view_model.Conditions= conn.Conditions;
+
+                    var box = this.FindName("ConnectionViewer") ;
+                    if (box != null)
+                    {
+                    ((ListBox)box).DataContext = conn;
+                    }
+                    Console.WriteLine(box);
+                // view_model.Conditions= conn.Conditions;
                 Console.WriteLine("connetionnn");
                 return;
             }
@@ -285,7 +292,12 @@ namespace FSMEditor
                 m_selected = null;
             }
 
-            view_model.Conditions = new System.Collections.ObjectModel.ObservableCollection<ConditionBinding>();
+            var box = this.FindName("ConnectionViewer") ;
+            if (box != null)
+            {
+            ((ListBox)box).DataContext = null;
+            }
+            //view_model.Conditions = new System.Collections.ObjectModel.ObservableCollection<ConditionBinding>();
             //view_model.Conditions = null;
         }
 

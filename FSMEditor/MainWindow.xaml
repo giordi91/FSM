@@ -147,7 +147,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                  x:Name="ConnectionViewer"
                  ItemTemplateSelector="{StaticResource ConditionTemplateSelectorKey}"
                  ItemsSource="{Binding Conditions}">
-                 
+
         </ListBox>
     <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     </Grid>

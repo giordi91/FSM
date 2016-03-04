@@ -19,7 +19,7 @@ namespace FSMEditor
 
         ObservableCollection<CustomNode> m_rectangles = new ObservableCollection<CustomNode>();
         ObservableCollection<Connection> m_connections= new ObservableCollection<Connection>();
-        public ObservableCollection<ConditionBinding> m_conditions = new ObservableCollection<ConditionBinding>(); 
+        //public ObservableCollection<ConditionBinding> m_conditions = new ObservableCollection<ConditionBinding>(); 
 
         public FiniteStateMachineWrap m_fsm; 
 
@@ -56,7 +56,7 @@ namespace FSMEditor
                 return m_rectangles;
             }
         }
-
+        /*
         public ObservableCollection<ConditionBinding> Conditions 
         {
             get
@@ -70,6 +70,7 @@ namespace FSMEditor
                 OnPropertyChanged("Conditions");
             }
         }
+        */
         public ObservableCollection<Connection> Connections 
         {
             get

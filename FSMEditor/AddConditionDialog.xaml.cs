@@ -65,7 +65,6 @@ namespace FSMEditor
 
                     var bind = new ConditionBinding(cond);
                     m_conn.Conditions.Add(bind);
-
                     m_conn.conn.add_conditions(cond);
                     Console.WriteLine("creating typed bool");
                 }
