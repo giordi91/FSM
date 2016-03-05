@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace FSMEditor
 {
-    /// <summary>
-    /// Interaction logic for AddStorageDialog.xaml
-    /// </summary>
     public partial class AddStorageDialog : Window
     {
         int m_data_type;

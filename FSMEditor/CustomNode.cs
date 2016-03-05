@@ -20,6 +20,8 @@ namespace FSMEditor
     {
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FF1C1C25");
         static Color SELECTED_COLOR   = (Color)ColorConverter.ConvertFromString("#FF093800");
+        static Color ACTIVE_COLOR   = (Color)ColorConverter.ConvertFromString("Red");
+        static Color NOT_ACTIVE_COLOR   = (Color)ColorConverter.ConvertFromString("#FF2EE411");
         
 
         public CustomNode()
@@ -69,6 +71,55 @@ namespace FSMEditor
                 }
             }
         }
+
+        public bool IsActive
+        {
+            get { return m_is_active; }
+            set
+            {
+                m_is_active = value;
+                    if (value)
+                    {
+                        Console.WriteLine("setting active color");
+                        ActiveColor = new  SolidColorBrush(ACTIVE_COLOR);
+                    }
+                    else
+                    {
+                        ActiveColor = new  SolidColorBrush(NOT_ACTIVE_COLOR);
+                    }
+            }
+        }
+
+
+
+
+
+        public SolidColorBrush ActiveColor
+        {
+            get
+            {
+                var obj = (SolidColorBrush)GetValue(ActiveColoProperty);
+                if (m_is_active)
+                {
+                    return new SolidColorBrush(ACTIVE_COLOR);
+
+                }
+                else
+                {
+                    return new SolidColorBrush(NOT_ACTIVE_COLOR);
+                }
+            }
+            set {
+                SetValue(ActiveColoProperty, value);
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for ActiveColo.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ActiveColoProperty =
+            DependencyProperty.Register("ActiveColor", typeof(SolidColorBrush), typeof(CustomNode), new PropertyMetadata(new SolidColorBrush(NOT_ACTIVE_COLOR)));
+
+
+
 
         internal void moveRelative(int deltaX, int deltaY)
         {
@@ -167,6 +218,8 @@ namespace FSMEditor
             DependencyProperty.Register("Y", typeof(double), typeof(CustomNode), new PropertyMetadata(0.0) );
 
 
+
+
         static CustomNode()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomNode), new FrameworkPropertyMetadata(typeof(CustomNode)));
@@ -177,6 +230,7 @@ namespace FSMEditor
 
         //private delcarations
         private bool m_is_selected;
+        private bool m_is_active;
         public StateWrapper m_state;
     }
 }

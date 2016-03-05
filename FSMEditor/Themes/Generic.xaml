@@ -13,7 +13,7 @@
                         <Canvas x:Name="body_canvas">                        
                             <Rectangle  x:Name="body"
                                 Fill="#FF1C1C25"  
-                                   Stroke="#FF2EE411" 
+                                   Stroke="{Binding ActiveColor}" 
                                    Width="135" Height="100" 
                                    RadiusX="10" RadiusY="10" 
                                    StrokeThickness="5">
