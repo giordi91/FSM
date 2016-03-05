@@ -19,7 +19,7 @@ namespace FSMEditor
 
         ObservableCollection<CustomNode> m_rectangles = new ObservableCollection<CustomNode>();
         ObservableCollection<Connection> m_connections= new ObservableCollection<Connection>();
-        //public ObservableCollection<ConditionBinding> m_conditions = new ObservableCollection<ConditionBinding>(); 
+        public ObservableCollection<object> m_storage= new ObservableCollection<object>(); 
 
         public FiniteStateMachineWrap m_fsm; 
 
@@ -44,11 +44,12 @@ namespace FSMEditor
             m_fsm.add_state(r1.m_state);
             m_fsm.add_state(r2.m_state);
 
-            }
+            var map = m_fsm.get_bool_dict();
+            var data = map.Select(x => new List<object> { x.Key, x.Value });
+            var obj = data.ElementAt(0);
+            var obj2 = obj[0];
+        }
 
-        /// <summary>
-        /// The list of rectangles that is displayed in the ListBox.
-        /// </summary>
         public ObservableCollection<CustomNode> Rectangles
         {
             get
@@ -56,21 +57,39 @@ namespace FSMEditor
                 return m_rectangles;
             }
         }
-        /*
-        public ObservableCollection<ConditionBinding> Conditions 
+        public ObservableCollection<object> Storage 
         {
             get
             {
-                Console.WriteLine("getting condiitions");
-                return m_conditions;
+                Console.WriteLine("getting storage");
+                m_storage.Clear();
+                var bool_map = m_fsm.get_bool_dict();
+                foreach (var p in bool_map)
+                {
+                    var s_k = new StorageKey<bool>(m_fsm,p.Key);
+                    m_storage.Add(s_k);
+                }
+
+                var float_map = m_fsm.get_float_dict();
+                foreach (var p in float_map)
+                {
+                    var s_k = new StorageKey<float>(m_fsm,p.Key);
+                    m_storage.Add(s_k);
+                }
+                var int_map = m_fsm.get_int_dict();
+                foreach (var p in float_map)
+                {
+                    var s_k = new StorageKey<int>(m_fsm,p.Key);
+                    m_storage.Add(s_k);
+                }
+                return m_storage;
             }
             set
             {
-                m_conditions = value;
-                OnPropertyChanged("Conditions");
+                m_storage= value;
+                OnPropertyChanged("Storage");
             }
         }
-        */
         public ObservableCollection<Connection> Connections 
         {
             get
@@ -80,14 +99,6 @@ namespace FSMEditor
 
         }
         
-        /// <summary>
-        /// List of connections between rectangles.
-        /// </summary>
-
-
-        /// <summary>
-        /// Raises the 'PropertyChanged' event when the value of a property of the view model has changed.
-        /// </summary>
         private void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
