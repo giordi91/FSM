@@ -60,6 +60,8 @@ namespace FSMEditor
                 m_view.m_fsm.set_bool_value(keyName.Text, false);
             }
             this.Close();
+            //this is just to trigger the property changed, maybe there is a better way?
+            //maybe .... but do i really care right now? ahahah NO
             var b =m_view.Storage;
         }
 
