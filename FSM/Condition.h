@@ -149,7 +149,6 @@ namespace FSM
 		static unique_ptr<Condition> de_serialize(DataStorage* dt, 
 												  ClassArgs& args)
 		{
-			
 			int op_int = std::stoi(args[2]);
 			Operation op = static_cast<Operation>(op_int);
 			unique_ptr<Condition> ptr = std::make_unique<DoubleVarCondition<T>>( dt,
@@ -204,9 +203,7 @@ namespace FSM
 		}
 
 	private:
-		/*
-		Private method for updating both key values
-		*/
+		/* Private method for updating both key values */
 		inline void __update_values()
 		{
 			m_data->get_value(m_key_1_name, m_key_1_value);
@@ -225,9 +222,6 @@ namespace FSM
 
 	};
 
-	//template < typename T,
-	//	typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
-	//>
 	template<typename T>
 	const string DoubleVarCondition<T>::m_class_name("DoubleVarCondition");
 

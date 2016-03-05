@@ -103,20 +103,14 @@ namespace FSMEditor
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-
-
-        /// <summary>
-        /// 'PropertyChanged' event that is raised when the value of a property of the view model has changed.
-        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-
     }
 
     public class DoubleConditionBinding: INotifyPropertyChanged
     {
         public enum OperationEnum { EQUAL, GREATHER, LESS,GREATHEREQUAL,LESSEQUAL};
         static public List<string> OperationNamesList = 
+        //duplicated need to move it?
         new List<string>(){ "EQUAL", "GREATHER", "LESS","GREATHEREQUAL","LESSEQUAL"};
         public dynamic m_wrap_cond;
 
@@ -141,6 +135,7 @@ namespace FSMEditor
                     OnPropertyChanged("Operation");
                  }
         }
+
         public List<string> OperationNames { get {return OperationNamesList; } }
 
         public string KeyName1 
@@ -163,6 +158,7 @@ namespace FSMEditor
 
             }
         }
+
         private void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
@@ -171,12 +167,7 @@ namespace FSMEditor
             }
         }
 
-
-        /// <summary>
-        /// 'PropertyChanged' event that is raised when the value of a property of the view model has changed.
-        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
 
     }
 }
