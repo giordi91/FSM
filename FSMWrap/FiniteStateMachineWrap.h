@@ -23,6 +23,8 @@ namespace FSMWrapper
 			_data = new FSM::DataStorage();
 			_data->set_value("test", false);
 			_data->set_value("is_it?", true);
+			_data->set_value("float", 1.3453f);
+			_data->set_value("int", 15);
 			std::string name("generateFsm");
 			_fsm= new FSM::FiniteStateMachine(name,_data);
 		};
@@ -106,6 +108,25 @@ namespace FSMWrapper
 				int value;
 				_data->get_value(name, value);
 				return value;
+		}
+		
+		void set_bool_value(String^ key, bool value)
+		{
+			std::string name = msclr::interop::marshal_as<std::string>(key);
+			_data->set_value(name, value);
+
+		}
+		void set_float_value(String^ key, float value)
+		{
+			std::string name = msclr::interop::marshal_as<std::string>(key);
+			_data->set_value(name, value);
+
+		}
+		void set_int_value(String^ key, int value)
+		{
+			std::string name = msclr::interop::marshal_as<std::string>(key);
+			_data->set_value(name, value);
+
 		}
 
 		

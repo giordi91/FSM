@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="StorageKey.cs" />
+    <Compile Include="StorageTemplateSelector.cs" />
     <Page Include="AddConditionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

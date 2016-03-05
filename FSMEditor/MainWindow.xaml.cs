@@ -30,7 +30,6 @@ namespace FSMEditor
         {
             InitializeComponent();
             view_model = (this.DataContext as ViewModel);
-            Console.WriteLine(view_model.Storage.Count);
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)

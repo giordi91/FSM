@@ -44,10 +44,12 @@ namespace FSMEditor
             m_fsm.add_state(r1.m_state);
             m_fsm.add_state(r2.m_state);
 
-            var map = m_fsm.get_bool_dict();
-            var data = map.Select(x => new List<object> { x.Key, x.Value });
-            var obj = data.ElementAt(0);
-            var obj2 = obj[0];
+            Console.WriteLine(m_fsm.get_int_dict());
+            foreach(var p in m_fsm.get_int_dict())
+            {
+                Console.WriteLine(p.Value); 
+            }
+
         }
 
         public ObservableCollection<CustomNode> Rectangles
@@ -61,7 +63,6 @@ namespace FSMEditor
         {
             get
             {
-                Console.WriteLine("getting storage");
                 m_storage.Clear();
                 var bool_map = m_fsm.get_bool_dict();
                 foreach (var p in bool_map)
@@ -77,8 +78,10 @@ namespace FSMEditor
                     m_storage.Add(s_k);
                 }
                 var int_map = m_fsm.get_int_dict();
-                foreach (var p in float_map)
+                foreach (var p in int_map)
                 {
+
+                    Console.WriteLine(p.Value);
                     var s_k = new StorageKey<int>(m_fsm,p.Key);
                     m_storage.Add(s_k);
                 }

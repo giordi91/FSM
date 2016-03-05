@@ -46,6 +46,49 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             DoubleConditionTemplate="{StaticResource DoubleConditionTemplateX}" 
                                          />
             
+        <DataTemplate x:Key="FloatStorageTemplateX">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Foreground="Red" Text="{Binding Name}"></TextBox>
+                <TextBox Grid.Column="1" 
+                         Text="{Binding Value}"
+                         TextChanged="TextBox_TextChanged"></TextBox>
+            </Grid>
+            </DataTemplate>
+        
+        <DataTemplate x:Key="IntStorageTemplateX">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Foreground="Blue" Text="{Binding Name}"></TextBox>
+                <TextBox Grid.Column="1" 
+                         Text="{Binding Value}"
+                         TextChanged="TextBox_TextChanged"></TextBox>
+            </Grid>
+            </DataTemplate>
+
+        <DataTemplate x:Key="BoolStorageTemplateX">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Foreground="Green" Text="{Binding Name}"></TextBox>
+                <TextBox Grid.Column="1" 
+                         Text="{Binding Value}"
+                         TextChanged="TextBox_TextChanged"></TextBox>
+            </Grid>
+            </DataTemplate>
+        <local:StorageTemplateSelector x:Key="StorageTemplateSelectorKey"
+            FloatStorageTemplate="{StaticResource FloatStorageTemplateX}" 
+            BoolStorageTemplate="{StaticResource BoolStorageTemplateX}" 
+            IntStorageTemplate="{StaticResource IntStorageTemplateX}" 
+                                         />
             
     </Window.Resources>
     <Grid>
@@ -148,6 +191,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                  ItemsSource="{Binding Conditions}">
 
         </ListBox>
+
         <Grid Grid.Column="0" Grid.Row="1" x:Name="DataViewerGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -160,8 +204,8 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         <ListBox Grid.Column="0"
                  Grid.Row="2"
                  x:Name="DataViewer"
-                 ItemTemplateSelector="{StaticResource ConditionTemplateSelectorKey}"
-                 ItemsSource="{Binding Conditions}">
+                 ItemTemplateSelector="{StaticResource StorageTemplateSelectorKey}"
+                 ItemsSource="{Binding Storage}">
 
         </ListBox>
     <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="1" Content="SAVE" Click="addbutton2_Click"></Button>

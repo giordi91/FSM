@@ -20,6 +20,7 @@ namespace FSMEditor
             m_t = typeof(T);
         }
 
+        public string Name { get { return m_name; } set { m_name = value; } }
 
         public float Value
         {
@@ -27,7 +28,6 @@ namespace FSMEditor
             {
                 if (m_t == typeof(bool))
                 {
-                    Console.WriteLine("getting bool");
                     if (m_fsm.get_bool_value(m_name))
                     {
                         return 1.0f;
@@ -39,18 +39,39 @@ namespace FSMEditor
                 }
                 else if (m_t == typeof(float))
                 {
-                    Console.WriteLine("getting float");
                     return m_fsm.get_float_value(m_name);
                 }
-                else if(m_t == typeof(int))
+                else if (m_t == typeof(int))
                 {
-                    Console.WriteLine("getting int");
                     return m_fsm.get_int_value(m_name);
                 }
-                return 2;
+                return 1.0f;
             }
 
             set
-            { } }
+            {
+
+                if (m_t == typeof(bool))
+                {
+                    if (Math.Abs(value) < 0.0001)
+                    {
+                        m_fsm.set_bool_value(m_name, false);
+                    }
+                    else
+                    {
+                        m_fsm.set_bool_value(m_name, true);
+                    }
+                }
+                else if (m_t == typeof(float))
+                {
+                    m_fsm.set_float_value(m_name, value);
+                }
+                else if (m_t == typeof(int))
+                {
+                    m_fsm.set_int_value(m_name, (int)value);
+                }
+            }
+        }
+
     }
 }
