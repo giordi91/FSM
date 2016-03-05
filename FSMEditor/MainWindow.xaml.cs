@@ -337,5 +337,27 @@ namespace FSMEditor
                 dialog.Show();
         }
 
+        private void Options_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetStatusActive_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_selected != null && m_selected is CustomNode)
+            {
+                var node = m_selected as CustomNode;
+                bool var = node.IsActive ;
+                foreach (var n in view_model.Rectangles)
+                {
+                    n.IsActive = false;
+                }
+                if (var)
+                { node.IsActive = false; }
+                else
+                { node.IsActive = true; }
+            }
+
+        }
     }
 }

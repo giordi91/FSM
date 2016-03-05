@@ -114,7 +114,12 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                 <MenuItem Header="_Tools" Background="Black" Foreground="Beige">
                     <MenuItem x:Name="Options" Header="_Options" 
                               HorizontalAlignment="Left" Width="140"
-                              Background="Black" Foreground="Beige"/>
+                              Background="Black" Foreground="Beige"
+                              Click="Options_Click"/>
+                    <MenuItem x:Name="SetStatusActive" Header="Active" 
+                              HorizontalAlignment="Left" Width="140"
+                              Background="Black" Foreground="Beige"
+                              Click="SetStatusActive_Click"/>
                 </MenuItem>
                 <MenuItem Header="_Help"  Background="Black" Foreground="Beige">
                     <MenuItem x:Name="About" Header="&amp;About" 
