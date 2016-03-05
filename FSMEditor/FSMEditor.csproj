@@ -75,9 +75,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddStorageDialog.xaml.cs">
+      <DependentUpon>AddStorageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StorageKey.cs" />
     <Compile Include="StorageTemplateSelector.cs" />
     <Page Include="AddConditionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddStorageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

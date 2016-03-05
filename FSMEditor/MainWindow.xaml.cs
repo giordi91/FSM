@@ -331,5 +331,11 @@ namespace FSMEditor
             }
         }
 
+        private void AddStorage_Click(object sender, RoutedEventArgs e)
+        {
+                var dialog = new AddStorageDialog(view_model);
+                dialog.Show();
+        }
+
     }
 }
