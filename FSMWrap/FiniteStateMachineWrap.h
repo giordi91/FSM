@@ -129,7 +129,23 @@ namespace FSMWrapper
 
 		}
 
-		
+		bool set_current_state(String^ state_name)
+		{
+			std::string name = msclr::interop::marshal_as<std::string>(state_name);
+			return _fsm->set_current_state(name);
+		}
+
+		void evaluate()
+		{
+			_fsm->update();
+		}
+
+		String^ get_current_state_name()
+		{
+			String^ name = msclr::interop::marshal_as<String^>(_fsm->get_current_state()->get_name());
+			return name;
+		}
+
 	};
 
 }

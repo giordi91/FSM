@@ -17,15 +17,10 @@ using System.IO;
 using System.ComponentModel;
 namespace FSMEditor
 {
-
-
-
-
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private string maintainsession;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -314,7 +309,6 @@ namespace FSMEditor
                 }
             }
         }
-        private string maintainsession;
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
@@ -338,12 +332,50 @@ namespace FSMEditor
 
         }
 
+        private void set_active_status()
+        { }
+
         private void SetStatusActive_Click(object sender, RoutedEventArgs e)
         {
             if (m_selected != null && m_selected is CustomNode)
             {
                 var node = m_selected as CustomNode;
-                bool var = node.IsActive ;
+
+                bool result =view_model.m_fsm.set_current_state(node.NodeName);
+                if (result)
+                {
+                    bool var = node.IsActive;
+                    foreach (var n in view_model.Rectangles)
+                    {
+                        n.IsActive = false;
+                    }
+                    if (var)
+                    { node.IsActive = false; }
+                    else
+                    { node.IsActive = true; }
+                }
+            }
+        }
+
+        private void evaluate_button_Click(object sender, RoutedEventArgs e)
+        {
+            //evaluate finite state machine
+            view_model.m_fsm.evaluate();
+            var curr = view_model.m_fsm.get_current_state_name();
+            Console.WriteLine("new value");
+            Console.WriteLine(curr);
+            CustomNode toSet = null;
+            foreach (var n in view_model.Rectangles)
+            {
+                if (n.NodeName == curr)
+                {
+                    toSet = n;
+                }
+            }
+            if (toSet != null)
+            {
+                var node = toSet; 
+                bool var = node.IsActive;
                 foreach (var n in view_model.Rectangles)
                 {
                     n.IsActive = false;
@@ -353,7 +385,6 @@ namespace FSMEditor
                 else
                 { node.IsActive = true; }
             }
-
         }
     }
 }

@@ -213,6 +213,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                  ItemsSource="{Binding Storage}">
 
         </ListBox>
-    <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
+    <Button x:Name="save_button" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
+    <Button x:Name="evaluate_button" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="EVALUATE" Click="evaluate_button_Click"></Button>
     </Grid>
 </Window>

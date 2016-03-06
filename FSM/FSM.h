@@ -65,6 +65,18 @@ namespace FSM
 				return string("");
 			}
 		}
+		bool set_current_state(string state_name)
+		{
+			for (auto s : m_states)
+			{
+				if (s->get_name() == state_name)
+				{
+					m_current = s;
+					return true;
+				}
+			}
+			return false;
+		}
 
 		__declspec(dllexport)
 		const string serialize() const;
