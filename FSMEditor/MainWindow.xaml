@@ -99,8 +99,8 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="140"/>
             <ColumnDefinition Width="auto" MinWidth="200"/>
         </Grid.ColumnDefinitions>
 
@@ -132,10 +132,10 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         <Button x:Name="addbutton" Content="ADD STATE" 
             Click="Button_Click" 
             Grid.Row="1" 
-            Grid.Column="1"
+            Grid.Column="0"
             ></Button>
         <ItemsControl
-            ItemsSource="{Binding Rectangles}" Grid.Row="2" Grid.Column="1"
+            ItemsSource="{Binding Rectangles}" Grid.Row="2" Grid.Column="0"
             x:Name="view" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -180,7 +180,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <Grid Grid.Column="2" Grid.Row="1" x:Name="ConnectionViewerGrid">
+        <Grid Grid.Column="1" Grid.Row="1" x:Name="ConnectionViewerGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -189,7 +189,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             <Button Grid.Column="1" Content="-" x:Name="Remove"></Button> 
             
         </Grid>
-        <ListBox Grid.Column="2"
+        <ListBox Grid.Column="1"
                  Grid.Row="2"
                  x:Name="ConnectionViewer"
                  ItemTemplateSelector="{StaticResource ConditionTemplateSelectorKey}"
@@ -197,7 +197,7 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 
         </ListBox>
 
-        <Grid Grid.Column="0" Grid.Row="1" x:Name="DataViewerGrid">
+        <Grid Grid.Column="2" Grid.Row="1" x:Name="DataViewerGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -206,13 +206,13 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
             <Button Grid.Column="1" Content="-" x:Name="DataRemove"></Button> 
             
         </Grid>
-        <ListBox Grid.Column="0"
+        <ListBox Grid.Column="2"
                  Grid.Row="2"
                  x:Name="DataViewer"
                  ItemTemplateSelector="{StaticResource StorageTemplateSelectorKey}"
                  ItemsSource="{Binding Storage}">
 
         </ListBox>
-    <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="1" Content="SAVE" Click="addbutton2_Click"></Button>
+    <Button x:Name="addbutton2" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     </Grid>
 </Window>

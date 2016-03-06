@@ -16,7 +16,7 @@ namespace FSMEditor
 {
     public partial class AddStorageDialog : Window
     {
-        int m_data_type;
+        int m_data_type =2;
         ViewModel m_view;
         public AddStorageDialog( ViewModel view)
         {
@@ -36,6 +36,7 @@ namespace FSMEditor
                 case "float":
                     m_data_type = 1;
                     break;
+
                 default:
                     m_data_type = 2;
                     break;
@@ -52,7 +53,7 @@ namespace FSMEditor
             {
                 m_view.m_fsm.set_int_value(keyName.Text, 0);
             }
-            else if (m_data_type == 1)
+            else if (m_data_type == 2)
             {
                 m_view.m_fsm.set_bool_value(keyName.Text, false);
             }

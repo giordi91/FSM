@@ -178,6 +178,12 @@ namespace FSMEditor
             m_dragging = true;
             var view = (ItemsControl)this.FindName("view");
             m_mouse_pos = e.GetPosition(view);
+            var t= e.GetPosition(this);
+
+            Console.WriteLine("mouse " );
+            Console.WriteLine(m_mouse_pos.X);
+            Console.WriteLine("win");
+            Console.WriteLine(t.X);
             // Canvas foundCanvas = UIHelper.FindChild<Canvas>(Application.Current.MainWindow, "MarkerCanvas");
 
             if (e.OriginalSource is Rectangle)
@@ -221,18 +227,8 @@ namespace FSMEditor
 
                 conn.IsSelected = true;
                 m_selected = conn;
-                /*
-                view_model.m_conditions.Clear();
-                foreach (var cond in conn.Conditions)
-                {
-                    
-                    view_model.m_conditions.Add(cond); }
-                
-                */
 
-                    ConnectionViewer.DataContext = conn;
-                // view_model.Conditions= conn.Conditions;
-                Console.WriteLine("connetionnn");
+                ConnectionViewer.DataContext = conn;
                 return;
             }
 
@@ -255,7 +251,6 @@ namespace FSMEditor
         private T find_visual_parent<T>(DependencyObject obj)
             where T : DependencyObject
         {
-            Console.WriteLine("walk");
             DependencyObject parent = VisualTreeHelper.GetParent(obj);
             if (parent is T)
                 return (T)parent;
@@ -333,6 +328,7 @@ namespace FSMEditor
 
         private void AddStorage_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("storage");
                 var dialog = new AddStorageDialog(view_model);
                 dialog.Show();
         }
