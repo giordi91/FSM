@@ -79,7 +79,7 @@
       <DependentUpon>AddStorageDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="StorageKey.cs" />
-    <Compile Include="StorageTemplateSelector.cs" />
+    <Compile Include="templateSelectors\StorageTemplateSelector.cs" />
     <Page Include="AddConditionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,7 +100,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConditionBinding.cs" />
-    <Compile Include="ConditionTemplateSelector.cs" />
+    <Compile Include="templateSelectors\ConditionTemplateSelector.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="CustomNode.cs" />
     <Compile Include="MainWindow.xaml.cs">
