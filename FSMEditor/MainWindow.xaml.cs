@@ -238,9 +238,8 @@ namespace FSMEditor
             var n = new CustomNode();
             n.move(100, 100);
             n.NodeName = "Jumping";
-            //view.Children.Add(n);
-            //m_nodes.Add(n);
             view_model.Rectangles.Add(n);
+            view_model.m_fsm.add_state(n.m_state);
         }
 
         private T find_visual_parent<T>(DependencyObject obj)
@@ -277,15 +276,28 @@ namespace FSMEditor
         private object m_selected;
         private ViewModel view_model;
 
-        private void addbutton2_Click(object sender, RoutedEventArgs e)
+        private void save_fsm_click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Saving");
-            string data = view_model.m_fsm.serialize();
-            Console.WriteLine(data);
-            string folder = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\textOut.fsm";
-            Console.WriteLine(folder);
+            var o = new System.Windows.Forms.SaveFileDialog();
+            o.Filter="fsm files (*.fsm)|*.fsm";
+            if (o.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
 
-            System.IO.File.WriteAllText(folder, data);
+                try
+                { 
+                Console.WriteLine(o.FileName);
+                Console.WriteLine("Saving");
+                string data = view_model.m_fsm.serialize();
+                Console.WriteLine(data);
+
+                System.IO.File.WriteAllText(o.FileName, data);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
+                }
+            }
+
 
         }
 
@@ -380,11 +392,28 @@ namespace FSMEditor
                 {
                     n.IsActive = false;
                 }
-                if (var)
-                { node.IsActive = false; }
-                else
-                { node.IsActive = true; }
+                node.IsActive = true;
             }
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            var o = new System.Windows.Forms.OpenFileDialog();
+            o.Filter="fsm files (*.fsm)|*.fsm";
+            if (o.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+                try
+                {
+
+                    // System.IO.File.WriteAllText(o.FileName, data);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
+                }
+            }
+
         }
     }
 }

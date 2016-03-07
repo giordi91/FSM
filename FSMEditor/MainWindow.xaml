@@ -107,6 +107,14 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         <StackPanel VerticalAlignment="Top">
             <Menu Width="Auto" Height="20" Background="Black" Foreground="Beige">
                 <MenuItem Header="_File"  Background="Black" Foreground="Beige">
+                    <MenuItem x:Name="Open" Header="Open" 
+                              HorizontalAlignment="Left" Width="140"
+                              Background="Black" Foreground="Beige"
+                              Click="Open_Click"/>
+                    <MenuItem x:Name="Save" Header="Save" 
+                              HorizontalAlignment="Left" Width="140"
+                              Background="Black" Foreground="Beige"
+                              Click="save_fsm_click"/>
                     <MenuItem x:Name="AppExit" Header="E_xit" 
                               HorizontalAlignment="Left" Width="140"
                               Background="Black" Foreground="Beige"/>
@@ -213,7 +221,6 @@ xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                  ItemsSource="{Binding Storage}">
 
         </ListBox>
-    <Button x:Name="save_button" Grid.Row="3" Grid.Column="0" Content="SAVE" Click="addbutton2_Click"></Button>
     <Button x:Name="evaluate_button" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="EVALUATE" Click="evaluate_button_Click"></Button>
     </Grid>
 </Window>

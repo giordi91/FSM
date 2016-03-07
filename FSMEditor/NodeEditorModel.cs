@@ -26,7 +26,7 @@ namespace FSMEditor
         public ViewModel()
         {
             m_fsm = new FiniteStateMachineWrap();
-
+            /*
             // Populate the view model with some example data.
             var r1 = new CustomNode();
             r1.X = 200;
@@ -49,6 +49,7 @@ namespace FSMEditor
             {
                 Console.WriteLine(p.Value); 
             }
+            */
 
         }
 
@@ -110,9 +111,6 @@ namespace FSMEditor
             }
         }
 
-        /// <summary>
-        /// 'PropertyChanged' event that is raised when the value of a property of the view model has changed.
-        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
     }

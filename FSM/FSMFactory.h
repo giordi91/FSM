@@ -34,7 +34,9 @@ namespace FSM
 	class FSMFactory
 	{
 	public:
+		__declspec(dllexport)
 		FSMFactory();
+		__declspec(dllexport)
 		~FSMFactory();
 		
 		inline DataStorage * get_data_storage()
@@ -65,7 +67,16 @@ namespace FSM
 		State *  generate_state(string& state_data, 
 								vector<vector<string>>& conn_data);
 
+		__declspec(dllexport)
 		FiniteStateMachine * generate_fsm_from_file(string path);
+		__declspec(dllexport)
+		FiniteStateMachine * generate_empty(string name)
+		{
+			auto finite_state = std::make_unique<FiniteStateMachine>(name, &m_dt);
+			auto ptr = finite_state.get();
+			m_machines[name] = std::move(finite_state);
+			return ptr;
+		};
 	private:
 		DataStorage m_dt;
 		stack<unique_ptr<Condition>> m_conditions;

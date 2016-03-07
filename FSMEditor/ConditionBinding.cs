@@ -70,15 +70,18 @@ namespace FSMEditor
                 if (obj is ITypedCondition<float>)
                 {
                     m_wrap_cond.set_compare_value(value);
+                    return;
                 }
                 else if (obj is ITypedCondition<int>)
                 {
                     m_wrap_cond.set_compare_value((int)value);
+                    return;
                 }
 
                 else if (obj is ITypedCondition<bool>)
                 {
                     m_wrap_cond.set_compare_value(value != 0);
+                    return;
                 }
                 m_wrap_cond.set_compare_value(value);
                 OnPropertyChanged("CompareValue");

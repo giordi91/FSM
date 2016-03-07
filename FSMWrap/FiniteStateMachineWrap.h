@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "FSM.h"
 #include "StateWrap.h"
+#include "FSMFactory.h"
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>
@@ -15,26 +16,27 @@ namespace FSMWrapper
 	{
 	private:
 		FSM::FiniteStateMachine* _fsm;
+		FSM::FSMFactory* _fsmfac;
 	public:
 		FSM::DataStorage* _data;
 	public:
 		FiniteStateMachineWrap()
 		{
-			_data = new FSM::DataStorage();
-			_data->set_value("test", false);
-			_data->set_value("is_it?", true);
-			_data->set_value("float", 1.3453f);
-			_data->set_value("int", 15);
 			std::string name("generateFsm");
-			_fsm= new FSM::FiniteStateMachine(name,_data);
+			//_fsm= new FSM::FiniteStateMachine(name,_data);
+			_fsmfac= new FSM::FSMFactory();
+			_fsm = _fsmfac->generate_empty(name);
+			_data = _fsmfac->get_data_storage();
+			//_data->set_value("test", false);
+			//_data->set_value("is_it?", true);
+			//_data->set_value("float", 1.3453f);
+			//_data->set_value("int", 15);
 		};
 
 		~FiniteStateMachineWrap()
 		{
-			delete _data;
-			delete _fsm;
-			_fsm= nullptr;
-			_data = nullptr;
+			delete(_fsmfac);
+			_fsmfac= nullptr;
 		}
 
 		void add_state(StateWrapper^ state)
@@ -144,6 +146,13 @@ namespace FSMWrapper
 		{
 			String^ name = msclr::interop::marshal_as<String^>(_fsm->get_current_state()->get_name());
 			return name;
+		}
+
+		void from_file(String^ path)
+		{
+		
+			std::string name = msclr::interop::marshal_as<std::string>(path);
+			FSM::FSMFactory();
 		}
 
 	};
