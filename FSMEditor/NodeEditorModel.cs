@@ -20,7 +20,6 @@ namespace FSMEditor
         ObservableCollection<CustomNode> m_rectangles = new ObservableCollection<CustomNode>();
         ObservableCollection<Connection> m_connections= new ObservableCollection<Connection>();
         public ObservableCollection<object> m_storage= new ObservableCollection<object>(); 
-
         public FiniteStateMachineWrap m_fsm; 
 
         public ViewModel()
@@ -113,5 +112,57 @@ namespace FSMEditor
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public void read_from_file(string path)
+        {
+            m_rectangles.Clear();
+            m_connections.Clear();
+            m_fsm.from_file(path);
+            var count = m_fsm.get_state_count();
+
+
+            var state_map = new Dictionary<string, CustomNode>();
+            for (int i = 0; i < count; i++)
+            {
+                StateWrapper w = m_fsm.get_state_at_index(i);
+                var n = new CustomNode(w);
+                n.NodeName = w.get_name();
+                m_rectangles.Add(n);
+                state_map[n.NodeName] = n;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                var node = Rectangles[i];
+                var state = node.m_state;
+                var conn_count = state.get_connection_count();
+                Console.WriteLine(conn_count);
+                for (int c = 0; c < conn_count; ++c)
+                {
+
+                    var conn = state.get_connection_at_index(c);
+                    string endName = conn.get_destination_name();
+                    CustomNode endNode = state_map[endName];
+                    StateWrapper endState = endNode.m_state;
+                    var connShape = new Connection();
+                    connShape.conn = conn;
+                    var outp = node.GetOutPlug();
+                    var inp = endNode.GetInPlug();
+
+                    //fuck fuck fuck fuck, cannot get the plug, data is not
+                    //initialized yet , fuck fuck fuck fuck
+                    /*
+                    outp.AddConnection(connShape);
+                    inp.AddConnection(connShape);
+                    connShape.StartPlug = outp;
+                    connShape.EndPlug = inp;
+                    // connShape.FinalizeConnection(m_fsm, state, endState);
+                    Connections.Add(connShape);
+                    */
+                }
+
+            }
+            //lets loop again and build the connections
+            Console.WriteLine("reading from file");
+        }
     }
 }

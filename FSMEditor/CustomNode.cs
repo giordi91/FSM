@@ -31,6 +31,12 @@ namespace FSMEditor
             m_state = new StateWrapper();
         }
 
+        public CustomNode(StateWrapper state)
+        {
+            this.DataContext = this;
+            m_state = state;
+        }
+
         public void move( int x, int y)
         {
             Canvas.SetLeft(this, x);
@@ -90,6 +96,11 @@ namespace FSMEditor
             }
         }
 
+        public Plug GetInPlug()
+        { return  this.GetTemplateChild("m_in") as Plug; }
+
+        public Plug GetOutPlug()
+        { return  this.GetTemplateChild("m_out") as Plug; }
 
 
 

@@ -403,15 +403,14 @@ namespace FSMEditor
             if (o.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
 
-                try
-                {
-
-                    // System.IO.File.WriteAllText(o.FileName, data);
+                    view_model.read_from_file(o.FileName);    
+                /*
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
+                    MessageBox.Show("Error: Could not load file from disk. Original error: " + ex.Message);
                 }
+                */
             }
 
         }

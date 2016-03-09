@@ -10,4 +10,11 @@ namespace FSMWrapper
 			_state->add_connection(conn->_conn);
 		}
 
+		ConnectionWrap^ StateWrapper::get_connection_at_index(int index)
+		{
+			auto conn = _state->get_connection_at_index(index);
+			ConnectionWrap^ connWrap = gcnew ConnectionWrap();
+			connWrap->_conn = conn;
+			return connWrap;
+		}
 }

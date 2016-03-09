@@ -16,10 +16,15 @@ namespace FSMWrapper
 	public:
 		FSM::Connection* _conn;
 	public:
+
+		ConnectionWrap() {
+			_conn = nullptr;
+		}
+
 		ConnectionWrap(StateWrapper^ source, StateWrapper^ destination)
 		{
 			_conn= new FSM::Connection(source->_state, destination->_state);
-		};
+		}
 
 		~ConnectionWrap()
 		{
@@ -64,6 +69,22 @@ namespace FSMWrapper
 				auto cond_cast = (DoubleConditionWrap<bool>^)cond;
 				_conn->add_condition(cond_cast->_cond);
 			}
+		}
+
+		String^ get_source_name()
+		{
+			auto n = _conn->get_source()->get_name();
+			String^ name = msclr::interop::marshal_as<String^>(n);
+			return name;
+
+		}
+		
+		String^ get_destination_name()
+		{
+			auto n = _conn->get_destination()->get_name();
+			String^ name = msclr::interop::marshal_as<String^>(n);
+			return name;
+
 		}
 
 	};

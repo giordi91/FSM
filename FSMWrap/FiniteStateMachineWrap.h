@@ -152,7 +152,21 @@ namespace FSMWrapper
 		{
 		
 			std::string name = msclr::interop::marshal_as<std::string>(path);
-			FSM::FSMFactory();
+			_fsmfac = new FSM::FSMFactory();
+			_fsm = _fsmfac->generate_fsm_from_file(name);
+		}
+
+
+		int get_state_count()
+		{
+			return _fsm->get_states_count();
+		}
+
+		StateWrapper^ get_state_at_index(int index)
+		{
+			StateWrapper^ state = gcnew StateWrapper();
+			state->_state = _fsm->get_state_at_index(index);
+			return state;
 		}
 
 	};

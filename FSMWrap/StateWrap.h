@@ -39,6 +39,12 @@ namespace FSMWrapper
 
 		void add_connection(ConnectionWrap^ conn);
 
+		int get_connection_count()
+		{
+			return _state->get_connection_count();
+		}
+
+		ConnectionWrap^ get_connection_at_index(int index);
 	};
 
 }

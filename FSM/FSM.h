@@ -78,6 +78,11 @@ namespace FSM
 			return false;
 		}
 
+		inline State* get_state_at_index(int index)
+		{
+			return m_states[index];
+		}
+
 		__declspec(dllexport)
 		const string serialize() const;
 	private:

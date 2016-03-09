@@ -57,6 +57,19 @@ namespace FSM
 		{
 			m_name = name;
 		}
+		
+		//getter functions, mainly for the editor
+		__declspec(dllexport)
+		inline const int get_connection_count()
+		{
+			return m_connections.size();
+		}
+		
+		__declspec(dllexport)
+		inline Connection* get_connection_at_index(int index)
+		{
+			return m_connections[index];
+		}
 
 	protected:
 		//storagfe for the connection pointers
