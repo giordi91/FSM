@@ -140,13 +140,13 @@ namespace FSM
 		while (type_match.size() == 0)
 		{
 			Serialize::read_connection_from_file(infile, connections, conditions);
-			int size = connections.size();
+			size_t size = connections.size();
 			for (int i = 0; i < size; ++i)
 			{
 				//building the data in the expected format
 				conn_sub_data.push_back(connections[i]);
-				int cond_size = conditions[i].size();
-				for (int c = 0; c < cond_size; ++c)
+				size_t cond_size = conditions[i].size();
+				for (size_t c = 0; c < cond_size; ++c)
 				{
 					conn_sub_data.push_back(conditions[i][c]);
 				}

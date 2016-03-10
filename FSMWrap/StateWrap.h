@@ -41,7 +41,7 @@ namespace FSMWrapper
 
 		int get_connection_count()
 		{
-			return _state->get_connection_count();
+			return (int)_state->get_connection_count();
 		}
 
 		ConnectionWrap^ get_connection_at_index(int index);

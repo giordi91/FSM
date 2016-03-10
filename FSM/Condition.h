@@ -66,11 +66,12 @@ namespace FSM
 		{
 			m_op = op;
 		}
+
+		virtual std::string get_class_name() const = 0;
 	protected:
 		//pointer to the data storage
 		DataStorage * m_data;
 		Operation m_op;
-
 	};
 
 	/**
@@ -201,6 +202,11 @@ namespace FSM
 		{
 			m_key_2_name = name;
 		}
+		
+		virtual std::string get_class_name() const override
+		{
+			return m_class_name;
+		};
 
 	private:
 		/* Private method for updating both key values */
@@ -346,6 +352,11 @@ namespace FSM
 																op);
 			return ptr;
 		}
+
+		virtual std::string get_class_name() const override
+		{
+			return m_class_name;
+		};
 	private:
 		static const string m_class_name;
 		//storage for the key value

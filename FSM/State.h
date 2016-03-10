@@ -60,7 +60,7 @@ namespace FSM
 		
 		//getter functions, mainly for the editor
 		__declspec(dllexport)
-		inline const int get_connection_count()
+		inline const size_t get_connection_count()
 		{
 			return m_connections.size();
 		}

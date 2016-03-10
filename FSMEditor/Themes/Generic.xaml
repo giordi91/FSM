@@ -65,10 +65,12 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Ellipse x:Name="PlugVisual"   Fill="Gray"  
+                        <Ellipse x:Name="PlugVisual"   
                                    Stroke="#FF2EE411" 
+                                   Fill="{Binding PlugColor}"
                                    Width="20" Height="20" 
-                                   StrokeThickness="2"/>
+                                   StrokeThickness="2"
+                                    />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

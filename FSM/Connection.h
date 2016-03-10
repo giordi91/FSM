@@ -81,6 +81,11 @@ namespace FSM
 		{
 			return m_source;
 		}
+
+		inline Condition* get_condition_by_index(int index)
+		{
+			return m_condtitions[index];
+		}
 	private:
 
 		static const string m_class_name;

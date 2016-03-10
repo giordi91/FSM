@@ -54,7 +54,7 @@ namespace FSMWrapper
 		Dictionary<String^, bool>^ get_bool_dict()
 		{
 			auto map = _data->get_map_bool();
-			auto h_result = gcnew Dictionary<String^, bool>(map.size());
+			auto h_result = gcnew Dictionary<String^, bool>((int)map.size());
 
 			for (auto kvp : map)
 			{
@@ -67,7 +67,7 @@ namespace FSMWrapper
 		Dictionary<String^, float>^ get_float_dict()
 		{
 			auto map = _data->get_map_float();
-			auto h_result = gcnew Dictionary<String^, float>(map.size());
+			auto h_result = gcnew Dictionary<String^, float>((int)map.size());
 
 			for (auto kvp : map)
 			{
@@ -80,7 +80,7 @@ namespace FSMWrapper
 		Dictionary<String^, int>^ get_int_dict()
 		{
 			auto map = _data->get_map_int();
-			auto h_result = gcnew Dictionary<String^, int>(map.size());
+			auto h_result = gcnew Dictionary<String^, int>((int)map.size());
 
 			for (auto kvp : map)
 			{
@@ -159,7 +159,7 @@ namespace FSMWrapper
 
 		int get_state_count()
 		{
-			return _fsm->get_states_count();
+			return (int) _fsm->get_states_count();
 		}
 
 		StateWrapper^ get_state_at_index(int index)

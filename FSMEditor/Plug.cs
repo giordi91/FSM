@@ -34,28 +34,9 @@ namespace FSMEditor
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Plug), new FrameworkPropertyMetadata(typeof(Plug)));
         }
 
-        public bool IsSelected
-        {
-            get { return m_is_selected; }
-            set
-            {
-                m_is_selected = value;
-                var obj = this.GetTemplateChild("PlugVisual");
-                if (obj != null)
-                {
-                    var ell= obj as Ellipse;
-                    if (value)
-                    {
-                        ell.Fill = new SolidColorBrush(SELECTED_COLOR);
-                    }
-                    else
-                    {
-                        ell.Fill = new SolidColorBrush(BACKGROUND_COLOR);
-                    }
-                }
-            }
-        }
-
+        public bool IsSelected { get; set; }
+        
+        //TODO change this to work like the PlugColor, probably all togheter
         public bool IsConnectionSelected
         {
             get { return m_connection_is_selected; }
@@ -77,19 +58,22 @@ namespace FSMEditor
                 }
             }
         }
-
+        public Brush PlugColor
+        {
+            get
+            {
+                if (IsSelected)
+                {
+                    return new SolidColorBrush(SELECTED_COLOR);
+                }
+                else
+                {
+                    return new SolidColorBrush(BACKGROUND_COLOR);
+                }
+            }
+        }
         public int X { get; set; }
         public int Y { get; set; }
-        /*
-        public int X
-        {
-            get { return (int)Canvas.GetLeft(this); }
-        }
-        public int Y 
-        {
-            get { return (int)Canvas.GetTop(this); }
-        }
-        */
 
         public void AddConnection(Connection conn)
         {
@@ -110,7 +94,6 @@ namespace FSMEditor
         {
             return m_connections;
         }
-        private bool m_is_selected;
         private bool m_connection_is_selected;
         private List<Connection> m_connections;
 
