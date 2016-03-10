@@ -116,7 +116,7 @@ namespace FSMEditor
 
                         Ellipse ell = e.OriginalSource as Ellipse;
                         var radius = ell.Width / 2;
-
+                        
                         conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
                         conn.EndPlug = p;
                         var srcNode = find_visual_parent<CustomNode>(conn.StartPlug); 
@@ -205,10 +205,11 @@ namespace FSMEditor
                 p.IsSelected = true;
                 conn.StartPlug = p;
 
-
+                //FIX RADIUSSS
                 Ellipse ell = e.OriginalSource as Ellipse;
                 var radius = ell.Width / 2;
-
+                var finalX = x + p.X + radius;
+                var finalY = y + p.Y + radius;
                 conn.StartPoint = new Point(x + p.X + radius, y + p.Y + radius);
                 conn.EndPoint = new Point(x + p.X + radius, y + p.Y + radius);
                 view_model.Connections.Add(conn);

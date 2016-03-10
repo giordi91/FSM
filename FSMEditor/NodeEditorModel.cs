@@ -145,19 +145,19 @@ namespace FSMEditor
                     StateWrapper endState = endNode.m_state;
                     var connShape = new Connection();
                     connShape.conn = conn;
-                    var outp = node.GetOutPlug();
-                    var inp = endNode.GetInPlug();
+                    var outp = node.InPlug;
+                    var inp = endNode.OutPlug;
 
-                    //fuck fuck fuck fuck, cannot get the plug, data is not
-                    //initialized yet , fuck fuck fuck fuck
-                    /*
+                    //TODO FIX RADIUSSS
                     outp.AddConnection(connShape);
                     inp.AddConnection(connShape);
                     connShape.StartPlug = outp;
                     connShape.EndPlug = inp;
-                    // connShape.FinalizeConnection(m_fsm, state, endState);
+                    var r = 10;
+                    connShape.StartPoint = new Point(outp.X+r, outp.Y+r);
+                    connShape.EndPoint= new Point(inp.X+r, inp.Y+r);
                     Connections.Add(connShape);
-                    */
+                    //Need to fix plug color,  should be automatic????
                 }
 
             }

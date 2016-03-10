@@ -19,22 +19,40 @@ namespace FSMEditor
     public class CustomNode : Control
     {
         static Color BACKGROUND_COLOR = (Color)ColorConverter.ConvertFromString("#FF1C1C25");
-        static Color SELECTED_COLOR   = (Color)ColorConverter.ConvertFromString("#FF093800");
-        static Color ACTIVE_COLOR   = (Color)ColorConverter.ConvertFromString("Red");
-        static Color NOT_ACTIVE_COLOR   = (Color)ColorConverter.ConvertFromString("#FF2EE411");
-        
+        static Color SELECTED_COLOR = (Color)ColorConverter.ConvertFromString("#FF093800");
+        static Color ACTIVE_COLOR = (Color)ColorConverter.ConvertFromString("Red");
+        static Color NOT_ACTIVE_COLOR = (Color)ColorConverter.ConvertFromString("#FF2EE411");
+        private Plug m_in = null;
+        private Plug m_out = null;
 
         public CustomNode()
         {
             this.DataContext = this;
             //create instance of the state
             m_state = new StateWrapper();
+            initPlugs();
         }
+        public Plug InPlug { get { return m_in; } }
+        public Plug OutPlug { get { return m_out; } }
+
 
         public CustomNode(StateWrapper state)
         {
             this.DataContext = this;
             m_state = state;
+            initPlugs();
+        }
+
+        private void initPlugs()
+        {
+            //TODO REMOVE MAGIC NUMBER
+            m_in = new Plug();
+            m_out = new Plug();
+            m_in.X = -5;
+            m_in.Y = 40;
+            
+            m_out.X = 120;
+            m_out.Y = 40;
         }
 
         public void move( int x, int y)
@@ -96,15 +114,6 @@ namespace FSMEditor
             }
         }
 
-        public Plug GetInPlug()
-        { return  this.GetTemplateChild("m_in") as Plug; }
-
-        public Plug GetOutPlug()
-        { return  this.GetTemplateChild("m_out") as Plug; }
-
-
-
-
         public SolidColorBrush ActiveColor
         {
             get
@@ -140,8 +149,8 @@ namespace FSMEditor
             Canvas.SetTop(this, currY + deltaY);
 
             //need to update plugs if there 
-            Plug inp = this.GetTemplateChild("m_in") as Plug;
-            Plug outp = this.GetTemplateChild("m_out") as Plug;
+            Plug inp = m_in;
+            Plug outp = m_out;
 
             var conns = inp.GetConnections();
             if (conns.Count() != 0 )
@@ -184,8 +193,8 @@ namespace FSMEditor
 
         public void CleanUpBeforeDelete(ViewModel view_model)
         {
-            Plug inp = this.GetTemplateChild("m_in") as Plug;
-            Plug outp = this.GetTemplateChild("m_out") as Plug;
+            Plug inp = m_in;
+            Plug outp = m_out; 
             var conns = inp.GetConnections();
             foreach (var conn in inp.GetConnections())
             {

@@ -25,6 +25,7 @@ namespace FSMEditor
 
         public Plug()
         {
+            this.DataContext = this;
             m_connections = new List<Connection>();            
         }
 
@@ -77,6 +78,9 @@ namespace FSMEditor
             }
         }
 
+        public int X { get; set; }
+        public int Y { get; set; }
+        /*
         public int X
         {
             get { return (int)Canvas.GetLeft(this); }
@@ -85,6 +89,7 @@ namespace FSMEditor
         {
             get { return (int)Canvas.GetTop(this); }
         }
+        */
 
         public void AddConnection(Connection conn)
         {

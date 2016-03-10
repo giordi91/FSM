@@ -18,6 +18,15 @@
                                    RadiusX="10" RadiusY="10" 
                                    StrokeThickness="5">
                             </Rectangle>
+                            <ContentPresenter 
+                                              Canvas.Left="{Binding InPlug.X}" 
+                                              Canvas.Top="{Binding InPlug.Y}"
+                                              Content="{Binding InPlug}"></ContentPresenter> 
+                            <ContentPresenter 
+                                              Canvas.Left="{Binding OutPlug.X}" 
+                                              Canvas.Top="{Binding OutPlug.Y}"
+                                              Content="{Binding OutPlug}"></ContentPresenter> 
+                            <!--
                             <local:Plug x:Name="m_in" 
                                         Canvas.Left="-5"
                                         Canvas.Top="40" 
@@ -26,6 +35,7 @@
                                         Canvas.Left="120"
                                         Canvas.Top="40" 
                                         ></local:Plug>
+                            -->
                             <Grid Canvas.Top="10">
                                 <Grid.ColumnDefinitions>
                                    <ColumnDefinition Width="135"/> 
