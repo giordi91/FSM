@@ -28,18 +28,18 @@ namespace FSMWrapper
 
 	//specific type
 	template<typename T> 
-	public ref class TypedConditionWrap: ITypedCondition<T>
+	public ref class TypedConditionWrap : ITypedCondition<T>
 	{
 	public:
 		FSM::TypedCondition<T>* _cond;
 	public:
-		
+
 		TypedConditionWrap(FiniteStateMachineWrap^ finiteM,
 			String^ key_name,
 			T compare_value,
 			int op)
 		{
-			
+
 			std::string key_n = msclr::interop::marshal_as<std::string>(key_name);
 			_cond = new FSM::TypedCondition<T>(finiteM->_data,
 				key_n,
@@ -47,6 +47,9 @@ namespace FSMWrapper
 				FSM::Operation::LESSEQUAL
 				);
 		}
+
+		TypedConditionWrap()
+		{}
 		
 		virtual T get_compare_value()
 		{
@@ -164,6 +167,10 @@ namespace FSMWrapper
 				FSM::Operation::LESSEQUAL
 				);
 		}
+
+		DoubleConditionWrap()
+		{}
+
 		
 		virtual bool evaluate()
 		{

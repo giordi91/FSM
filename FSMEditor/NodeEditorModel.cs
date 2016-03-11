@@ -159,12 +159,54 @@ namespace FSMEditor
                     connShape.StartPoint= new Point(inp.X+r, inp.Y+r);
                     Connections.Add(connShape);
 
-                
+                    int cond_count = conn.get_condition_count();
+                    for (int cnd = 0; cnd < cond_count; cnd++)
+                    {
+                        var t = conn.get_condition_type_at_index(cnd);
+                        int templ_type = conn.get_condition_template_type_at_index(cnd);
+                        if (t == "TypedCondition")
+                        {
+                            TypedConditionBinding binding;
+                            if (templ_type == 0)
+                            {
+                                var cond = conn.get_Typed_at_index<int>(cnd);
+                                binding = new TypedConditionBinding(cond);
+                            }
+                            else if (templ_type == 1)
+                            {
+                                var cond = conn.get_Typed_at_index<float>(cnd);
+                                binding = new TypedConditionBinding(cond);
+                            }
+                            else
+                            {
+                                var cond = conn.get_Typed_at_index<bool>(cnd);
+                                binding = new TypedConditionBinding(cond);
+                            }
+                            connShape.Conditions.Add(binding);
+                        }
+                        else
+                        {
+                            DoubleConditionBinding binding;
+                            if (templ_type == 0)
+                            {
+                                var cond = conn.get_Double_at_index<int>(cnd);
+                                binding = new DoubleConditionBinding(cond);
+                            }
+                            else if (templ_type == 1)
+                            {
+                                var cond = conn.get_Typed_at_index<float>(cnd);
+                                binding = new DoubleConditionBinding(cond);
+                            }
+                            else
+                            {
+                                var cond = conn.get_Typed_at_index<bool>(cnd);
+                                binding = new DoubleConditionBinding(cond);
+                            }
+                            connShape.Conditions.Add(binding);
+                        }
+                    }
                 }
-
             }
-            //lets loop again and build the connections
-            Console.WriteLine("reading from file");
         }
     }
 }

@@ -68,6 +68,7 @@ namespace FSM
 		}
 
 		virtual std::string get_class_name() const = 0;
+		virtual int get_template_type() const = 0;
 	protected:
 		//pointer to the data storage
 		DataStorage * m_data;
@@ -208,6 +209,25 @@ namespace FSM
 			return m_class_name;
 		};
 
+		virtual int get_template_type() const override
+		{
+			if (typeid(T) == typeid(int))
+			{
+				return 0;
+			}
+			else if (typeid(T) == typeid(float))
+			{
+				return 1;
+			}
+			else if (typeid(T) == typeid(bool))
+			{
+				return 2;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 	private:
 		/* Private method for updating both key values */
 		inline void __update_values()
@@ -357,6 +377,28 @@ namespace FSM
 		{
 			return m_class_name;
 		};
+
+
+		virtual int get_template_type() const
+		{
+			if (typeid(T) == typeid(int))
+			{
+				return 0;
+			}
+			else if (typeid(T) == typeid(float))
+			{
+				return 1;
+			}
+			else if (typeid(T) == typeid(bool))
+			{
+				return 2;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
 	private:
 		static const string m_class_name;
 		//storage for the key value

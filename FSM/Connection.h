@@ -60,6 +60,7 @@ namespace FSM
 		This returns the number of condtion that have been added to the c
 		connection, it is mainly for debug purpose
 		*/
+		__declspec(dllexport)
 		inline size_t conditions_count()  const
 		{
 			return m_condtitions.size();
